@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#53A855</color>
+    <color name="colorPrimaryDark">#53A855</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="green_appbar">#53A855</color>
+    <color name="orange_button">#F5901E</color>
+</resources>
