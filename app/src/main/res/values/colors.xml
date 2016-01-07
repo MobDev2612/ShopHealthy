@@ -6,4 +6,6 @@
 
     <color name="green_appbar">#53A855</color>
     <color name="orange_button">#F5901E</color>
+    <color name="shadow">#555555</color>
+    <color name="title">#777777</color>
 </resources>
