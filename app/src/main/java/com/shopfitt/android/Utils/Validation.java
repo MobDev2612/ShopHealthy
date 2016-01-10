@@ -17,7 +17,7 @@ public class Validation {
      * @param emailId email id to validate
      * @return true if email is valid else false
      */
-    public boolean isValidEmailPattern(String emailId) {
+    public static boolean isValidEmailPattern(String emailId) {
         if (emailId.length() >= EMAIL_MINIMUM_LENGTH) {
             Pattern pattern = Pattern.compile(emailRegex);
             Matcher matcher = pattern.matcher(emailId);
@@ -32,7 +32,7 @@ public class Validation {
      * @param password password to validate
      * @return true if it is valid password else false
      */
-    public boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         return password.length() >= PASSWORD_MINIMUM_LENGTH;
     }
 }

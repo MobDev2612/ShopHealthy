@@ -21,6 +21,7 @@ public class SharedPreferences {
     public static final String SHARED_PREFERENCES_PASSWORD = "Key2";//"Password";
     public static final String SHARED_PREFERENCES_LOGIN_TOKEN = "Key3";//"LoginToken";
     public static final String SHARED_PREFERENCES_GCM_REGISTRATION_ID = "Key4";//"GCMRegistrationID";
+    public static final String SHARED_PREFERENCES_YOUTUBE_VIEW = "Key5";//"youtubeview";
 
     public SharedPreferences(Context context) {
         mContext = context;
@@ -69,6 +70,14 @@ public class SharedPreferences {
         return sharedPreferences.getString(SHARED_PREFERENCES_GCM_REGISTRATION_ID, defaultValue);
     }
 
+    public void setShowYoutubeVideo(boolean show){
+        editor.putBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW, show);
+        editor.commit();
+    }
+
+    public boolean getShowYoutubeVideo(){
+        return sharedPreferences.getBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW,true);
+    }
     protected String encryptCredentials(String value, SecretKey key) {
         if (key != null) {
             try {

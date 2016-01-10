@@ -68,8 +68,8 @@ public class CustomDatePicker {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), onDateSet, year, month, day);
-            //Calendar c = Calendar.getInstance();
-            //datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+            Calendar c = Calendar.getInstance();
+            datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
             datePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Clear", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

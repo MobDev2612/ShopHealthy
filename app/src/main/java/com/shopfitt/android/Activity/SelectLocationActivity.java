@@ -1,8 +1,12 @@
 package com.shopfitt.android.Activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.R;
 
 public class SelectLocationActivity extends AppCompatActivity {
@@ -11,5 +15,15 @@ public class SelectLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_location);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Fragment fragment = new LocationFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 }

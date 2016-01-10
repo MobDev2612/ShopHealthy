@@ -3,29 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.shopfitt.android.Activity.SelectLocationActivity">
 
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@android:color/darker_gray"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:hint="Search Area"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white" />
+    <include layout="@layout/custom_app_bar" android:id="@+id/app_bar"/>
 
-    <ListView
-        android:id="@+id/location_list"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_below="@id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_bar"
-        android:layout_marginTop="5dp"
-        android:divider="@android:color/black"
-        android:dividerHeight="1dp" />
+        android:background="@android:color/white"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
