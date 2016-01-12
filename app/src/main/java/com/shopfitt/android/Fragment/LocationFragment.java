@@ -13,28 +13,31 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.shopfitt.android.Network.VolleyRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.LocationAdapter;
+import com.shopfitt.android.datamodels.LocationObject;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LocationFragment extends Fragment implements Response.ErrorListener, Response.Listener<String> {
+public class LocationFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
 
     private View view;
-    private EditText searchArea;
     private ListView areaList;
     private LocationAdapter locationAdapter;
 
     public LocationFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,13 +52,14 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
         initialiseComponents();
     }
 
-    private void initialiseComponents(){
-        searchArea = (EditText) view.findViewById(R.id.search_bar);
+    private void initialiseComponents() {
+        EditText searchArea = (EditText) view.findViewById(R.id.search_bar);
         areaList = (ListView) view.findViewById(R.id.location_list);
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showOutlets();
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                showOutlets((String) textView.getText());
             }
         });
         searchArea.addTextChangedListener(new TextWatcher() {
@@ -72,43 +76,54 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
             @Override
             public void afterTextChanged(Editable s) {
                 String search = s.toString();
-                locationAdapter.filter(search);
+                if (locationAdapter != null) {
+                    locationAdapter.filter(search);
+                }
             }
         });
-//        getLocations(); // TODO
-        setList();
+        getLocations();
     }
 
-    private void showOutlets(){
+    private void showOutlets(String areaName) {
+        SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
+        sharedPreferences.setLocation(areaName);
+        Bundle bundle = new Bundle();
+        bundle.putString("area",areaName);
         Fragment fragment = new OutletFragment();
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
 
-    private void getLocations(){
-        VolleyRequest<String> fetchLocations = new VolleyRequest<String>(Request.Method.GET,
-                "https://faasos.0x10.info/api/faasos?type=json&query=api_hits",
-                String.class, null,
-                this, this); //TODO
+    private void getLocations() {
+        JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.wiing.org/Details.aspx?area=all",
+                this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-
+        Toast.makeText(getActivity(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onResponse(String s) {
-        //TODO
-        setList();
+    public void onResponse(JSONArray jsonArray) {
+        try {
+            String[] areas = new String[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                areas[i] = ((LocationObject) jsonArray.get(i)).getArea();
+            }
+            setList(areas);
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "Erroring in fetching location", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void setList(){
-        String[] areas = new String[]{"Maratahalli", "Kundalahalli Gate", "Bellandur", "Silk Board", "BTM Layout", "Tin Factory", "Koramangala", "WhiteField"};
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(areas));
+
+    private void setList(String[] areas) {
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(areas));
         locationAdapter = new LocationAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayList);
         areaList.setAdapter(locationAdapter);
     }

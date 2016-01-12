@@ -22,6 +22,8 @@ public class SharedPreferences {
     public static final String SHARED_PREFERENCES_LOGIN_TOKEN = "Key3";//"LoginToken";
     public static final String SHARED_PREFERENCES_GCM_REGISTRATION_ID = "Key4";//"GCMRegistrationID";
     public static final String SHARED_PREFERENCES_YOUTUBE_VIEW = "Key5";//"youtubeview";
+    public static final String SHARED_PREFERENCES_LOCATION_PREFERENCE = "Key6";
+    public static final String SHARED_PREFERENCES_STORE_PREF = "Key7";
 
     public SharedPreferences(Context context) {
         mContext = context;
@@ -76,8 +78,29 @@ public class SharedPreferences {
     }
 
     public boolean getShowYoutubeVideo(){
-        return sharedPreferences.getBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW,true);
+        return sharedPreferences.getBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW, true);
     }
+
+    public void setLocation(String location){
+        editor.putString(SHARED_PREFERENCES_LOCATION_PREFERENCE, location);
+        editor.commit();
+    }
+
+    public String getLocation(){
+        return sharedPreferences.getString(SHARED_PREFERENCES_LOCATION_PREFERENCE, "");
+    }
+
+    public void setOutlet(String outlet){
+        editor.putString(SHARED_PREFERENCES_STORE_PREF, outlet);
+        editor.commit();
+    }
+
+    public String getOutlet(){
+        return sharedPreferences.getString(SHARED_PREFERENCES_STORE_PREF,"");
+    }
+
+
+
     protected String encryptCredentials(String value, SecretKey key) {
         if (key != null) {
             try {

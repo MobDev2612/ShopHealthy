@@ -130,10 +130,9 @@ public class IntroductionActivity extends YouTubeBaseActivity implements YouTube
     }
 
     private void nextActivity(){
-        Intent intent = new Intent(this,SelectLocationActivity.class); // TODO
+        Intent intent = new Intent(this,SelectLocationActivity.class);
         startActivity(intent);
         finish();
     }
-
 
 }

@@ -3,6 +3,9 @@ package com.shopfitt.android.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.shopfitt.android.Fragment.HomeFragment;
+import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -31,6 +37,7 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        changeFragments(R.id.nav_home);
     }
 
     @Override
@@ -59,7 +66,7 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cart) {
-            Intent intent = new Intent(this,CartActivity.class);
+            Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
             return true;
         }
@@ -72,23 +79,39 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
+        changeFragments(id);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void changeFragments(int id){
+        Fragment fragment = null;
+        if (id == R.id.nav_home) {
+            fragment = new HomeFragment();
+        } else if (id == R.id.nav_sign_in_my_account) {
+
+        } else if (id == R.id.nav_offers_zone) {
+
+        } else if (id == R.id.nav_refer_friends) {
+
+        } else if (id == R.id.nav_track_order) {
+
+        } else if (id == R.id.nav_change_store) {
+            fragment = new LocationFragment();
+        } else if (id == R.id.nav_customer_support) {
+
+        } else if (id == R.id.nav_settings) {
+//            fragment = new SettingsFragment();
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+        } else {
+            Toast.makeText(this, "Not Available", Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -12,24 +12,27 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.shopfitt.android.Network.VolleyRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CustomProgressDialog;
 import com.shopfitt.android.Utils.Shopfitt;
-import com.shopfitt.android.Utils.Validation;
+import com.shopfitt.android.datamodels.LoginObject;
+
+import org.json.JSONArray;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<String> {
+public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONArray> {
 
     private EditText mEmailView;
     private EditText mPasswordView;
-    private TextInputLayout mailInputLayout,pwdInputLayout;
+    private TextInputLayout mailInputLayout, pwdInputLayout;
+    private String userName, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,36 +62,26 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
     }
 
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void attemptLogin() {
         mailInputLayout.setError(null);
         pwdInputLayout.setError(null);
 
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        userName = mEmailView.getText().toString();
+        password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !Validation.isValidPassword(password)) {
+        if (!TextUtils.isEmpty(password)) {
             pwdInputLayout.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(userName)) {
             mailInputLayout.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!Validation.isValidEmailPattern(email)) {
-            mailInputLayout.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
@@ -97,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             focusView.requestFocus();
         } else {
             showProgress(true);
-            performLogin();
+            performLogin(userName);
         }
     }
 
@@ -113,28 +106,42 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         }
     }
 
-    private void performLogin() {
-        VolleyRequest<String> performLogin = new VolleyRequest<String>(Request.Method.GET,
-                "https://faasos.0x10.info/api/faasos?type=json&query=api_hits",
-                String.class, null,
-                this, this); //TODO
+    private void performLogin(String userName) {
+        JsonArrayRequest performLogin = new JsonArrayRequest(
+                "http://json.wiing.org/Details.aspx?username=" + userName,
+                this, this);
         Shopfitt.getInstance().addToRequestQueue(performLogin, "loginapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        showProgress(false);
-        pwdInputLayout.setError(getString(R.string.error_incorrect_password));
-        mPasswordView.requestFocus();
+        Toast.makeText(this, "Unable to login..please try later", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onResponse(String s) {
+    public void onResponse(JSONArray s) {
+        try {
+            if (((LoginObject) s.get(0)).getUsername().equalsIgnoreCase(userName) && ((LoginObject) s.get(0)).getPassword().equals(password)) {
+                loginSuccess();
+            } else {
+                loginFailure();
+            }
+        } catch (Exception e){
+            Toast.makeText(this,"Erroring in login..",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void loginSuccess() {
         showProgress(false);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
 
+    private void loginFailure() {
+        showProgress(false);
+        pwdInputLayout.setError(getString(R.string.error_incorrect_password));
+        mPasswordView.requestFocus();
+    }
 }
 
