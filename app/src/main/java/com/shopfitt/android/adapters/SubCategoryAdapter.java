@@ -8,19 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.shopfitt.android.datamodels.CategoryObject;
+import com.shopfitt.android.datamodels.SubCategoryObject;
 
 import java.util.List;
 
 /**
- * Created by Hari Haran on 12-Jan-16.
+ * Created by Hari Haran on 13-Jan-16.
  */
-public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
+public class SubCategoryAdapter extends ArrayAdapter<SubCategoryObject> {
     private Context mContext;
     private int mResource;
-    List<CategoryObject> dataList;
+    List<SubCategoryObject> dataList;
 
-    public CategoryAdapter(Context context, int resource, List<CategoryObject> objects) {
+    public SubCategoryAdapter(Context context, int resource, List<SubCategoryObject> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -33,7 +33,7 @@ public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
     }
 
     @Override
-    public CategoryObject getItem(int position) {
+    public SubCategoryObject getItem(int position) {
         return dataList.get(position);
     }
 
@@ -53,7 +53,7 @@ public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.mTextView.setText(dataList.get(position).getProduct_category());
+        viewHolder.mTextView.setText(dataList.get(position).getSubcategory());
         return convertView;
     }
 }

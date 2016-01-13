@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CustomProgressDialog;
 import com.shopfitt.android.Utils.Shopfitt;
@@ -73,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             pwdInputLayout.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -121,7 +123,10 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     @Override
     public void onResponse(JSONArray s) {
         try {
-            if (((LoginObject) s.get(0)).getUsername().equalsIgnoreCase(userName) && ((LoginObject) s.get(0)).getPassword().equals(password)) {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            LoginObject loginObject = gson.fromJson(s.get(0).toString(), LoginObject.class);
+            if (loginObject.getUsername().equalsIgnoreCase(userName) && loginObject.getPassword().equals(password)) {
                 loginSuccess();
             } else {
                 loginFailure();

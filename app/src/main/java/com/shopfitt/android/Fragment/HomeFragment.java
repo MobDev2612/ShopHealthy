@@ -3,6 +3,8 @@ package com.shopfitt.android.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.CategoryAdapter;
@@ -22,6 +26,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +34,7 @@ import java.util.Arrays;
 public class HomeFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
     private View view;
     private ListView categoryList;
+    List<CategoryObject> categories;
 
     public HomeFragment() {
     }
@@ -49,16 +55,27 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     }
 
     private void initialiseComponents(Bundle arguments) {
+        categories = new ArrayList<CategoryObject>();
         categoryList = (ListView) view.findViewById(R.id.home_list);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView textView = (TextView) view.findViewById(android.R.id.text1);// TODO: 12-Jan-16
-//                String outlet = (String) textView.getText();
-//                goToMenu(outlet);
+                CategoryObject categoryObject = categories.get(position);
+                showSubCategories(categoryObject.getID()+"");
             }
         });
         getCategories();
+    }
+
+    private void showSubCategories(String categoryID) {
+        Bundle bundle = new Bundle();
+        bundle.putString("category",categoryID);
+        Fragment fragment = new SubCategoryFragment();
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 
     private void getCategories() {
@@ -74,20 +91,23 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     @Override
     public void onResponse(JSONArray jsonArray) {
         try {
-            JSONArray jsonArray1 = jsonArray.getJSONArray(0);
-            CategoryObject[] outlets = new CategoryObject[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                outlets[i] = ((CategoryObject) jsonArray.get(i));
-            }
-            setList(outlets);
+//            JSONArray jsonArray1 = jsonArray.getJSONArray(0);
+//            CategoryObject[] categories = new CategoryObject[jsonArray.length()];
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                categories[i] = ((CategoryObject) jsonArray.get(i));
+//            }
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            categories = Arrays.asList(gson.fromJson(jsonArray.toString(), CategoryObject[].class));
+            setList(categories);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching outlets", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setList(CategoryObject[] outlets){
-        ArrayList<CategoryObject> arrayList = new ArrayList<CategoryObject>(Arrays.asList(outlets));
-        CategoryAdapter outletAdapter = new CategoryAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+    private void setList(List<CategoryObject> outlets){
+//        ArrayList<CategoryObject> arrayList = new ArrayList<CategoryObject>(Arrays.asList(categories));
+        CategoryAdapter outletAdapter = new CategoryAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
         categoryList.setAdapter(outletAdapter);
     }
 }

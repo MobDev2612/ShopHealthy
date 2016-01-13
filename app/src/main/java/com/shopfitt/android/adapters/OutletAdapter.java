@@ -8,37 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.shopfitt.android.datamodels.CategoryObject;
+import com.shopfitt.android.datamodels.OutletObject;
 
 import java.util.List;
 
 /**
- * Created by Hari Haran on 12-Jan-16.
+ * Created by Hari Haran on 13-Jan-16.
  */
-public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
+public class OutletAdapter extends ArrayAdapter<OutletObject> {
     private Context mContext;
     private int mResource;
-    List<CategoryObject> dataList;
+    List<OutletObject> dataList;
 
-    public CategoryAdapter(Context context, int resource, List<CategoryObject> objects) {
+    public OutletAdapter(Context context, int resource, List<OutletObject> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
         this.dataList = objects;
-    }
-
-    @Override
-    public int getCount() {
-        return dataList.size();
-    }
-
-    @Override
-    public CategoryObject getItem(int position) {
-        return dataList.get(position);
-    }
-
-    public class ViewHolder {
-        public TextView mTextView;
     }
 
     @Override
@@ -53,7 +39,22 @@ public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.mTextView.setText(dataList.get(position).getProduct_category());
+        viewHolder.mTextView.setText(dataList.get(position).getStore_name());
         return convertView;
+    }
+
+
+    @Override
+    public int getCount() {
+        return dataList.size();
+    }
+
+    @Override
+    public OutletObject getItem(int position) {
+        return dataList.get(position);
+    }
+
+    public class ViewHolder {
+        public TextView mTextView;
     }
 }

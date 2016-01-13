@@ -19,7 +19,10 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.LocationAdapter;
@@ -29,6 +32,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LocationFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
 
@@ -98,6 +102,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     }
 
     private void getLocations() {
+        CommonMethods.showProgress(true,getActivity());
         JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.wiing.org/Details.aspx?area=all",
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -105,26 +110,27 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+        CommonMethods.showProgress(false,getActivity());
         Toast.makeText(getActivity(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
+        CommonMethods.showProgress(false,getActivity());
         try {
-            String[] areas = new String[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                areas[i] = ((LocationObject) jsonArray.get(i)).getArea();
-            }
-            setList(areas);
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            List<LocationObject> posts = new ArrayList<LocationObject>();
+            posts = Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class));
+            setList(posts);
         }catch (Exception e){
             Toast.makeText(getActivity(), "Erroring in fetching location", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    private void setList(String[] areas) {
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(areas));
-        locationAdapter = new LocationAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+    private void setList(List<LocationObject> areas) {
+        locationAdapter = new LocationAdapter(getActivity(), android.R.layout.simple_list_item_1, areas);
         areaList.setAdapter(locationAdapter);
     }
 }

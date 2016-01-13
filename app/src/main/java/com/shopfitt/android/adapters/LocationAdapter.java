@@ -8,18 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.shopfitt.android.datamodels.LocationObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Hari Haran on 10-Jan-16.
  */
-public class LocationAdapter extends ArrayAdapter<String> {
+public class LocationAdapter extends ArrayAdapter<LocationObject> {
     private Context mContext;
     private int mResource;
-    List<String> dataList,dataListCopy;
+    List<LocationObject> dataList,dataListCopy;
 
-    public LocationAdapter(Context context, int resource, List<String> objects) {
+    public LocationAdapter(Context context, int resource, List<LocationObject> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -40,7 +42,7 @@ public class LocationAdapter extends ArrayAdapter<String> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.mTextView.setText(dataList.get(position));
+        viewHolder.mTextView.setText(dataList.get(position).getArea());
         return convertView;
     }
 
@@ -51,7 +53,7 @@ public class LocationAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public String getItem(int position) {
+    public LocationObject getItem(int position) {
         return dataList.get(position);
     }
 
@@ -62,7 +64,7 @@ public class LocationAdapter extends ArrayAdapter<String> {
     public void filter(String search){
         dataList.clear();
         for(int i=0;i< dataListCopy.size();i++){
-            if(dataListCopy.get(i).toLowerCase().contains(search.toLowerCase())){
+            if(dataListCopy.get(i).getArea().toLowerCase().contains(search.toLowerCase())){
                 dataList.add(dataListCopy.get(i));
             }
         }

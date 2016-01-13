@@ -15,17 +15,21 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.shopfitt.android.Activity.LoginActivity;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
-import com.shopfitt.android.adapters.LocationAdapter;
+import com.shopfitt.android.adapters.OutletAdapter;
 import com.shopfitt.android.datamodels.OutletObject;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OutletFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
 
@@ -71,31 +75,38 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     }
 
     private void getOutlets(String area) {
+        CommonMethods.showProgress(true,getActivity());
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?store="+area,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outletapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        Toast.makeText(getActivity(), "Unable to fetch outlets", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,getActivity());
+        Toast.makeText(getActivity(), "Unable to fetch categories", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
         try {
-            String[] outlets = new String[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                outlets[i] = ((OutletObject) jsonArray.get(i)).getStore_name();
-            }
-            setList(outlets);
+//            String[] categories = new String[jsonArray.length()];
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                categories[i] = ((OutletObject) jsonArray.get(i)).getStore_name();
+//            }
+            CommonMethods.showProgress(false, getActivity());
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            List<OutletObject> posts = new ArrayList<OutletObject>();
+            posts = Arrays.asList(gson.fromJson(jsonArray.toString(), OutletObject[].class));
+            setList(posts);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching outlets", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setList(String[] outlets){
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(outlets));
-        LocationAdapter outletAdapter = new LocationAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+    private void setList(List<OutletObject> outlets){
+//        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(categories));
+        OutletAdapter outletAdapter = new OutletAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
         outletList.setAdapter(outletAdapter);
     }
 
