@@ -3,6 +3,8 @@ package com.shopfitt.android.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.SubCategoryAdapter;
 import com.shopfitt.android.datamodels.SubCategoryObject;
@@ -61,43 +64,46 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
         subCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                CategoryObject categoryObject = subcategories.get(position); // TODO: 13-Jan-16
-//                showSubCategories(categoryObject.getID()+"");
+                SubCategoryObject categoryObject = subcategories.get(position);
+                showProducts(categoryObject.getID() + "");
             }
         });
         getCategories(arguments.getString("category"));
     }
-//
-//    private void showSubCategories(String categoryID) {
-//        Bundle bundle = new Bundle();
-//        bundle.putString("category",categoryID);
-//        Fragment fragment = new OutletFragment();
-//        fragment.setArguments(bundle);
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.container, fragment);
-//        fragmentTransaction.commit();
-//    }
+
+    private void showProducts(String categoryID) {
+        Bundle bundle = new Bundle();
+        bundle.putString("subcategory",categoryID);
+        Fragment fragment = new ProductListFragment();
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
 
     private void getCategories(String id) {
+        CommonMethods.showProgress(true,getActivity());
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?subcategory="+id,this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "categoryapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategoryapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        Toast.makeText(getActivity(), "Unable to fetch categories", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,getActivity());
+        Toast.makeText(getActivity(), "Unable to fetch Sub categories", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
+        CommonMethods.showProgress(false,getActivity());
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             subcategories = Arrays.asList(gson.fromJson(jsonArray.toString(), SubCategoryObject[].class));
             setList(subcategories);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching sub categories", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error in fetching sub categories", Toast.LENGTH_SHORT).show();
         }
     }
 

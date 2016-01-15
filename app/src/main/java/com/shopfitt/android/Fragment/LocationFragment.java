@@ -32,6 +32,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LocationFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
@@ -121,10 +122,10 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             List<LocationObject> posts = new ArrayList<LocationObject>();
-            posts = Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class));
+            posts =  new LinkedList<LocationObject>(Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class)));
             setList(posts);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error in fetching location", Toast.LENGTH_SHORT).show();
         }
     }
 

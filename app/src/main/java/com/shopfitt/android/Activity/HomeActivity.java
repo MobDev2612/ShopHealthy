@@ -89,11 +89,7 @@ public class HomeActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = new HomeFragment();
-        } else if (id == R.id.nav_sign_in_my_account) {
-
-        } else if (id == R.id.nav_offers_zone) {
-
-        } else if (id == R.id.nav_refer_friends) {
+        } else if (id == R.id.nav_my_account) {
 
         } else if (id == R.id.nav_track_order) {
 
@@ -101,8 +97,6 @@ public class HomeActivity extends AppCompatActivity
             fragment = new LocationFragment();
         } else if (id == R.id.nav_customer_support) {
 
-        } else if (id == R.id.nav_settings) {
-//            fragment = new SettingsFragment();
         }
 
         if (fragment != null) {

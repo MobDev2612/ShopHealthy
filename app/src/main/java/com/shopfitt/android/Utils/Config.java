@@ -1,5 +1,9 @@
 package com.shopfitt.android.Utils;
 
+import com.shopfitt.android.datamodels.ProductObject;
+
+import java.util.List;
+
 public class Config {
 
     public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyABYoczeHg4XABx_jMRfv-CqmA2YMsIY4A"; //TODO
@@ -25,4 +29,5 @@ public class Config {
     public static final int INT_204 = 204;
     public static final int INT_250 = 250;
     public static final int INT_1000 = 1000;
+    public static List<ProductObject> addToCart;
 }

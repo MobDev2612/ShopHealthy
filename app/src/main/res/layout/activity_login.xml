@@ -36,9 +36,9 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                    android:singleLine="true" />
+                    android:textColorHint="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -57,9 +57,9 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black"
-                    android:singleLine="true" />
+                    android:textColorHint="@android:color/black" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -75,7 +75,8 @@
 
             <Button
                 android:id="@+id/email_sign_up_button"
-                style="@style/OrangeButton"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CustomProgressDialog;
+import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.LoginObject;
 
@@ -62,6 +63,15 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         });
         mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
         pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
+        Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
+        registrationButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void attemptLogin() {
@@ -132,11 +142,14 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 loginFailure();
             }
         } catch (Exception e){
-            Toast.makeText(this,"Erroring in login..",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Error in login..",Toast.LENGTH_LONG).show();
         }
     }
 
     private void loginSuccess() {
+        SharedPreferences sharedPreferences = new SharedPreferences(this);
+        sharedPreferences.setLoginID(userName);
+        sharedPreferences.setPassword(password);
         showProgress(false);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);

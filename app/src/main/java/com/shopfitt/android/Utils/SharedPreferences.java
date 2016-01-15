@@ -31,26 +31,28 @@ public class SharedPreferences {
         editor = sharedPreferences.edit();
     }
 
-    public void setLoginID(String value, SecretKey key) {
-        String encryptLoginID = encryptCredentials(value, key);
-        editor.putString(SHARED_PREFERENCES_LOGIN_ID, encryptLoginID);
+    public void setLoginID(String value) {
+//        String encryptLoginID = encryptCredentials(value, key);
+        editor.putString(SHARED_PREFERENCES_LOGIN_ID, value);
         editor.commit();
     }
 
-    public String getLoginID(String defaultValue, SecretKey key) {
+    public String getLoginID(String defaultValue) {
         String encryptedLogin = sharedPreferences.getString(SHARED_PREFERENCES_LOGIN_ID, defaultValue);
-        return decryptCredentials(encryptedLogin, key);
+//        return decryptCredentials(encryptedLogin, key);
+        return  encryptedLogin;
     }
 
-    public void setPassword(String value, SecretKey key) {
-        String encryptPassword = encryptCredentials(value, key);
-        editor.putString(SHARED_PREFERENCES_PASSWORD, encryptPassword);
+    public void setPassword(String value) {
+//        String encryptPassword = encryptCredentials(value, key);
+        editor.putString(SHARED_PREFERENCES_PASSWORD, value);
         editor.commit();
     }
 
-    public String getPassword(String defaultValue, SecretKey key) {
+    public String getPassword(String defaultValue) {
         String encryptedPwd = sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, defaultValue);
-        return decryptCredentials(encryptedPwd, key);
+//        return decryptCredentials(encryptedPwd, key);
+        return  encryptedPwd;
     }
 
     public void setLoginToken(String value) {

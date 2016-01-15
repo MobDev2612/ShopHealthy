@@ -4,6 +4,8 @@ package com.shopfitt.android.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,9 +71,18 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     private void goToMenu(String outlet) {
         SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
         sharedPreferences.setOutlet(outlet);
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        String username = sharedPreferences.getLoginID("");
+        if(username.length()>0) {
+            Fragment fragment = new HomeFragment();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+        } else {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 
     private void getOutlets(String area) {
@@ -89,10 +100,6 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     @Override
     public void onResponse(JSONArray jsonArray) {
         try {
-//            String[] categories = new String[jsonArray.length()];
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                categories[i] = ((OutletObject) jsonArray.get(i)).getStore_name();
-//            }
             CommonMethods.showProgress(false, getActivity());
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -105,7 +112,6 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     }
 
     private void setList(List<OutletObject> outlets){
-//        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(categories));
         OutletAdapter outletAdapter = new OutletAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
         outletList.setAdapter(outletAdapter);
     }

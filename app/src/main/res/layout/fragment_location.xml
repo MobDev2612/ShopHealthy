@@ -8,7 +8,7 @@
     <TextView
         android:gravity="center"
         style="@style/BlackText"
-        android:text="Find Your Area"
+        android:text="Select Your Area"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

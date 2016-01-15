@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.CategoryAdapter;
 import com.shopfitt.android.datamodels.CategoryObject;
@@ -79,34 +80,31 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     }
 
     private void getCategories() {
+        CommonMethods.showProgress(true,getActivity());
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?category=all",this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "categoryapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+        CommonMethods.showProgress(false,getActivity());
         Toast.makeText(getActivity(), "Unable to fetch categories", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
+        CommonMethods.showProgress(false,getActivity());
         try {
-//            JSONArray jsonArray1 = jsonArray.getJSONArray(0);
-//            CategoryObject[] categories = new CategoryObject[jsonArray.length()];
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                categories[i] = ((CategoryObject) jsonArray.get(i));
-//            }
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             categories = Arrays.asList(gson.fromJson(jsonArray.toString(), CategoryObject[].class));
             setList(categories);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error in fetching categories", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setList(List<CategoryObject> outlets){
-//        ArrayList<CategoryObject> arrayList = new ArrayList<CategoryObject>(Arrays.asList(categories));
         CategoryAdapter outletAdapter = new CategoryAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
         categoryList.setAdapter(outletAdapter);
     }

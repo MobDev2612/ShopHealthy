@@ -9,10 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.adapters.CartAdapter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -31,10 +29,12 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        String[] areas = new String[]{"Maratahalli", "Kundalahalli Gate", "Bellandur", "Silk Board", "BTM Layout", "Tin Factory", "Koramangala", "WhiteField"};
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(areas));
-        CartAdapter adapter = new CartAdapter(this, R.layout.cart_list_item, arrayList);
-        listView.setAdapter(adapter);
+//        String[] areas = new String[]{"Maratahalli", "Kundalahalli Gate", "Bellandur", "Silk Board", "BTM Layout", "Tin Factory", "Koramangala", "WhiteField"};
+//        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(areas));
+        if(Config.addToCart!=null) {
+            CartAdapter adapter = new CartAdapter(this, R.layout.cart_list_item, Config.addToCart);
+            listView.setAdapter(adapter);
+        }
     }
 
 }

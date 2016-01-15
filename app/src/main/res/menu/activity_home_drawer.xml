@@ -7,17 +7,9 @@
             android:icon="@drawable/ic_menu_homee"
             android:title="Home" />
         <item
-            android:id="@+id/nav_sign_in_my_account"
+            android:id="@+id/nav_my_account"
             android:icon="@drawable/ic_menu_signin"
-            android:title="Sign In" />
-        <item
-            android:id="@+id/nav_offers_zone"
-            android:icon="@drawable/ic_menu_offers"
-            android:title="Offers Zone" />
-        <item
-            android:id="@+id/nav_refer_friends"
-            android:icon="@drawable/ic_menu_refer_friends"
-            android:title="Refer Friends" />
+            android:title="My Account" />
 
         <item
             android:id="@+id/nav_track_order"
@@ -30,16 +22,11 @@
             android:title="Change Store" />
     </group>
 
-
     <group>
         <item
             android:id="@+id/nav_customer_support"
             android:icon="@android:drawable/ic_menu_help"
             android:title="Customer Support" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
     </group>
 
 

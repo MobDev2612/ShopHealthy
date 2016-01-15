@@ -26,14 +26,14 @@
             android:id="@+id/list_item_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apple" />
+            android:text="Name" />
 
         <TextView
             android:id="@+id/list_item_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Fruit" />
+            android:text="Price" />
 
     </LinearLayout>
 
@@ -46,6 +46,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/list_item_qty"
             android:background="@drawable/curve_border"
             android:text="1"
             android:padding="5dp"
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content" />
 
         <ImageButton
+            android:id="@+id/list_item_remove"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close_rey_circle"
             android:layout_width="wrap_content"
