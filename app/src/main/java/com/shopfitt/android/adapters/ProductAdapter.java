@@ -2,7 +2,9 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.shopfitt.android.Activity.ItemPopActivity;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
@@ -52,7 +55,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -69,10 +72,23 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
+        viewHolder.mDescription.setText(dataList.get(position).getWeightms());
         viewHolder.mCategory.setText(dataList.get(position).getProduct_category()+"/"+dataList.get(position).getProduct_subcategory());
         viewHolder.mPrice.setText("INR "+dataList.get(position).getMrp()+".00");
-        loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/"+dataList.get(position).getID()+".jpg");
+        loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
+
+        viewHolder.cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductObject productObject = dataList.get(position);
+                productObject.setQtyBought(1);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("product", productObject);
+                Intent intent = new Intent(mContext, ItemPopActivity.class);
+                intent.putExtra("bundle", bundle);
+                mContext.startActivity(intent);
+            }
+        });
         return convertView;
     }
 

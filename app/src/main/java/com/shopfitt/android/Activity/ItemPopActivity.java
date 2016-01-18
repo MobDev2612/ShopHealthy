@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -26,8 +28,8 @@ public class ItemPopActivity extends AppCompatActivity {
     private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_item_pop);
         Bundle bundle = getIntent().getBundleExtra("bundle");
         productObject = bundle.getParcelable("product");
@@ -71,6 +73,7 @@ public class ItemPopActivity extends AppCompatActivity {
                     Config.addToCart.add(productObject);
                     Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought()* productObject.getMrp());
                 }
+                Toast.makeText(ItemPopActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
                 finish();
             }
         });

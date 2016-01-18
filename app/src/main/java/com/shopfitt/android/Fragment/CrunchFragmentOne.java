@@ -16,9 +16,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.google.gson.JsonArray;
-import com.shopfitt.android.Activity.CrunchFragmentTwo;
+import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
@@ -76,7 +74,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     private void getOptions() {
         requestId = 1;
         CommonMethods.showProgress(true, getActivity());
-        JsonArrayRequest fetchLocations = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/getCustomertoCompare/" + Config.customerID,
+        StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getCustomertoCompare/" + Config.customerID,
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
@@ -108,8 +106,8 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     public void onResponse(Object o) {
         CommonMethods.showProgress(false, getActivity());
         if (requestId == 1) {
-            JsonArray jsonArray = (JsonArray) o;
-            String response = jsonArray.getAsString();
+//            JsonArray jsonArray = (JsonArray) o;
+            String response = (String) o;
             String[] items = response.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
             list = Arrays.asList(items);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,list);

@@ -1,7 +1,6 @@
 package com.shopfitt.android.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.shopfitt.android.Activity.ItemPopActivity;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
@@ -27,9 +25,6 @@ import com.shopfitt.android.datamodels.ProductObject;
 
 import org.json.JSONArray;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,35 +66,18 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(getActivity(),"Added to cart",Toast.LENGTH_LONG).show();
-                ProductObject productObject = productObjects.get(position);
-                productObject.setQtyBought(1);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("product", productObject);
-                Intent intent = new Intent(getActivity(), ItemPopActivity.class);
-                intent.putExtra("bundle", bundle);
-                startActivity(intent);
+//                ProductObject productObject = productObjects.get(position);
+//                productObject.setQtyBought(1);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("product", productObject);
+//                Intent intent = new Intent(getActivity(), ItemPopActivity.class);
+//                intent.putExtra("bundle", bundle);
+//                startActivity(intent);
             }
         });
         getProducts(arguments.getString("subcategory"));
-//        getProductsFromAssets();
     }
 
-    private void getProductsFromAssets(){
-        try {
-            StringBuilder buf = new StringBuilder();
-            InputStream json = getResources().getAssets().open("product.json");
-            BufferedReader in =
-                    new BufferedReader(new InputStreamReader(json, "UTF-8"));
-            String str;
-            while ((str = in.readLine()) != null) {
-                buf.append(str);
-            }
-            in.close();
-            parseResponse(str);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     private void getProducts(String id) {
         CommonMethods.showProgress(true,getActivity());

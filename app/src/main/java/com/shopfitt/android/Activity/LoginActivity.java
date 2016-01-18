@@ -141,6 +141,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
     @Override
     public void onResponse(JSONArray s) {
+        showProgress(false);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -151,22 +152,21 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 loginFailure();
             }
         } catch (Exception e){
-            Toast.makeText(this,"Error in login..",Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,"Error in login..",Toast.LENGTH_LONG).show();
+            loginFailure();
         }
     }
 
     private void loginSuccess() {
-
         sharedPreferences.setLoginID(userName);
         sharedPreferences.setPassword(password);
-        showProgress(false);
+//        showProgress(false);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void loginFailure() {
-        showProgress(false);
         pwdInputLayout.setError(getString(R.string.error_incorrect_password));
         mPasswordView.requestFocus();
     }

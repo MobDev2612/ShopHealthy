@@ -10,7 +10,7 @@
     <EditText
         android:layout_marginTop="30dp"
         android:id="@+id/delivery_date"
-        android:hint="Delivey Date"
+        android:hint="Delivey Time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

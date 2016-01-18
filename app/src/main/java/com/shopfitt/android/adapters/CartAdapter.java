@@ -3,6 +3,8 @@ package com.shopfitt.android.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,14 +39,14 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
     }
 
     public class ViewHolder {
-                public ImageView mImageView;
-        public TextView mName,mPrice;
-        public ImageButton cartButton;
+        public ImageView mImageView;
+        public TextView mName, mPrice;
+        public ImageButton cartRemoveButton;
         public EditText editText;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -53,16 +55,40 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.mName = (TextView) convertView.findViewById(R.id.list_item_text1);
             viewHolder.mPrice = (TextView) convertView.findViewById(R.id.list_item_text2);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.list_item_image);
-            viewHolder.cartButton = (ImageButton) convertView.findViewById(R.id.list_item_remove);
+            viewHolder.cartRemoveButton = (ImageButton) convertView.findViewById(R.id.list_item_remove);
             viewHolder.editText = (EditText) convertView.findViewById(R.id.list_item_qty);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mPrice.setText(dataList.get(position).getMrp()+"");
-        viewHolder.editText.setText(dataList.get(position).getQtyBought()+"");
-        loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/"+dataList.get(position).getID()+".jpg");
+        viewHolder.mPrice.setText(dataList.get(position).getMrp() + "");
+        viewHolder.editText.setText(dataList.get(position).getQtyBought() + "");
+        viewHolder.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                    dataList.get(position).setQtyBought(Integer.parseInt(s.toString()));
+            }
+        });
+        viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataList.remove(position);
+                notifyDataSetInvalidated();
+            }
+        });
+
+        loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
         return convertView;
     }
 
@@ -78,7 +104,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
     }
 
     public static ImageView loadImages(final ImageView imageView, String imageURL) {
-        if (imageURL!= null) {
+        if (imageURL != null) {
             ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
             imageLoader.get(imageURL, new ImageLoader.ImageListener() {
 

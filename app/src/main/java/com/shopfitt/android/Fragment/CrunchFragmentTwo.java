@@ -1,4 +1,4 @@
-package com.shopfitt.android.Activity;
+package com.shopfitt.android.Fragment;
 
 
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.shopfitt.android.Fragment.ThankQFragment;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 

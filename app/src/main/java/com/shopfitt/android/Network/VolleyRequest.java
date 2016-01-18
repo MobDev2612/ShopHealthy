@@ -50,6 +50,14 @@ public class VolleyRequest<T> extends Request<T> {
         gson = new Gson();
     }
 
+    public VolleyRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
+                         Response.Listener<T> listener, Response.ErrorListener errorListener, JSONObject parameters) {
+        this(method, url, clazz, headers, listener, errorListener);
+        this.parameters = parameters;
+        gson = new Gson();
+    }
+
+
     /**
      * Gets header to send header in volley request
      *
@@ -168,7 +176,7 @@ public class VolleyRequest<T> extends Request<T> {
                 try {
                     new JSONArray(responseString);
                 } catch (JSONException ex1) {
-                    Log.e(TAG, ex.toString(), ex1);
+                    Log.e(TAG, ex1.toString(), ex1);
                     return false;
                 }
             }
@@ -191,7 +199,7 @@ public class VolleyRequest<T> extends Request<T> {
      */
     @Override
     public Request<T> setRetryPolicy(RetryPolicy retryPolicy) {
-        super.setRetryPolicy(new DefaultRetryPolicy(300000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        super.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         return this;
     }
 }

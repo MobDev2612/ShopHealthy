@@ -55,7 +55,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomDatePicker.openDatePicker(getFragmentManager(), editText);
+                CustomDatePicker.openDatePicker(getFragmentManager(), editText,getContext());
             }
         });
         submit = (Button) view.findViewById(R.id.delivery_date_submit);

@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.shopfitt.android.Network.CustomVolleyRequest;
+import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.SharedPreferences;
@@ -37,6 +37,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initialiseComponents();
     }
 
@@ -151,8 +154,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
-                linearLayout.setVisibility(View.VISIBLE);
+//                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
+//                linearLayout.setVisibility(View.VISIBLE);
+                register_button.setVisibility(View.VISIBLE);
+                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }
@@ -190,8 +195,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", number);
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SendConfirmationOTP/",String.class,jsonObject,
-                    this,this);
+            VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SendConfirmationOTP/",String.class,null,
+                    this,this,jsonObject);
             Shopfitt.getInstance().addToRequestQueue(volleyRequest, "sendotpapi");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -202,8 +207,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         requestID =3;
         CommonMethods.showProgress(true,this);
         try {
-            Request<JSONObject> request = new JsonObjectRequest(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveCustomer/",jsonObject,
-                    this,this);
+            VolleyRequest<JSONObject> request = new VolleyRequest<JSONObject>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveCustomer/",JSONObject.class,null,
+                    this,this,jsonObject);
             Shopfitt.getInstance().addToRequestQueue(request, "registerapi");
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,8 +217,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,this);
-        Toast.makeText(this,"Unable to connect. Please try later",Toast.LENGTH_LONG).show();
+        CommonMethods.showProgress(false, this);
+        if(requestID != 1) {
+            Toast.makeText(this, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
