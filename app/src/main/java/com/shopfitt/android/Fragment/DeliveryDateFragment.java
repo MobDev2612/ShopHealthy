@@ -30,7 +30,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     private View view;
     private EditText editText;
     private Button submit;
-
+    SharedPreferences sharedPreferences;
     public DeliveryDateFragment() {
         // Required empty public constructor
     }
@@ -51,6 +51,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     }
 
     private void initialiseComponents() {
+        sharedPreferences = new SharedPreferences(getActivity());
         editText = (EditText) view.findViewById(R.id.delivery_date);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,11 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCustomerId();
+                if(sharedPreferences.getCustomerId().length()>0) {
+                    showThankyou();
+                } else {
+                    getCustomerId();
+                }
             }
         });
     }
@@ -85,6 +90,8 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     @Override
     public void onResponse(String s) {
         CommonMethods.showProgress(false, getActivity());
+
+        sharedPreferences.setCustomerID(s);
         Config.customerID = s;
         showThankyou();
     }

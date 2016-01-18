@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.R;
@@ -90,7 +91,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             fragment = new HomeFragment();
         } else if (id == R.id.nav_my_account) {
-
+            fragment = new EditPhoneNumberFragment();
         } else if (id == R.id.nav_track_order) {
 
         } else if (id == R.id.nav_change_store) {
