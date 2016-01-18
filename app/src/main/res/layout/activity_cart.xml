@@ -32,14 +32,16 @@
         android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/cart_total_amount"
         style="@style/BlackText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        android:text="Total:  Rs 500" />
+        android:text="Total:  Rs 0" />
 
     <Button
+        android:id="@+id/cart_place_order"
         style="@style/OrangeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

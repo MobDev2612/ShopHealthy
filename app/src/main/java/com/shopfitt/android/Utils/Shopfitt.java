@@ -21,6 +21,7 @@ public class Shopfitt extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        Config.cartTotalAmount=0;
     }
 
     public static synchronized Shopfitt getInstance() {

@@ -28,20 +28,16 @@ public class CustomDatePicker {
      * Opens date picker in dialog window
      *
      * @param fragmentManager fragment manager object
-     * @param date            editText in which date to be populated
-     * @param dateargs        date parameters in Long format
+     * @param date            editText in which date to be populate
      */
 
-    public static void openDatePicker(FragmentManager fragmentManager, final TextView date, Bundle dateargs) {
+    public static void openDatePicker(FragmentManager fragmentManager, final TextView date) {
         dateEdit = date;
         DatePickerFragment datePickerFragment = new DatePickerFragment();
         Calendar calendar = Calendar.getInstance();
-        Long milliSeconds = dateargs.getLong("Date");
-        calendar.setTimeInMillis(milliSeconds);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        datePickerFragment.setArguments(dateargs);
         datePickerFragment.setCallBack(new
                                                DatePickerDialog.OnDateSetListener() {
                                                    @Override
@@ -69,7 +65,7 @@ public class CustomDatePicker {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), onDateSet, year, month, day);
             Calendar c = Calendar.getInstance();
-            datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
             datePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Clear", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

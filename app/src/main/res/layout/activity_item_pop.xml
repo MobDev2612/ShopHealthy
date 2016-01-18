@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.shopfitt.android.Activity.ItemPopActivity">
 
     <ImageButton
@@ -30,7 +31,7 @@
         <ImageView
             android:id="@+id/item_pop_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:contentDescription="@string/image"
             android:src="@drawable/ic_close_grey" />
 
@@ -86,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Salt"
+                    android:text="Calories"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/text_size_small" />
 
@@ -104,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="BHT"
+                    android:text="Sodium"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/text_size_small" />
 
@@ -114,6 +115,7 @@
             <TableRow android:layout_marginTop="5dp">
 
                 <TextView
+                    android:id="@+id/item_pop_sugar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -123,6 +125,7 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <TextView
+                    android:id="@+id/item_pop_salt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -132,6 +135,7 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <TextView
+                    android:id="@+id/item_pop_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,6 +145,7 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <TextView
+                    android:id="@+id/item_pop_bht"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -155,7 +160,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_pop_linear"
@@ -163,9 +168,11 @@
         android:padding="5dp">
 
         <Button
+            android:id="@+id/item_pop_minus"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:background="@android:color/white"
             android:text="-"
             android:textAllCaps="false"
@@ -173,18 +180,24 @@
             android:textSize="@dimen/text_size_large" />
 
         <TextView
+            android:id="@+id/item_pop_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/item_pop_minus"
             android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
             android:text="1"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_large" />
 
         <Button
+            android:id="@+id/item_pop_plus"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/item_pop_quantity"
             android:background="@android:color/white"
             android:text="+"
             android:textAllCaps="false"
@@ -192,14 +205,17 @@
             android:textSize="@dimen/text_size_large" />
 
         <Button
+            android:id="@+id/item_pop_update"
             style="@style/OrangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="@string/update"   />
+            android:text="@string/update" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

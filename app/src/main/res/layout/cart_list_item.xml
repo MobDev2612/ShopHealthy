@@ -50,6 +50,8 @@
             android:background="@drawable/curve_border"
             android:text="1"
             android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

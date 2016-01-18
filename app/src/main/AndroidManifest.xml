@@ -40,7 +40,17 @@
         </activity>
         <activity android:name=".Activity.IntroductionActivity" />
         <activity android:name=".Activity.SelectLocationActivity" />
-        <activity android:name=".Activity.RegistrationActivity"></activity>
+        <activity android:name=".Activity.RegistrationActivity" />
+        <activity
+            android:name=".Activity.DeliveryActivity"
+            android:label="@string/title_activity_delivery"
+            android:parentActivityName=".Activity.CartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shopfitt.android.Activity.CartActivity" />
+        </activity>
+        <activity android:name=".Activity.CrunchActivity"></activity>
     </application>
 
 </manifest>

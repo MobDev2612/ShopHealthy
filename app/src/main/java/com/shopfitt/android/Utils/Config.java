@@ -30,4 +30,8 @@ public class Config {
     public static final int INT_250 = 250;
     public static final int INT_1000 = 1000;
     public static List<ProductObject> addToCart;
+    public static int cartTotalAmount;
+    public static String customerID;
+    public static String orderId;
+    public static boolean crunchWon;
 }

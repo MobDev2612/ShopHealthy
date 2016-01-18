@@ -2,6 +2,8 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
 import java.util.List;
@@ -55,8 +60,9 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mPrice.setText(dataList.get(position).getMrp());
+        viewHolder.mPrice.setText(dataList.get(position).getMrp()+"");
         viewHolder.editText.setText(dataList.get(position).getQtyBought()+"");
+        loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/"+dataList.get(position).getID()+".jpg");
         return convertView;
     }
 
@@ -69,5 +75,27 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
     @Override
     public ProductObject getItem(int position) {
         return dataList.get(position);
+    }
+
+    public static ImageView loadImages(final ImageView imageView, String imageURL) {
+        if (imageURL!= null) {
+            ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
+            imageLoader.get(imageURL, new ImageLoader.ImageListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Error", error.getMessage(), error.getCause());
+                }
+
+                @Override
+                public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
+                    if (response.getBitmap() != null) {
+                        Bitmap imageBitMap = response.getBitmap();
+                        imageView.setImageBitmap(imageBitMap);
+                    }
+                }
+            });
+        }
+        return imageView;
     }
 }

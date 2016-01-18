@@ -191,7 +191,7 @@ public class VolleyRequest<T> extends Request<T> {
      */
     @Override
     public Request<T> setRetryPolicy(RetryPolicy retryPolicy) {
-        super.setRetryPolicy(new DefaultRetryPolicy(100000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        super.setRetryPolicy(new DefaultRetryPolicy(300000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         return this;
     }
 }
