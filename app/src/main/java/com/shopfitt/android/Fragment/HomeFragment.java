@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private View view;
     private ListView categoryList;
     List<CategoryObject> categories;
-    TextView outletName;
+    TextView outletName,rank;
 
     public HomeFragment() {
     }
@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private void initialiseComponents(Bundle arguments) {
         SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
         categories = new ArrayList<CategoryObject>();
+        rank = (TextView) view.findViewById(R.id.customer_rank);
         outletName = (TextView) view.findViewById(R.id.home_outlet_name);
         outletName.setText(sharedPreferences.getOutlet());
         categoryList = (ListView) view.findViewById(R.id.home_list);
