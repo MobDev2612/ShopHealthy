@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 
