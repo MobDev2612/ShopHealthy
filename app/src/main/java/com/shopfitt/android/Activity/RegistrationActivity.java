@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.Network.VolleyRequest;
@@ -184,6 +185,22 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             jsonObject.put("OTP", otp);
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/confirmMobile/",String.class,jsonObject,
                     this,this);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
         } catch (JSONException e) {
             e.printStackTrace();

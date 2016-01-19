@@ -6,21 +6,31 @@
     tools:context="com.shopfitt.android.Fragment.HomeFragment">
 
     <TextView
+        android:id="@+id/home_outlet_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:lines="2"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
         android:id="@+id/home_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Categories"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_blue_dark" />
 
 
     <ListView
-        android:layout_marginTop="5dp"
         android:id="@+id/home_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonPanel" />
+        android:layout_below="@id/buttonPanel"
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>

@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.Network.VolleyRequest;
@@ -35,7 +37,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     private Button get_otp_button,verify_otp_button,register_button;
     private EditText phone_edt_text,otp_edt_text;
     TextInputLayout phone_edt_text_layout,otp_edt_text_layout;
-
+    SharedPreferences sharedPreferences;
 
     public EditPhoneNumberFragment() {
         // Required empty public constructor
@@ -53,6 +55,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        sharedPreferences = new SharedPreferences(getActivity());
         initialiseComponents();
     }
 
@@ -74,13 +77,14 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         String number = phone_edt_text.getText().toString();
+        String oldnumber = sharedPreferences.getPhoneNumber();
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-//                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
-//                linearLayout.setVisibility(View.VISIBLE);
-                register_button.setVisibility(View.VISIBLE);
-                get_otp_button.setVisibility(View.GONE);
+                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
+                linearLayout.setVisibility(View.VISIBLE);
+//                register_button.setVisibility(View.VISIBLE);
+//                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }
@@ -92,7 +96,14 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
                 otp_edt_text_layout.setError(getString(R.string.error_field_required));
             }
         } else if( v == register_button){
-//            registerUser(); //TODo
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("newnumber", number);
+                jsonObject.put("oldnumber", oldnumber);
+                saveNumber(jsonObject);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
     }
@@ -107,6 +118,22 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
             jsonObject.put("OTP", otp);
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/confirmMobile/",String.class,jsonObject,
                     this,this);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,7 +158,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         requestID =3;
         CommonMethods.showProgress(true,getActivity());
         try {
-            VolleyRequest<JSONObject> request = new VolleyRequest<JSONObject>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveCustomer/",JSONObject.class,null,
+            VolleyRequest<JSONObject> request = new VolleyRequest<JSONObject>(Request.Method.POST," http://23.91.69.85:61090/ProductService.svc/updateMobileNumber/",JSONObject.class,null,
                     this,this,jsonObject);
             Shopfitt.getInstance().addToRequestQueue(request, "registerapi");
         } catch (Exception e) {
@@ -159,13 +186,18 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
             }
         }
         if(requestID == 3){
-            SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
-            sharedPreferences.setPhoneNumber(phone_edt_text.getText().toString());
-            Fragment fragment = new HomeFragment();
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, fragment);
-            fragmentTransaction.commit();
+            String result = (String) o;
+            if(result.equalsIgnoreCase("1")) {
+                sharedPreferences.setPhoneNumber(phone_edt_text.getText().toString());
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
+            } else if (result.equalsIgnoreCase("0")){
+                Toast.makeText(getActivity(), "Something went wrong.. please try again", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }

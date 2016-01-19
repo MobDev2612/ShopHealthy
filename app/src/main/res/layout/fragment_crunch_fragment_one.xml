@@ -12,13 +12,51 @@
         style="@style/BlackText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select one option to do a crunch match" />
+        android:text="Please select one ball to do a crunch match" />
 
-    <ListView
+    <LinearLayout
+        android:gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/crunch_options_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/crunch_match_1"
+            android:src="@drawable/ball_1"
+            android:background="@android:color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/crunch_match_2"
+            android:src="@drawable/ball_2"
+            android:background="@android:color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/crunch_match_3"
+            android:src="@drawable/ball_3"
+            android:background="@android:color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/crunch_match_4"
+            android:src="@drawable/ball_4"
+            android:background="@android:color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        </LinearLayout>
 
 </LinearLayout>

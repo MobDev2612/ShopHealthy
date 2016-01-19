@@ -47,7 +47,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shopfitt.android.Activity.CartActivity" />
         </activity>
-        <activity android:name=".Activity.CrunchActivity"></activity>
+        <activity android:name=".Activity.CrunchActivity"  android:label=""/>
     </application>
 
 </manifest>

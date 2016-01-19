@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.CategoryAdapter;
 import com.shopfitt.android.datamodels.CategoryObject;
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private View view;
     private ListView categoryList;
     List<CategoryObject> categories;
+    TextView outletName;
 
     public HomeFragment() {
     }
@@ -56,7 +59,10 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     }
 
     private void initialiseComponents(Bundle arguments) {
+        SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
         categories = new ArrayList<CategoryObject>();
+        outletName = (TextView) view.findViewById(R.id.home_outlet_name);
+        outletName.setText(sharedPreferences.getOutlet());
         categoryList = (ListView) view.findViewById(R.id.home_list);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

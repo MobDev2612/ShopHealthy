@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.R;
@@ -52,15 +53,19 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                 try {
                     String mobileNumber = sharedPreferences.getPhoneNumber();
                     String addressText = address.getText().toString();
-                    if (addressText.isEmpty()){
-                        ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
-                    }
-                    if(!addressText.isEmpty()) {
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("mobile", mobileNumber);
-                        jsonObject.put("address", addressText);
-                        jsonObject.put("total", Config.cartTotalAmount);
-                        getOrderID(jsonObject);
+                    if(Config.orderId == null) {
+                        if (addressText.isEmpty()) {
+                            ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
+                        }
+                        if (!addressText.isEmpty()) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("mobile", mobileNumber);
+                            jsonObject.put("address", addressText);
+                            jsonObject.put("total", Config.cartTotalAmount);
+                            getOrderID(jsonObject);
+                        }
+                    } else {
+                        sendOrder();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,6 +81,22 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
         try {
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrder/",String.class,jsonObject,
                     this,this);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(volleyRequest, "orderid");
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,13 +110,29 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
             JSONArray jsonArray = new JSONArray();
             for (int i=0;i< Config.addToCart.size();i++){
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("OrderID",orderId);
+                jsonObject.put("OrderID",Config.orderId);
                 jsonObject.put("Product",Config.addToCart.get(i).getProduct_name());
                 jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
                 jsonArray.put(jsonObject);
             }
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrderLine/",String.class,jsonArray,
                     this,this);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
         } catch (Exception e) {
             e.printStackTrace();
