@@ -28,6 +28,7 @@ public class IntroductionActivity extends YouTubeBaseActivity implements YouTube
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = new SharedPreferences(this);
         boolean show = sharedPreferences.getShowYoutubeVideo();
+        Config.loginDone = false;
         if(show) {
             setContentView(R.layout.activity_introduction);
             toolbar = (Toolbar) findViewById(R.id.toolbar);

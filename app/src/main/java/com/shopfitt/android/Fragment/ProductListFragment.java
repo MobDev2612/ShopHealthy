@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -36,11 +37,17 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
     private View view;
     private ListView productList;
     List<ProductObject> productObjects;
+    Context mContext;
 
 
     public ProductListFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +87,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
 
     private void getProducts(String id) {
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?subcatproducts="+id,this, this);
         fetchOutlets.setRetryPolicy(new RetryPolicy() {
             @Override
@@ -103,13 +110,13 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch products", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,mContext);
+        Toast.makeText(mContext, "Unable to fetch products", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false, getActivity());
+        CommonMethods.showProgress(false, mContext);
         parseResponse(jsonArray.toString());
     }
 
@@ -120,13 +127,18 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
             productObjects = Arrays.asList(gson.fromJson(response, ProductObject[].class));
             setList(productObjects);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Error in fetching products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Error in fetching products", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setList(List<ProductObject> outlets){
-        ProductAdapter outletAdapter = new ProductAdapter(getActivity(), R.layout.product_list_item, outlets);
-        productList.setAdapter(outletAdapter);
+        try {
+            ProductAdapter outletAdapter = new ProductAdapter(mContext, R.layout.product_list_item, outlets);
+            productList.setAdapter(outletAdapter);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 

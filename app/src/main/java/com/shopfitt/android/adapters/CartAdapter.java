@@ -77,6 +77,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty())
                     dataList.get(position).setQtyBought(Integer.parseInt(s.toString()));
             }
         });

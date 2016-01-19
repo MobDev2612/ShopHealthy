@@ -20,6 +20,7 @@ public class SharedPreferences {
     public static final String SHARED_PREFERENCES_STORE_PREF = "Key7";
     public static final String SHARED_PREFERENCES_USER_ID = "Key8";
     public static final String SHARED_PREFERENCES_PHONE = "Key9";
+    public static final String SHARED_PREFERENCES_PERFORM_LOGIN = "Key10";
 
     public SharedPreferences(Context context) {
         mContext = context;
@@ -95,5 +96,15 @@ public class SharedPreferences {
     public String getPhoneNumber(){
         return sharedPreferences.getString(SHARED_PREFERENCES_PHONE, "");
     }
+
+    public void performLogin(boolean outlet){
+        editor.putBoolean(SHARED_PREFERENCES_PERFORM_LOGIN, outlet);
+        editor.commit();
+    }
+
+    public boolean performLogin(){
+        return sharedPreferences.getBoolean(SHARED_PREFERENCES_PERFORM_LOGIN, true);
+    }
+
 
 }

@@ -4,6 +4,8 @@ package com.shopfitt.android.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.Activity.LoginActivity;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.OutletAdapter;
@@ -70,17 +73,17 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
         SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
         sharedPreferences.setOutlet(outlet);
 //        String username = sharedPreferences.getLoginID("");
-//        if(username.length()>0) {
-//            Fragment fragment = new HomeFragment();
-//            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.container, fragment);
-//            fragmentTransaction.commit();
-//        } else {
+        if(Config.loginDone) {
+            Fragment fragment = new HomeFragment();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+        } else {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
-//        }
+        }
     }
 
     private void getOutlets(String area) {

@@ -1,7 +1,6 @@
 package com.shopfitt.android.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.shopfitt.android.Activity.HomeActivity;
-import com.shopfitt.android.Activity.RegistrationActivity;
 import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
@@ -95,7 +92,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
                 otp_edt_text_layout.setError(getString(R.string.error_field_required));
             }
         } else if( v == register_button){
-            registerUser();
+//            registerUser(); //TODo
         }
 
     }
@@ -163,7 +160,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         }
         if(requestID == 3){
             SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
-            sharedPreferences.setLoginID(username_text);
+            sharedPreferences.setPhoneNumber(phone_edt_text.getText().toString());
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -6,6 +6,10 @@ package com.shopfitt.android.datamodels;
 public class LoginObject {
     String username;
     String password;
+    String mobile;
+    String Name;
+    String email;
+    String ID;
 
     public String getUsername() {
         return username;
@@ -21,5 +25,37 @@ public class LoginObject {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

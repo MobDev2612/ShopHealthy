@@ -34,4 +34,5 @@ public class Config {
     public static String customerID;
     public static String orderId;
     public static boolean crunchWon;
+    public static boolean loginDone;
 }

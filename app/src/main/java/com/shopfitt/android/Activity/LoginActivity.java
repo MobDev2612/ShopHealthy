@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.CustomProgressDialog;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
@@ -41,45 +41,52 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_login);
+        mEmailView = (EditText) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
+        pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
+
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+        });
+
+        Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
+        registrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         sharedPreferences = new SharedPreferences(this);
         String username = sharedPreferences.getLoginID("");
+        String password = sharedPreferences.getPassword("");
         if(username.length()>0) {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            setContentView(R.layout.activity_login);
-            mEmailView = (EditText) findViewById(R.id.email);
-            mPasswordView = (EditText) findViewById(R.id.password);
-            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                        attemptLogin();
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-            mEmailSignInButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    attemptLogin();
-                }
-            });
-            mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
-            pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
-            Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
-            registrationButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+            mEmailView.setText(username);
+            mPasswordView.setText(password);
+            attemptLogin();
+//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//            finish();
         }
     }
 
@@ -147,7 +154,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             Gson gson = gsonBuilder.create();
             LoginObject loginObject = gson.fromJson(s.get(0).toString(), LoginObject.class);
             if (loginObject.getUsername().equalsIgnoreCase(userName) && loginObject.getPassword().equals(password)) {
-                loginSuccess();
+                loginSuccess(loginObject);
             } else {
                 loginFailure();
             }
@@ -157,9 +164,12 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         }
     }
 
-    private void loginSuccess() {
+    private void loginSuccess(LoginObject loginObject) {
         sharedPreferences.setLoginID(userName);
         sharedPreferences.setPassword(password);
+        sharedPreferences.setCustomerID(loginObject.getID());
+        sharedPreferences.setPhoneNumber(loginObject.getMobile());
+        Config.loginDone = true;
 //        showProgress(false);
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
