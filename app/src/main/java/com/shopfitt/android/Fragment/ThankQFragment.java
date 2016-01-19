@@ -44,6 +44,6 @@ public class ThankQFragment extends Fragment {
                 getActivity().finish();
             }
         };
-        handler.postDelayed(r, 30000);
+        handler.postDelayed(r, 10000);
     }
 }

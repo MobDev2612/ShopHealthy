@@ -78,13 +78,13 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.replace(R.id.container, fragment).addToBackStack("cat");
         fragmentTransaction.commit();
     }
 
     private void getCategories(String id) {
         CommonMethods.showProgress(true,getActivity());
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?subcategory="+id,this, this);
+        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?subcategory="+id,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategoryapi");
     }
 

@@ -6,10 +6,10 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -155,10 +155,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-//                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
-//                linearLayout.setVisibility(View.VISIBLE);
-                register_button.setVisibility(View.VISIBLE);
-                get_otp_button.setVisibility(View.GONE);
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
+                linearLayout.setVisibility(View.VISIBLE);
+//                register_button.setVisibility(View.VISIBLE);
+//                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }
@@ -236,30 +236,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         }
         if(requestID == 3){
-            SharedPreferences sharedPreferences = new SharedPreferences(this);
-            sharedPreferences.setLoginID(username_text);
-            sharedPreferences.setPassword(pwd_text);
-            Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        }
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
+            String result = (String) o;
+            if(result.equalsIgnoreCase("1")) {
+                SharedPreferences sharedPreferences = new SharedPreferences(this);
+                sharedPreferences.setLoginID(username_text);
+                sharedPreferences.setPassword(pwd_text);
+                Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 finish();
-                break;
+            } else if (result.equalsIgnoreCase("0")){
+                Toast.makeText(this,"Something went wrong.. please try later",Toast.LENGTH_LONG).show();
+            }
         }
-        return true;
+
     }
+
 }

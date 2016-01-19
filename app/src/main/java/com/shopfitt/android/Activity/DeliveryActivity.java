@@ -2,6 +2,7 @@ package com.shopfitt.android.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
 import org.json.JSONArray;
@@ -24,7 +26,7 @@ import org.json.JSONObject;
 public class DeliveryActivity extends AppCompatActivity implements  Response.ErrorListener, Response.Listener{
 
     private Button completeOrder;
-    private EditText address,mobile;
+    private EditText address;
     int requestID;
     String orderId;
     @Override
@@ -38,21 +40,28 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
     }
 
     private void initialiseComponents() {
+        final SharedPreferences sharedPreferences = new SharedPreferences(this);
+
         completeOrder = (Button)findViewById(R.id.delivery_order_complete);
         address = (EditText) findViewById(R.id.delivery_address);
-        mobile = (EditText) findViewById(R.id.delivery_phone_number);
+//        mobile = (EditText) findViewById(R.id.delivery_phone_number);
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    String mobileNumber = mobile.getText().toString();
+                    String mobileNumber = sharedPreferences.getPhoneNumber();
                     String addressText = address.getText().toString();
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("mobile", mobileNumber);
-                    jsonObject.put("address", addressText);
-                    jsonObject.put("total", Config.cartTotalAmount);
-                    getOrderID(jsonObject);
+                    if (addressText.isEmpty()){
+                        ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if(!addressText.isEmpty()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("mobile", mobileNumber);
+                        jsonObject.put("address", addressText);
+                        jsonObject.put("total", Config.cartTotalAmount);
+                        getOrderID(jsonObject);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,7 +69,6 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
             }
         });
     }
-
 
     private void getOrderID(JSONObject jsonObject) {
         requestID =1;

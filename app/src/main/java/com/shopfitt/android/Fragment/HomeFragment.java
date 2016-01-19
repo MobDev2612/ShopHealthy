@@ -75,13 +75,13 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.replace(R.id.container, fragment).addToBackStack("cat");
         fragmentTransaction.commit();
     }
 
     private void getCategories() {
         CommonMethods.showProgress(true,getActivity());
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?category=all",this, this);
+        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?category=all",this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "categoryapi");
     }
 

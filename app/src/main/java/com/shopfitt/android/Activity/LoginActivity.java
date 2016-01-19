@@ -19,8 +19,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
-import com.shopfitt.android.Utils.CustomProgressDialog;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.LoginObject;
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         if (cancel) {
             focusView.requestFocus();
         } else {
-            showProgress(true);
+            CommonMethods.showProgress(true, this);
             performLogin(userName);
         }
     }
@@ -125,30 +125,31 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     /**
      * Shows the progress UI and hides the login form.
      */
-    private void showProgress(final boolean show) {
-        CustomProgressDialog customProgressDialog = CustomProgressDialog.getInstance();
-        if (show) {
-            customProgressDialog.showProgress("Logging in", this);
-        } else {
-            customProgressDialog.dismissProgress();
-        }
-    }
+//    private void showProgress(final boolean show) {
+//        CustomProgressDialog customProgressDialog = CustomProgressDialog.getInstance();
+//        if (show) {
+//            customProgressDialog.showProgress("Logging in", this);
+//        } else {
+//            customProgressDialog.dismissProgress();
+//        }
+//    }
 
     private void performLogin(String userName) {
         JsonArrayRequest performLogin = new JsonArrayRequest(
-                "http://json.wiing.org/Details.aspx?username=" + userName,
+                "http://json.shopfitt.in/Details.aspx?username=" + userName,
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(performLogin, "loginapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+        CommonMethods.showProgress(false,this);
         Toast.makeText(this, "Unable to login..please try later", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onResponse(JSONArray s) {
-        showProgress(false);
+        CommonMethods.showProgress(false, this);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();

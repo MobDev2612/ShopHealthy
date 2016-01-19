@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
@@ -45,8 +46,12 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void showDelivery() {
-        Intent intent = new Intent(this,DeliveryActivity.class);
-        startActivity(intent);
+        if(!Config.addToCart.isEmpty()) {
+            Intent intent = new Intent(this, DeliveryActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this,"Add items to cart",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

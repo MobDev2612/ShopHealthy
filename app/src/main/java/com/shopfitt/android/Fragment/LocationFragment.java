@@ -98,13 +98,13 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.replace(R.id.container, fragment).addToBackStack("loc");
         fragmentTransaction.commit();
     }
 
     private void getLocations() {
         CommonMethods.showProgress(true,getActivity());
-        JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.wiing.org/Details.aspx?area=all",
+        JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?area=all",
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }

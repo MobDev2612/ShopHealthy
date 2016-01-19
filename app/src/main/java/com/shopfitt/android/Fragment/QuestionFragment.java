@@ -100,7 +100,6 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     }
 
 
-
     private void getFitCartStatus(String id) {
         requestId = 1;
         CommonMethods.showProgress(true, getActivity());
@@ -108,6 +107,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
+
     private void setFitCartNo(String id) {
         if (questionAnswered == 0) {
             requestId = 2;
@@ -140,6 +140,13 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         CommonMethods.showProgress(false, getActivity());
         if (requestId == 2) {
             questionAnswered = 1;
+            if(s.equalsIgnoreCase("1")) {
+                fitYes.setEnabled(false);
+                fitNo.setEnabled(false);
+            } else if (s.equalsIgnoreCase("0")){
+                Toast.makeText(getActivity(), "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
+            }
+
         }
         if (requestId == 1) {
             if (s.equalsIgnoreCase("1")) {

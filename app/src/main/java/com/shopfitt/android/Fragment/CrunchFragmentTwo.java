@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 
+import java.util.Random;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,6 +47,7 @@ public class CrunchFragmentTwo extends Fragment {
                 "If it was easy, it wouldn’t be worth doing it.","If you think you can or you can’t, you’ll be right both the times.","No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
         textView= (TextView) view.findViewById(R.id.crunch_message);
+        textView.setText(message[randInt(1,10)]);
         if (Config.crunchWon){
             textView.setVisibility(View.GONE);
         }else {
@@ -67,6 +70,12 @@ public class CrunchFragmentTwo extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
+    }
+
+    public static int randInt(int min, int max) {
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 
 }

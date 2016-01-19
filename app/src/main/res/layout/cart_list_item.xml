@@ -71,6 +71,7 @@
 
         <ImageButton
             android:id="@+id/list_item_remove"
+            android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close_rey_circle"
             android:layout_width="wrap_content"

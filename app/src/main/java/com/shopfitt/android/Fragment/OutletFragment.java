@@ -72,7 +72,6 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     private void goToMenu(String outlet) {
         SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
         sharedPreferences.setOutlet(outlet);
-//        String username = sharedPreferences.getLoginID("");
         if(Config.loginDone) {
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -88,7 +87,7 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
 
     private void getOutlets(String area) {
         CommonMethods.showProgress(true,getActivity());
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?store="+area,this, this);
+        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?store="+area,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outletapi");
     }
 

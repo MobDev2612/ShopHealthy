@@ -88,7 +88,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
     private void getProducts(String id) {
         CommonMethods.showProgress(true,mContext);
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.wiing.org/Details.aspx?subcatproducts="+id,this, this);
+        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?subcatproducts="+id,this, this);
         fetchOutlets.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {

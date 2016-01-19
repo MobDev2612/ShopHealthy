@@ -63,10 +63,14 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharedPreferences.getCustomerId().length()>0) {
-                    showThankyou();
+                if(!editText.getText().toString().isEmpty()) {
+                    if (sharedPreferences.getCustomerId().length() > 0) {
+                        showThankyou();
+                    } else {
+                        getCustomerId();
+                    }
                 } else {
-                    getCustomerId();
+                    editText.setError(getResources().getString(R.string.error_field_required));
                 }
             }
         });
@@ -90,7 +94,6 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     @Override
     public void onResponse(String s) {
         CommonMethods.showProgress(false, getActivity());
-
         sharedPreferences.setCustomerID(s);
         Config.customerID = s;
         showThankyou();

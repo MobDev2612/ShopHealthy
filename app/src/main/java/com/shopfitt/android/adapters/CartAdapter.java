@@ -3,21 +3,19 @@ package com.shopfitt.android.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
@@ -41,7 +39,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
     public class ViewHolder {
         public ImageView mImageView;
         public TextView mName, mPrice;
-        public ImageButton cartRemoveButton;
+//        public ImageButton cartRemoveButton;
         public EditText editText;
     }
 
@@ -55,7 +53,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.mName = (TextView) convertView.findViewById(R.id.list_item_text1);
             viewHolder.mPrice = (TextView) convertView.findViewById(R.id.list_item_text2);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.list_item_image);
-            viewHolder.cartRemoveButton = (ImageButton) convertView.findViewById(R.id.list_item_remove);
+//            viewHolder.cartRemoveButton = (ImageButton) convertView.findViewById(R.id.list_item_remove);
             viewHolder.editText = (EditText) convertView.findViewById(R.id.list_item_qty);
             convertView.setTag(viewHolder);
         } else {
@@ -64,30 +62,44 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
         viewHolder.mPrice.setText(dataList.get(position).getMrp() + "");
         viewHolder.editText.setText(dataList.get(position).getQtyBought() + "");
-        viewHolder.editText.addTextChangedListener(new TextWatcher() {
+        viewHolder.editText.setId(position);
+//        viewHolder.editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(!s.toString().isEmpty())
+//                    dataList.get(position).setQtyBought(Integer.parseInt(s.toString()));
+//            }
+//        });
+        viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(!s.toString().isEmpty())
-                    dataList.get(position).setQtyBought(Integer.parseInt(s.toString()));
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    final int pos = v.getId();
+                    final EditText Qty = (EditText) v;
+                    if(!Qty.getText().toString().isEmpty()) {
+                        dataList.get(pos).setQtyBought(Integer.parseInt(Qty.getText().toString()));
+                        Config.addToCart.get(pos).setQtyBought(Integer.parseInt(Qty.getText().toString()));
+                    }
+                }
             }
         });
-        viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataList.remove(position);
-                notifyDataSetInvalidated();
-            }
-        });
+//        viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dataList.remove(position);
+//                notifyDataSetChanged();
+//            }
+//        });
 
         loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
         return convertView;
