@@ -136,7 +136,11 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
         }
         if (requestId == 2) {
             String response = (String) o;
-            Config.crunchWon = Config.customerID.equalsIgnoreCase(response);
+            if(response.equalsIgnoreCase("1")) {
+                Config.crunchWon =true;
+            } else if (response.equalsIgnoreCase("0")){
+                Config.crunchWon =false;
+            }
             showThankyou();
         }
     }

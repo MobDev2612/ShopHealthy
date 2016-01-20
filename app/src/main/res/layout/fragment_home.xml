@@ -6,17 +6,21 @@
     tools:context="com.shopfitt.android.Fragment.HomeFragment">
 
     <TextView
-        style="@style/BlackText"
         android:id="@+id/customer_rank"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:lines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_medium" />
 
     <TextView
         android:id="@+id/home_outlet_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:background="@color/colorPrimary"
+        android:gravity="center"
         android:lines="2"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_medium" />

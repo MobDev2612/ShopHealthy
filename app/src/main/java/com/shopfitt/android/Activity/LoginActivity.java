@@ -168,6 +168,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private void loginSuccess(LoginObject loginObject) {
         sharedPreferences.setLoginID(userName);
         sharedPreferences.setPassword(password);
+        Config.customerID = loginObject.getID();
         sharedPreferences.setCustomerID(loginObject.getID());
         sharedPreferences.setPhoneNumber(loginObject.getMobile());
         Config.loginDone = true;

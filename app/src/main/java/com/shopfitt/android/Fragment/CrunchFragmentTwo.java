@@ -49,7 +49,7 @@ public class CrunchFragmentTwo extends Fragment {
         textView= (TextView) view.findViewById(R.id.crunch_message);
         textView.setText(message[randInt(1,10)]);
         if (Config.crunchWon){
-            textView.setVisibility(View.GONE);
+            textView.setText("Winner's Gyan , You got 30 sec");
         }else {
             editText.setVisibility(View.GONE);
         }
@@ -58,10 +58,18 @@ public class CrunchFragmentTwo extends Fragment {
         {
             public void run()
             {
-                showThankyou();
+                redirect();
             }
         };
-        handler.postDelayed(r, 30000);
+        handler.postDelayed(r, 10000);
+    }
+
+    private void redirect(){
+        if(!Config.crunchWon){
+            showThankyou();
+        } else {
+
+        }
     }
 
     private void showThankyou() {
