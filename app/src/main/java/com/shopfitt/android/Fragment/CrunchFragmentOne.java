@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +39,13 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     int requestId=0;
     List<String> list;
     private ImageButton imageButton1,imageButton2,imageButton3,imageButton4;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
 
     public CrunchFragmentOne() {
@@ -69,18 +77,11 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
         imageButton2.setOnClickListener(this);
         imageButton3.setOnClickListener(this);
         imageButton4.setOnClickListener(this);
-//        listView = (ListView) view.findViewById(R.id.crunch_options_layout);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                doCrunchMatch(list.get(position));
-//            }
-//        });
     }
 
     private void getOptions() {
         requestId = 1;
-        CommonMethods.showProgress(true, getActivity());
+        CommonMethods.showProgress(true, mContext);
         StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getCustomertoCompare/" + Config.customerID,
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -88,9 +89,10 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
 
     private void doCrunchMatch(String comparercustid) {
         requestId =2;
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JSONObject jsonObject = new JSONObject();
         try {
+            Config.comparerID = comparercustid;
             jsonObject.put("comparercustid", comparercustid);
             jsonObject.put("corderID", "");
             jsonObject.put("orderID", Config.orderId);
@@ -121,13 +123,13 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false, getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch details", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false, mContext);
+        Toast.makeText(mContext, "Unable to fetch details", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(Object o) {
-        CommonMethods.showProgress(false, getActivity());
+        CommonMethods.showProgress(false, mContext);
         if (requestId == 1) {
             String response = (String) o;
             String[] items = response.replaceAll("\\[", "").replaceAll("\\]", "").split(",");

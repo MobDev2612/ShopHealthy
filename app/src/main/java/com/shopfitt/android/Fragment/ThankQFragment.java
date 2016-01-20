@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,13 @@ import com.shopfitt.android.R;
  */
 public class ThankQFragment extends Fragment {
 
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public ThankQFragment() {
         // Required empty public constructor
@@ -38,7 +46,7 @@ public class ThankQFragment extends Fragment {
         {
             public void run()
             {
-                Intent intent = new Intent(getActivity(),HomeActivity.class);
+                Intent intent = new Intent(mContext,HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();

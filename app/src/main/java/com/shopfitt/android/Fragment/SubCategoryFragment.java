@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,6 +37,13 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
     private View view;
     private ListView subCategoryList;
     List<SubCategoryObject> subcategories;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
 
     public SubCategoryFragment() {
@@ -83,32 +91,32 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
     }
 
     private void getCategories(String id) {
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?subcategory="+id,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategoryapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch Sub categories", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,mContext);
+        Toast.makeText(mContext, "Unable to fetch Sub categories", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false,getActivity());
+        CommonMethods.showProgress(false,mContext);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             subcategories = Arrays.asList(gson.fromJson(jsonArray.toString(), SubCategoryObject[].class));
             setList(subcategories);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Error in fetching sub categories", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Error in fetching sub categories", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setList(List<SubCategoryObject> outlets){
-        SubCategoryAdapter outletAdapter = new SubCategoryAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
+        SubCategoryAdapter outletAdapter = new SubCategoryAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         subCategoryList.setAdapter(outletAdapter);
     }
 

@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,6 +32,13 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     private EditText editText;
     private Button submit;
     SharedPreferences sharedPreferences;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
     public DeliveryDateFragment() {
         // Required empty public constructor
     }
@@ -51,12 +59,12 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     }
 
     private void initialiseComponents() {
-        sharedPreferences = new SharedPreferences(getActivity());
+        sharedPreferences = new SharedPreferences(mContext);
         editText = (EditText) view.findViewById(R.id.delivery_date);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomDatePicker.openDatePicker(getFragmentManager(), editText,getContext());
+                CustomDatePicker.openDatePicker(getFragmentManager(), editText,mContext);
             }
         });
         submit = (Button) view.findViewById(R.id.delivery_date_submit);
@@ -77,9 +85,9 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     }
 
     private void getCustomerId() {
-        SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
+        SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         String userName = sharedPreferences.getLoginID("");
-        CommonMethods.showProgress(true, getActivity());
+        CommonMethods.showProgress(true, mContext);
         StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getCustomerID/" + userName,
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -87,13 +95,13 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false, getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch details", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false, mContext);
+        Toast.makeText(mContext, "Unable to fetch details", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(String s) {
-        CommonMethods.showProgress(false, getActivity());
+        CommonMethods.showProgress(false, mContext);
         sharedPreferences.setCustomerID(s);
         Config.customerID = s;
         showThankyou();

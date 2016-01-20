@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,13 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
 
     private View view;
     private ListView outletList;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public OutletFragment() {
     }
@@ -70,7 +78,7 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     }
 
     private void goToMenu(String outlet) {
-        SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
+        SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         sharedPreferences.setOutlet(outlet);
         if(Config.loginDone) {
             Fragment fragment = new HomeFragment();
@@ -79,40 +87,40 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
         } else {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            Intent intent = new Intent(mContext, LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
         }
     }
 
     private void getOutlets(String area) {
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?store="+area,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outletapi");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch categories", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,mContext);
+        Toast.makeText(mContext, "Unable to fetch categories", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
         try {
-            CommonMethods.showProgress(false, getActivity());
+            CommonMethods.showProgress(false, mContext);
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             List<OutletObject> posts = new ArrayList<OutletObject>();
             posts = Arrays.asList(gson.fromJson(jsonArray.toString(), OutletObject[].class));
             setList(posts);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void setList(List<OutletObject> outlets){
-        OutletAdapter outletAdapter = new OutletAdapter(getActivity(), android.R.layout.simple_list_item_1, outlets);
+        OutletAdapter outletAdapter = new OutletAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         outletList.setAdapter(outletAdapter);
     }
 

@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,20 +12,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Shopfitt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CrunchFragmentTwo extends Fragment {
+public class CrunchFragmentTwo extends Fragment implements Response.ErrorListener, Response.Listener {
 
     private View view;
     private EditText editText;
     private TextView textView;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public CrunchFragmentTwo() {
         // Required empty public constructor
@@ -42,33 +61,67 @@ public class CrunchFragmentTwo extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String[] message = new String[] {"There is always a Next time.","Secret to getting ahead is to get started.","A legend in anything, was once a beginner.","It always seems impossible until it is done.",
-                "Success is, going from failure to failure without loss of enthusiasm.","Never Give up","Improvise,Adapt,Overcome !","Anybody can dance if they find the music they love.",
-                "If it was easy, it wouldn’t be worth doing it.","If you think you can or you can’t, you’ll be right both the times.","No one’s perfect, that’s why pencils have erasers."};
+        String[] message = new String[]{"There is always a Next time.", "Secret to getting ahead is to get started.", "A legend in anything, was once a beginner.", "It always seems impossible until it is done.",
+                "Success is, going from failure to failure without loss of enthusiasm.", "Never Give up", "Improvise,Adapt,Overcome !", "Anybody can dance if they find the music they love.",
+                "If it was easy, it wouldn’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
-        textView= (TextView) view.findViewById(R.id.crunch_message);
-        textView.setText(message[randInt(1,10)]);
-        if (Config.crunchWon){
+        textView = (TextView) view.findViewById(R.id.crunch_message);
+        textView.setText(message[randInt(1, 10)]);
+        if (Config.crunchWon) {
             textView.setText("Winner's Gyan , You got 30 sec");
-        }else {
+        } else {
             editText.setVisibility(View.GONE);
         }
         final Handler handler = new Handler();
-        final Runnable r = new Runnable()
-        {
-            public void run()
-            {
+        final Runnable r = new Runnable() {
+            public void run() {
                 redirect();
             }
         };
-        handler.postDelayed(r, 10000);
+        int time;
+        if (Config.crunchWon){
+            time = 30000;
+        } else {
+            time = 10000;
+        }
+        handler.postDelayed(r, time);
     }
 
-    private void redirect(){
-        if(!Config.crunchWon){
+    private void redirect() {
+        if (!Config.crunchWon) {
             showThankyou();
         } else {
+            postMessage();
+        }
+    }
 
+    private void postMessage() {
+        CommonMethods.showProgress(true, mContext);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("comparerid", Config.comparerID);
+            jsonObject.put("message", editText.getText().toString() + "");
+            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
+                    this, this);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -86,4 +139,14 @@ public class CrunchFragmentTwo extends Fragment {
         return randomNum;
     }
 
+    @Override
+    public void onErrorResponse(VolleyError volleyError) {
+        Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_LONG).show();
+        showThankyou();
+    }
+
+    @Override
+    public void onResponse(Object o) {
+        showThankyou();
+    }
 }

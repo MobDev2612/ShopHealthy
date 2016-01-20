@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,14 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     private int questionAnswered = 0;
     private TextView fitCartQuestion;
     private int requestId;
+    private Context mContext;
+    LinearLayout crunchQuestion;
+    boolean fitCartAccess;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -52,6 +62,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     }
 
     private void initialiseComponents() {
+        crunchQuestion = (LinearLayout) view.findViewById(R.id.crunch_match_question);
         fitCartQuestion = (TextView) view.findViewById(R.id.question_fit_cart);
         fitYes = (Button) view.findViewById(R.id.question_fit_cart_yes);
         fitYes.setOnClickListener(new View.OnClickListener() {
@@ -102,16 +113,17 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     private void getFitCartStatus(String id) {
         requestId = 1;
-        CommonMethods.showProgress(true, getActivity());
+        CommonMethods.showProgress(true, mContext);
         StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkFitCart/" + id,
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
 
     private void setFitCartNo(String id) {
+        fitCartAccess = false;
         if (questionAnswered == 0) {
             requestId = 2;
-            CommonMethods.showProgress(true, getActivity());
+            CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
                     this, this);
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -120,9 +132,10 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
 
     private void setFitCartYes(String id) {
+        fitCartAccess = true;
         if (questionAnswered == 0) {
             requestId = 2;
-            CommonMethods.showProgress(true, getActivity());
+            CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
                     this, this);
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -131,28 +144,33 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false, getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch details", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false, mContext);
+        Toast.makeText(mContext, "Unable to fetch details", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(String s) {
-        CommonMethods.showProgress(false, getActivity());
-        if (requestId == 2) {
-            questionAnswered = 1;
-            if(s.equalsIgnoreCase("1")) {
-                fitYes.setEnabled(false);
-                fitNo.setEnabled(false);
-            } else if (s.equalsIgnoreCase("0")){
-                Toast.makeText(getActivity(), "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
-            }
-
-        }
+        CommonMethods.showProgress(false, mContext);
         if (requestId == 1) {
             if (s.equalsIgnoreCase("1")) {
                 fitCartQuestion.setVisibility(View.GONE);
                 fitYes.setVisibility(View.GONE);
                 fitNo.setVisibility(View.GONE);
+                crunchQuestion.setVisibility(View.VISIBLE);
+                fitCartAccess = true;
+            }
+        }
+        if (requestId == 2) {
+            questionAnswered = 1;
+            if(s.equalsIgnoreCase("1")) {
+                fitCartQuestion.setVisibility(View.GONE);
+                fitYes.setVisibility(View.GONE);
+                fitNo.setVisibility(View.GONE);
+                if(fitCartAccess) {
+                    crunchQuestion.setVisibility(View.VISIBLE);
+                }
+            } else if (s.equalsIgnoreCase("0")){
+                Toast.makeText(mContext, "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
             }
         }
     }

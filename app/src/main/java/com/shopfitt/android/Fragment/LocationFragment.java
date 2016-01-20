@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +41,13 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     private View view;
     private ListView areaList;
     private LocationAdapter locationAdapter;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public LocationFragment() {
     }
@@ -90,7 +98,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     }
 
     private void showOutlets(String areaName) {
-        SharedPreferences sharedPreferences = new SharedPreferences(getActivity());
+        SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         sharedPreferences.setLocation(areaName);
         Bundle bundle = new Bundle();
         bundle.putString("area",areaName);
@@ -103,7 +111,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     }
 
     private void getLocations() {
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?area=all",
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -111,13 +119,13 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,getActivity());
-        Toast.makeText(getActivity(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false,mContext);
+        Toast.makeText(mContext, "Unable to fetch location", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false,getActivity());
+        CommonMethods.showProgress(false,mContext);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -125,13 +133,13 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
             posts =  new LinkedList<LocationObject>(Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class)));
             setList(posts);
         }catch (Exception e){
-            Toast.makeText(getActivity(), "Error in fetching location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Error in fetching location", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void setList(List<LocationObject> areas) {
-        locationAdapter = new LocationAdapter(getActivity(), android.R.layout.simple_list_item_1, areas);
+        locationAdapter = new LocationAdapter(mContext, android.R.layout.simple_list_item_1, areas);
         areaList.setAdapter(locationAdapter);
     }
 }

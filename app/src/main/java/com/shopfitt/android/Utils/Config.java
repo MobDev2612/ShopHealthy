@@ -1,5 +1,6 @@
 package com.shopfitt.android.Utils;
 
+import com.shopfitt.android.datamodels.CustomerRank;
 import com.shopfitt.android.datamodels.ProductObject;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class Config {
     public static int cartTotalAmount;
     public static String customerID;
     public static String orderId;
+    public static String comparerID;
+    public static CustomerRank customerRank;
     public static boolean crunchWon;
     public static boolean loginDone;
 }

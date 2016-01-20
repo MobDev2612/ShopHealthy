@@ -15,13 +15,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
+import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Shopfitt;
+import com.shopfitt.android.datamodels.CustomerRank;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Response.ErrorListener, Response.Listener<CustomerRank> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,13 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFragments(R.id.nav_home);
+        getCustomerRank();
+    }
+
+    private void getCustomerRank() {
+        VolleyRequest<CustomerRank> volleyRequest = new VolleyRequest<CustomerRank>(Request.Method.GET, "http://23.91.69.85:61090/ProductService.svc/getCustomerRank/" + Config.customerID,
+                CustomerRank.class,null, this, this);
+        Shopfitt.getInstance().addToRequestQueue(volleyRequest, "locationapi");
     }
 
     @Override
@@ -86,7 +100,7 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    private void changeFragments(int id){
+    private void changeFragments(int id) {
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = new HomeFragment();
@@ -108,5 +122,15 @@ public class HomeActivity extends AppCompatActivity
         } else {
             Toast.makeText(this, "Not Available", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError volleyError) {
+        Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(CustomerRank customerRank) {
+        Config.customerRank = customerRank;
     }
 }

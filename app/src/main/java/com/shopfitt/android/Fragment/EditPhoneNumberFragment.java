@@ -1,6 +1,7 @@
 package com.shopfitt.android.Fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +38,13 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     private EditText phone_edt_text,otp_edt_text;
     TextInputLayout phone_edt_text_layout,otp_edt_text_layout;
     SharedPreferences sharedPreferences;
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     public EditPhoneNumberFragment() {
         // Required empty public constructor
@@ -55,7 +62,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        sharedPreferences = new SharedPreferences(getActivity());
+        sharedPreferences = new SharedPreferences(mContext);
         initialiseComponents();
     }
 
@@ -81,10 +88,10 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
-                linearLayout.setVisibility(View.VISIBLE);
-//                register_button.setVisibility(View.VISIBLE);
-//                get_otp_button.setVisibility(View.GONE);
+//                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
+//                linearLayout.setVisibility(View.VISIBLE);
+                register_button.setVisibility(View.VISIBLE);
+                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }
@@ -111,7 +118,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
     private void verifyOTP(String number, String otp) {
         requestID =2;
-        CommonMethods.showProgress(true, getActivity());
+        CommonMethods.showProgress(true, mContext);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", number);
@@ -142,7 +149,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
     private void requestOTP(String number) {
         requestID =1;
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", number);
@@ -156,7 +163,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
     private void saveNumber(JSONObject jsonObject) {
         requestID =3;
-        CommonMethods.showProgress(true,getActivity());
+        CommonMethods.showProgress(true,mContext);
         try {
             VolleyRequest<JSONObject> request = new VolleyRequest<JSONObject>(Request.Method.POST," http://23.91.69.85:61090/ProductService.svc/updateMobileNumber/",JSONObject.class,null,
                     this,this,jsonObject);
@@ -168,15 +175,15 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false, getActivity());
+        CommonMethods.showProgress(false, mContext);
         if(requestID != 1) {
-            Toast.makeText(getActivity(), "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onResponse(Object o) {
-        CommonMethods.showProgress(false,getActivity());
+        CommonMethods.showProgress(false,mContext);
         if(requestID == 2){
             String result = (String) o;
             if(result.equalsIgnoreCase("1")) {
@@ -195,7 +202,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.commit();
             } else if (result.equalsIgnoreCase("0")){
-                Toast.makeText(getActivity(), "Something went wrong.. please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Something went wrong.. please try again", Toast.LENGTH_SHORT).show();
             }
 
         }
