@@ -53,7 +53,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                 try {
                     String mobileNumber = sharedPreferences.getPhoneNumber();
                     String addressText = address.getText().toString();
-                    if(Config.orderId == null) {
+//                    if(Config.orderId == null) {
                         if (addressText.isEmpty()) {
                             ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
                         }
@@ -64,9 +64,9 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                             jsonObject.put("total", Config.cartTotalAmount);
                             getOrderID(jsonObject);
                         }
-                    } else {
-                        sendOrder();
-                    }
+//                    } else {
+//                        sendOrder();
+//                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
