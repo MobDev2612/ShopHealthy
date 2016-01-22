@@ -1,25 +1,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.shopfitt.android.Fragment.DeliveryDateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:layout_marginTop="30dp"
-        android:id="@+id/delivery_date"
-        android:hint="Delivey Time"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_centerInParent="true"
+            android:max="500"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular" />
+
+        <TextView
+            android:id="@+id/tvTimeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="00:00"
+            android:textColor="@color/colorPrimary"
+            android:textSize="60dp" />
+
+    </RelativeLayout>
 
     <Button
-        android:layout_marginTop="20dp"
-        style="@style/OrangeButton"
-        android:text="Submit"
         android:id="@+id/delivery_date_submit"
+        style="@style/OrangeButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Next" />
 
 </LinearLayout>

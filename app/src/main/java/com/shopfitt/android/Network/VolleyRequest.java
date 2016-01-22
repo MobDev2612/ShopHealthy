@@ -122,7 +122,7 @@ public class VolleyRequest<T> extends Request<T> {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
             Log.e("Response",json);
-            if (isJSONValid(json)) {
+//            if (isJSONValid(json)) {
                 if (json.length() > 1) {
                     return Response.success(
                             gson.fromJson(json, clazz), HttpHeaderParser.parseCacheHeaders(response));
@@ -130,9 +130,9 @@ public class VolleyRequest<T> extends Request<T> {
                     this.resCodeStr = json;
                     return (Response<T>) Response.success(clazz, HttpHeaderParser.parseCacheHeaders(response));
                 }
-            } else {
-                throw new JsonSyntaxException("Object cannot be casted");
-            }
+//            } else {
+//                throw new JsonSyntaxException("Object cannot be casted");
+//            }
         } catch (UnsupportedEncodingException e) {
             Log.e(TAG, e.getMessage(), e);
             return Response.error(new ParseError(e));

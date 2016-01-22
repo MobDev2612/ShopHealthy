@@ -43,51 +43,48 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
-        mEmailView = (EditText) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
-        pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
-
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
-        registrationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-//                finish();
-            }
-        });
-
         sharedPreferences = new SharedPreferences(this);
         String username = sharedPreferences.getLoginID("");
-        String password = sharedPreferences.getPassword("");
+        Config.customerID = sharedPreferences.getCustomerId();
+        Config.loginDone = true;
         if(username.length()>0) {
-            mEmailView.setText(username);
-            mPasswordView.setText(password);
-            attemptLogin();
-//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            setContentView(R.layout.activity_login);
+            mEmailView = (EditText) findViewById(R.id.email);
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+            mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
+            mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
+            pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
+            Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
+            registrationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                    startActivity(intent);
+//                    finish();
+                }
+
+            });
         }
     }
 

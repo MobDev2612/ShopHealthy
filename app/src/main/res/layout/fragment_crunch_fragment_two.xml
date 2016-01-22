@@ -7,13 +7,15 @@
     tools:context="com.shopfitt.android.Activity.CrunchFragmentTwo">
 
     <TextView
+        android:layout_marginTop="30dp"
         android:id="@+id/crunch_message"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="hi" />
 
     <EditText
+        android:layout_marginTop="30dp"
         android:maxLength="20"
         android:id="@+id/crunch_message_input"
         android:layout_width="match_parent"

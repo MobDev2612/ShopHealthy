@@ -3,6 +3,7 @@ package com.shopfitt.android.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -170,10 +171,18 @@ public class CrunchathonTableFragment extends Fragment {
     }
 
     private void showThankyou() {
-        Fragment fragment = new CrunchFragmentTwo();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.commit();
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable()
+        {
+            public void run()
+            {
+                Fragment fragment = new CrunchFragmentTwo();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
+            }
+        };
+        handler.postDelayed(r, 15000);
     }
 }

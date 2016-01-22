@@ -31,7 +31,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     private View view;
     private Button fitYes, fitNo, crunchYes, crunchNo;
-    private int questionAnswered = 0;
+//    private int questionAnswered = 0;
     private TextView fitCartQuestion;
     private int requestId;
     private Context mContext;
@@ -139,7 +139,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     private void setFitCartNo(String id) {
         fitCartAccess = false;
-        if (questionAnswered == 0) {
+//        if (questionAnswered == 0) {
             requestId = 2;
             CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
@@ -161,13 +161,13 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 }
             });
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
-        }
+//        }
     }
 
 
     private void setFitCartYes(String id) {
         fitCartAccess = true;
-        if (questionAnswered == 0) {
+//        if (questionAnswered == 0) {
             requestId = 2;
             CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
@@ -189,7 +189,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 }
             });
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
-        }
+//        }
     }
 
     @Override
@@ -202,24 +202,28 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     public void onResponse(String s) {
         CommonMethods.showProgress(false, mContext);
         if (requestId == 1) {
-            if (s.equalsIgnoreCase("1")) {
+            if (s.contains("1")) {
                 fitCartQuestion.setVisibility(View.GONE);
                 fitYes.setVisibility(View.GONE);
                 fitNo.setVisibility(View.GONE);
                 crunchQuestion.setVisibility(View.VISIBLE);
                 fitCartAccess = true;
+            } else if (s.contains("0")) {
+                showThankyou();
             }
         }
         if (requestId == 2) {
-            questionAnswered = 1;
-            if(s.equalsIgnoreCase("1")) {
+//            questionAnswered = 1;
+            if(s.contains("1")) {
                 fitCartQuestion.setVisibility(View.GONE);
                 fitYes.setVisibility(View.GONE);
                 fitNo.setVisibility(View.GONE);
                 if(fitCartAccess) {
                     crunchQuestion.setVisibility(View.VISIBLE);
+                }  else {
+                    showThankyou();
                 }
-            } else if (s.equalsIgnoreCase("0")){
+            } else if (s.contains("0")){
                 Toast.makeText(mContext, "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
             }
         }

@@ -15,7 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.shopfitt.android.Network.CustomVolleyRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
@@ -31,6 +31,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
     private EditText address;
     int requestID;
     String orderId;
+    boolean executed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("mobile", mobileNumber);
                         jsonObject.put("address", addressText);
-                        jsonObject.put("total", Config.cartTotalAmount);
+                        jsonObject.put("total", Config.addToCart.size() + "");
                         getOrderID(jsonObject);
                     }
 //                    } else {
@@ -80,8 +81,8 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
         requestID =1;
         CommonMethods.showProgress(true, this);
         try {
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrder/",String.class,jsonObject,
-                    this,this);
+            VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrder/",String.class,null,
+                    this,this,jsonObject);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
@@ -155,9 +156,8 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                 String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/"+Config.orderId+"/"+Config.addToCart.get(i).getProduct_name()
                         +"/"+Config.addToCart.get(i).getQtyBought()+"/";
                 url = url.replace(" ", "%20");
-                VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.GET,
+                StringRequest volleyRequest = new StringRequest(Request.Method.GET,
                         url,
-                        String.class,null,
                         this, this);
                 volleyRequest.setRetryPolicy(new RetryPolicy() {
                     @Override
@@ -197,13 +197,23 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
     public void onResponse(Object o) {
         if(requestID == 1){
             CommonMethods.showProgress(false,this);
-            String result = (String) o;
-            orderId = result;
-            Config.orderId = result;
-            Log.e("OrderId",result);
-            sendOrder();
+            String result ="0" ;
+            if(o instanceof String){
+               result = (String) o;
+            } else if (o instanceof Integer){
+                result = String.valueOf(o);
+            }
+            if(result.equalsIgnoreCase("0")){
+                Toast.makeText(this,"Unable to get order ID",Toast.LENGTH_SHORT).show();
+            } else {
+                orderId = result;
+                Config.orderId = result;
+                Log.e("OrderId", result);
+                sendOrder();
+            }
         }
-        if(requestID == 10){
+        if(requestID == 10 && !executed){
+            executed = true;
             Toast.makeText(this,"Thanks for order",Toast.LENGTH_LONG).show();
             Config.addToCart.clear();
             Intent intent = new Intent(this,CrunchActivity.class);
