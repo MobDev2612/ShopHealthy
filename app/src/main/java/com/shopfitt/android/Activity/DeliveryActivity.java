@@ -63,7 +63,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("mobile", mobileNumber);
                         jsonObject.put("address", addressText);
-                        jsonObject.put("total", Config.addToCart.size() + "");
+                        jsonObject.put("total", Config.cartTotalAmount + "");
                         getOrderID(jsonObject);
                     }
 //                    } else {

@@ -70,7 +70,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
         textViewShowTime = (TextView) view.findViewById(R.id.tvTimeCount);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         submit = (Button) view.findViewById(R.id.delivery_date_submit);
-        totalTimeCountInMilliseconds = 60 * 60 * 1000;
+        totalTimeCountInMilliseconds = 60 * 120 * 1000;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,11 +2,13 @@ package com.shopfitt.android.Fragment;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,14 +161,26 @@ public class CrunchathonTableFragment extends Fragment {
                 if (diff > 3.0 && diff <= 5.0) {
                     message = "You Win! Awesomeness! 50 CRUNCHES WON";
                 }
-                if (diff < 3.0) {
+                if (diff > 5.0) {
                     message = "You Win! Sublime! 50 CRUNCHES WON";
                 }
-                Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(mContext)
+                        .setTitle(getResources().getString(R.string.app_name))
+                        .setMessage(message)
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                showThankyou();
+                            }
+                        })
+                        .show();
             } else {
                 Config.crunchWon = false;
+                showThankyou();
             }
-            showThankyou();
+//            showThankyou();
         }
     }
 
