@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -181,6 +182,13 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private void loginFailure() {
         pwdInputLayout.setError(getString(R.string.error_incorrect_password));
         mPasswordView.requestFocus();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false, this);
+        super.onStop();
     }
 }
 

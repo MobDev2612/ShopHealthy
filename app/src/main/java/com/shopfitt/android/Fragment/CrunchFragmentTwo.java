@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +100,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
         CommonMethods.showProgress(true, mContext);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("comparerid", Config.comparerID);
+            jsonObject.put("comparerid", Config.comparerID.replaceAll("\"",""));
             jsonObject.put("message", editText.getText().toString() + "");
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
                     this, this);
@@ -148,5 +149,12 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     @Override
     public void onResponse(Object o) {
         showThankyou();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }

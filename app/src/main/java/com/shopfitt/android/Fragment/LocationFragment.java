@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     }
 
     private void getLocations() {
-        CommonMethods.showProgress(true,mContext);
+        CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?area=all",
                 this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
@@ -125,7 +126,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false,mContext);
+        CommonMethods.showProgress(false, mContext);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -141,5 +142,12 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     private void setList(List<LocationObject> areas) {
         locationAdapter = new LocationAdapter(mContext, android.R.layout.simple_list_item_1, areas);
         areaList.setAdapter(locationAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }

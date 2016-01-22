@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategoryObject categoryObject = categories.get(position);
-                showSubCategories(categoryObject.getID()+"");
+                showSubCategories(categoryObject.getID() + "");
             }
         });
         getCategories();
@@ -99,7 +100,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     }
 
     private void getCategories() {
-        CommonMethods.showProgress(true,mContext);
+        CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?category=all",this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "categoryapi");
     }
@@ -112,7 +113,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false,mContext);
+        CommonMethods.showProgress(false, mContext);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -126,5 +127,12 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private void setList(List<CategoryObject> outlets){
         CategoryAdapter outletAdapter = new CategoryAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         categoryList.setAdapter(outletAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }

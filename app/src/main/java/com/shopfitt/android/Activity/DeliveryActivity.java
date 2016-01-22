@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +16,13 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.shopfitt.android.Network.CustomVolleyRequest;
+import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DeliveryActivity extends AppCompatActivity implements  Response.ErrorListener, Response.Listener{
@@ -54,16 +55,16 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                     String mobileNumber = sharedPreferences.getPhoneNumber();
                     String addressText = address.getText().toString();
 //                    if(Config.orderId == null) {
-                        if (addressText.isEmpty()) {
-                            ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
-                        }
-                        if (!addressText.isEmpty()) {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("mobile", mobileNumber);
-                            jsonObject.put("address", addressText);
-                            jsonObject.put("total", Config.cartTotalAmount);
-                            getOrderID(jsonObject);
-                        }
+                    if (addressText.isEmpty()) {
+                        ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if (!addressText.isEmpty()) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("mobile", mobileNumber);
+                        jsonObject.put("address", addressText);
+                        jsonObject.put("total", Config.cartTotalAmount);
+                        getOrderID(jsonObject);
+                    }
 //                    } else {
 //                        sendOrder();
 //                    }
@@ -103,37 +104,82 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
         }
     }
 
+//    private void sendOrder(){
+//        requestID =2;
+//        CommonMethods.showProgress(true, this);
+//        try {
+//            JSONArray jsonArray = new JSONArray();
+//            for (int i=0;i< Config.addToCart.size();i++){
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("OrderID",Config.orderId);
+//                jsonObject.put("Product",Config.addToCart.get(i).getProduct_name());
+//                jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
+//                jsonArray.put(jsonObject);
+//            }
+//            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrderLine/",String.class,jsonArray,
+//                    this,this);
+//            volleyRequest.setRetryPolicy(new RetryPolicy() {
+//                @Override
+//                public int getCurrentTimeout() {
+//                    return 30000;
+//                }
+//
+//                @Override
+//                public int getCurrentRetryCount() {
+//                    return 0;
+//                }
+//
+//                @Override
+//                public void retry(VolleyError volleyError) throws VolleyError {
+//
+//                }
+//            });
+//            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     private void sendOrder(){
         requestID =2;
-        CommonMethods.showProgress(true, this);
+//        CommonMethods.showProgress(true, this);
         try {
-            JSONArray jsonArray = new JSONArray();
-            for (int i=0;i< Config.addToCart.size();i++){
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("OrderID",Config.orderId);
-                jsonObject.put("Product",Config.addToCart.get(i).getProduct_name());
-                jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
-                jsonArray.put(jsonObject);
+//            JSONArray jsonArray = new JSONArray();
+            for (int i=0;i< Config.addToCart.size();i++) {
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("OrderID",Config.orderId);
+//                jsonObject.put("Product",Config.addToCart.get(i).getProduct_name());
+//                jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
+//                jsonArray.put(jsonObject);
+//            }
+                String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/"+Config.orderId+"/"+Config.addToCart.get(i).getProduct_name()
+                        +"/"+Config.addToCart.get(i).getQtyBought()+"/";
+                url = url.replace(" ", "%20");
+                VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.GET,
+                        url,
+                        String.class,null,
+                        this, this);
+                volleyRequest.setRetryPolicy(new RetryPolicy() {
+                    @Override
+                    public int getCurrentTimeout() {
+                        return 30000;
+                    }
+
+                    @Override
+                    public int getCurrentRetryCount() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void retry(VolleyError volleyError) throws VolleyError {
+
+                    }
+                });
+                Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
+                if(i == Config.addToCart.size() -1){
+                    requestID = 10;
+                }
             }
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrderLine/",String.class,jsonArray,
-                    this,this);
-            volleyRequest.setRetryPolicy(new RetryPolicy() {
-                @Override
-                public int getCurrentTimeout() {
-                    return 30000;
-                }
-
-                @Override
-                public int getCurrentRetryCount() {
-                    return 0;
-                }
-
-                @Override
-                public void retry(VolleyError volleyError) throws VolleyError {
-
-                }
-            });
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,20 +187,23 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,this);
+        if(requestID == 1) {
+            CommonMethods.showProgress(false, this);
+        }
         Toast.makeText(this, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onResponse(Object o) {
-        CommonMethods.showProgress(false,this);
         if(requestID == 1){
+            CommonMethods.showProgress(false,this);
             String result = (String) o;
             orderId = result;
             Config.orderId = result;
+            Log.e("OrderId",result);
             sendOrder();
         }
-        if(requestID == 2){
+        if(requestID == 10){
             Toast.makeText(this,"Thanks for order",Toast.LENGTH_LONG).show();
             Config.addToCart.clear();
             Intent intent = new Intent(this,CrunchActivity.class);
@@ -162,5 +211,11 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
             startActivity(intent);
             finish();
         }
+    }
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,this);
+        super.onStop();
     }
 }

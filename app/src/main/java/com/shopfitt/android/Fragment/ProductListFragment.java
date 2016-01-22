@@ -4,6 +4,7 @@ package com.shopfitt.android.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,mContext);
+        CommonMethods.showProgress(false, mContext);
         Toast.makeText(mContext, "Unable to fetch products", Toast.LENGTH_SHORT).show();
     }
 
@@ -139,6 +140,13 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 
 

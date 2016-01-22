@@ -35,6 +35,7 @@ public class Config {
     public static String customerID;
     public static String orderId;
     public static String comparerID;
+    public static String comparerOrderID;
     public static CustomerRank customerRank;
     public static boolean crunchWon;
     public static boolean loginDone;

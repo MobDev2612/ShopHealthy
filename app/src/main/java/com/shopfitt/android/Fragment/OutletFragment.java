@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,13 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     private void setList(List<OutletObject> outlets){
         OutletAdapter outletAdapter = new OutletAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         outletList.setAdapter(outletAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,7 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
     }
 
     private void getCategories(String id) {
-        CommonMethods.showProgress(true,mContext);
+        CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?subcategory="+id,this, this);
         Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategoryapi");
     }
@@ -104,7 +105,7 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onResponse(JSONArray jsonArray) {
-        CommonMethods.showProgress(false,mContext);
+        CommonMethods.showProgress(false, mContext);
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
@@ -119,5 +120,10 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
         SubCategoryAdapter outletAdapter = new SubCategoryAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         subCategoryList.setAdapter(outletAdapter);
     }
-
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
+    }
 }

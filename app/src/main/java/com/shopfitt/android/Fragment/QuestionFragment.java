@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.R;
@@ -116,6 +118,22 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         CommonMethods.showProgress(true, mContext);
         StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkFitCart/" + id,
                 this, this);
+        fetchLocations.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 30000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError volleyError) throws VolleyError {
+
+            }
+        });
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
 
@@ -126,6 +144,22 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
             CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
                     this, this);
+            fetchLocations.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
         }
     }
@@ -138,6 +172,22 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
             CommonMethods.showProgress(true, mContext);
             StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
                     this, this);
+            fetchLocations.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
             Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
         }
     }
@@ -173,5 +223,12 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 Toast.makeText(mContext, "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }

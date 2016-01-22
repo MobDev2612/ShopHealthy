@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Unable to fetch details", Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,14 +88,22 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
         Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
     }
 
-    private void doCrunchMatch(String comparercustid) {
+    private void getOpponentOrderID(String custId) {
+        requestId = 3;
+        custId= custId.replaceAll("\"","");
+        CommonMethods.showProgress(true, mContext);
+        StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getMatchingOrder/" + custId,
+                this, this);
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+    }
+
+    private void doCrunchMatch(String comparerOrderId) {
         requestId =2;
-        CommonMethods.showProgress(true,mContext);
+        CommonMethods.showProgress(true, mContext);
         JSONObject jsonObject = new JSONObject();
         try {
-            Config.comparerID = comparercustid;
-            jsonObject.put("comparercustid", comparercustid);
-            jsonObject.put("corderID", "");
+            jsonObject.put("comparercustid", Config.comparerID.replaceAll("\"",""));
+            jsonObject.put("corderID", comparerOrderId);
             jsonObject.put("orderID", Config.orderId);
             jsonObject.put("custid", Config.customerID);
             CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/match/",String.class,jsonObject,
@@ -144,6 +153,10 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
                 Config.crunchWon =false;
             }
             showThankyou();
+        } if (requestId == 3){
+            String response = (String) o;
+            Config.comparerOrderID = response;
+            doCrunchMatch(response);
         }
     }
 
@@ -164,7 +177,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     }
 
     private void showThankyou() {
-        Fragment fragment = new CrunchFragmentTwo();
+        Fragment fragment = new CrunchathonTableFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
@@ -174,14 +187,21 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     @Override
     public void onClick(View v) {
         if(v == imageButton1){
-            doCrunchMatch(list.get(0));
+            Config.comparerID = list.get(0);
         } else  if(v == imageButton2){
-            doCrunchMatch(list.get(1));
+            Config.comparerID = list.get(1);
         } else  if(v == imageButton3){
-            doCrunchMatch(list.get(2));
+            Config.comparerID = list.get(2);
         } else  if(v == imageButton4){
-            doCrunchMatch(list.get(3));
+            Config.comparerID = list.get(3);
         }
+        getOpponentOrderID(Config.comparerID);
+    }
 
+    @Override
+    public void onStop() {
+        Log.e("test", "test1");
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }
