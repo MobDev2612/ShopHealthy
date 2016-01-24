@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -38,9 +39,10 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
     public class ViewHolder {
         public ImageView mImageView;
-        public TextView mName, mPrice;
-//        public ImageButton cartRemoveButton;
-        public EditText editText;
+        public TextView mName, mPrice, mSugar, mCalories,mFat,mSodium;
+        public Button cartRemoveButton,plusButton,minusButton;
+        public TextView qtyText;
+        public LinearLayout linearLayout;
     }
 
     @Override
@@ -52,54 +54,77 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder = new ViewHolder();
             viewHolder.mName = (TextView) convertView.findViewById(R.id.list_item_text1);
             viewHolder.mPrice = (TextView) convertView.findViewById(R.id.list_item_text2);
+            viewHolder.mSugar = (TextView) convertView.findViewById(R.id.list_item_text3);
+            viewHolder.mCalories = (TextView) convertView.findViewById(R.id.list_item_text4);
+            viewHolder.mSodium = (TextView) convertView.findViewById(R.id.list_item_text5);
+            viewHolder.mFat = (TextView) convertView.findViewById(R.id.list_item_text6);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.list_item_image);
-//            viewHolder.cartRemoveButton = (ImageButton) convertView.findViewById(R.id.list_item_remove);
-            viewHolder.editText = (EditText) convertView.findViewById(R.id.list_item_qty);
+
+            viewHolder.cartRemoveButton = (Button) convertView.findViewById(R.id.list_item_remove);
+            viewHolder.plusButton = (Button) convertView.findViewById(R.id.product_list_add_qty);
+            viewHolder.minusButton = (Button) convertView.findViewById(R.id.product_list_minus_qty);
+
+            viewHolder.qtyText = (TextView) convertView.findViewById(R.id.list_item_qty);
+            viewHolder.linearLayout =(LinearLayout) convertView.findViewById(R.id.list_item_desc_visible);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mPrice.setText(dataList.get(position).getMrp() + "");
-        viewHolder.editText.setText(dataList.get(position).getQtyBought() + "");
-        viewHolder.editText.setId(position);
-//        viewHolder.editText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if(!s.toString().isEmpty())
-//                    dataList.get(position).setQtyBought(Integer.parseInt(s.toString()));
-//            }
-//        });
-        viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        viewHolder.mPrice.setText("INR "+dataList.get(position).getMrp() + "");
+        viewHolder.qtyText.setText(dataList.get(position).getQtyBought() + "");
+        viewHolder.qtyText.setId(position);
+        if(dataList.get(position).getIsfood()==1) {
+            viewHolder.linearLayout.setVisibility(View.VISIBLE);
+            viewHolder.mSugar.setText("" + dataList.get(position).getSugar());
+            viewHolder.mCalories.setText(dataList.get(position).getCalories()+"");
+            viewHolder.mFat.setText("" + dataList.get(position).getFat());
+            viewHolder.mSodium.setText("" + dataList.get(position).getSodium());
+        } else {
+            viewHolder.linearLayout.setVisibility(View.GONE);
+        }
+        viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    final int pos = v.getId();
-                    final EditText Qty = (EditText) v;
-                    if(!Qty.getText().toString().isEmpty()) {
-                        dataList.get(pos).setQtyBought(Integer.parseInt(Qty.getText().toString()));
-                        Config.addToCart.get(pos).setQtyBought(Integer.parseInt(Qty.getText().toString()));
-                    }
+            public void onClick(View v) {
+                if(dataList.get(position).getIsfood() == 1) {
+                    Config.foodItems = Config.foodItems - 1;
                 }
+                Config.cartTotalAmount = Config.cartTotalAmount - (dataList.get(position).getQtyBought()* dataList.get(position).getMrp());
+//                Config.addToCart.remove(position);
+                dataList.remove(position);
+                notifyDataSetChanged();
             }
         });
-//        viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dataList.remove(position);
-//                notifyDataSetChanged();
-//            }
-//        });
+
+        viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductObject productObject = dataList.get(position);
+                int qty = productObject.getQtyBought();
+                productObject.setQtyBought(qty + 1);
+//
+//                ProductObject productObject1 = Config.addToCart.get(position);
+//                int qty1 = productObject1.getQtyBought();
+//                productObject.setQtyBought(qty1 + 1);
+
+                notifyDataSetChanged();
+            }
+        });
+
+        viewHolder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductObject productObject = dataList.get(position);
+                int qty = productObject.getQtyBought();
+                if(qty > 1) {
+                    productObject.setQtyBought(qty - 1);
+//                    ProductObject productObject1 = Config.addToCart.get(position);
+//                    int qty1 = productObject1.getQtyBought();
+//                    productObject1.setQtyBought(qty1-1);
+                }
+                notifyDataSetChanged();
+            }
+        });
 
         loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
         return convertView;

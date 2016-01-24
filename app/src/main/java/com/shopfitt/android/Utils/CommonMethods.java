@@ -5,11 +5,13 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shopfitt.android.datamodels.ProductObject;
+
 /**
  * Created by Hari Haran on 13-Jan-16.
  */
 public class CommonMethods {
-    public static void showProgress(final boolean show,Context context) {
+    public static void showProgress(final boolean show, Context context) {
         CustomProgressDialog customProgressDialog = CustomProgressDialog.getInstance();
         if (show) {
             customProgressDialog.showProgress("Please wait", context);
@@ -30,5 +32,32 @@ public class CommonMethods {
             ((AppCompatActivity) activity).getSupportActionBar().setHomeAsUpIndicator(context.getResources().getDrawable(drawableResourceId));
         }
         ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public static boolean addProductInCart(ProductObject productObject) {
+        boolean found = false;
+        for (int i = 0; i < Config.addToCart.size(); i++) {
+            if (productObject.getID() == Config.addToCart.get(i).getID()) {
+                found = true;
+//                Config.addToCart.get(i).setQtyBought(Config.addToCart.get(i).getQtyBought() + productObject.getQtyBought());
+            }
+        }
+        if (!found) {
+            ProductObject newProduct = new ProductObject();
+            newProduct = productObject;
+            Config.addToCart.add(newProduct);
+            found = true;
+        }
+        return found;
+    }
+
+    public static ProductObject checkProductInCart(ProductObject productObject) {
+        ProductObject cartProduct = null;
+        for (int i = 0; i < Config.addToCart.size(); i++) {
+            if (productObject.getID() == Config.addToCart.get(i).getID()) {
+                cartProduct = Config.addToCart.get(i);
+            }
+        }
+        return cartProduct;
     }
 }

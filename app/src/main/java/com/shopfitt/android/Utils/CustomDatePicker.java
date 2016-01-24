@@ -26,7 +26,7 @@ public class CustomDatePicker {
      * Opens date picker in dialog window
      *
      * @param fragmentManager fragment manager object
-     * @param date            editText in which date to be populate
+     * @param date            qtyText in which date to be populate
      */
 
     public static void openDatePicker(FragmentManager fragmentManager, final TextView date,Context mcontext) {

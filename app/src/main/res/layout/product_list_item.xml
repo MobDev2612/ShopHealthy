@@ -16,10 +16,11 @@
         android:contentDescription="@string/app_name" />
 
     <LinearLayout
+        android:paddingLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/product_list_item_image"
-        android:layout_toLeftOf="@+id/product_list_add_cart"
+        android:layout_toLeftOf="@+id/product_list_add_cart_layout"
         android:orientation="vertical">
 
         <TextView
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:maxLines="1"
+            android:maxLines="2"
             android:ellipsize="end"
             android:text="1" />
 
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:maxLines="1"
+            android:maxLines="2"
             android:ellipsize="end"
             android:text="1" />
 
@@ -51,7 +52,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="end"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:text="1" />
 
         <TextView
@@ -66,16 +67,52 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/product_list_add_cart_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/product_list_minus_qty"
+                android:text="-"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/product_list_qty_text"
+                android:text="1"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/product_list_add_qty"
+                android:text="+"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/product_list_add_cart"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:drawableRight="@drawable/ic_menu_cart"
         android:gravity="center"
         android:text="Add" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -62,15 +62,15 @@ public class CrunchathonTableFragment extends Fragment {
     }
 
     private void getSelfOrderExtra() {
-        VolleyRequest<Crunch[]> fetchLocations = new VolleyRequest<Crunch[]>(Request.Method.GET,
-                "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.orderId, Crunch[].class, null,
-                new Response.Listener<Crunch[]>() {
+        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<Crunch>(Request.Method.GET,
+                "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.orderId, Crunch.class, null,
+                new Response.Listener<Crunch>() {
                     @Override
-                    public void onResponse(Crunch[] crunch) {
-                        ((TextView) view.findViewById(R.id.your_calories)).setText(crunch[0].getCalories());
-                        ((TextView) view.findViewById(R.id.your_fat)).setText(crunch[0].getFat());
-                        ((TextView) view.findViewById(R.id.your_sodium)).setText(crunch[0].getSodium());
-                        ((TextView) view.findViewById(R.id.your_sugar)).setText(crunch[0].getSugar());
+                    public void onResponse(Crunch crunch) {
+                        ((TextView) view.findViewById(R.id.your_calories)).setText(crunch.getCalories());
+                        ((TextView) view.findViewById(R.id.your_fat)).setText(crunch.getFat());
+                        ((TextView) view.findViewById(R.id.your_sodium)).setText(crunch.getSodium());
+                        ((TextView) view.findViewById(R.id.your_sugar)).setText(crunch.getSugar());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -82,12 +82,12 @@ public class CrunchathonTableFragment extends Fragment {
     }
 
     private void getOpponentOrderExtra() {
-        VolleyRequest<Crunch[]> fetchLocations = new VolleyRequest<Crunch[]>(Request.Method.GET,
-                "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.comparerOrderID, Crunch[].class, null,
-                new Response.Listener<Crunch[]>() {
+        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<Crunch>(Request.Method.GET,
+                "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.comparerOrderID, Crunch.class, null,
+                new Response.Listener<Crunch>() {
                     @Override
-                    public void onResponse(Crunch[] crunch1) {
-                        Crunch crunch = crunch1[0];
+                    public void onResponse(Crunch crunch) {
+//                        Crunch crunch = crunch1[0];
                         ((TextView) view.findViewById(R.id.opponent_calories)).setText(crunch.getCalories());
                         ((TextView) view.findViewById(R.id.opponent_fat)).setText(crunch.getFat());
                         ((TextView) view.findViewById(R.id.opponent_sodium)).setText(crunch.getSodium());

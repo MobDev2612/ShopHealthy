@@ -32,7 +32,7 @@ import com.shopfitt.android.Utils.Shopfitt;
 public class DeliveryDateFragment extends Fragment implements Response.Listener<String>, Response.ErrorListener {
 
     private View view;
-//    private EditText editText;
+//    private EditText qtyText;
     private TextView textViewShowTime;
     private Button submit;
     SharedPreferences sharedPreferences;
@@ -70,7 +70,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
         textViewShowTime = (TextView) view.findViewById(R.id.tvTimeCount);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         submit = (Button) view.findViewById(R.id.delivery_date_submit);
-        totalTimeCountInMilliseconds = 60 * 120 * 1000;
+        totalTimeCountInMilliseconds = 60 * 180 * 1000;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +110,12 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
     }
 
     private void showThankyou() {
-        Fragment fragment = new QuestionFragment();
+        Fragment fragment;
+        if(Config.foodItems > 0) {
+            fragment = new QuestionFragment();
+        } else {
+            fragment =new ThankQFragment();
+        }
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
@@ -131,10 +136,12 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
             @Override
             public void onTick(long leftTimeInMilliseconds) {
                 long seconds = leftTimeInMilliseconds / 1000;
+                int hours = (int)seconds/3600;
+                int minutes = (int)((seconds - (3600*hours))/60);
                 //i++;
                 //Setting the Progress Bar to decrease wih the timer
 //                mProgressBar.setProgress((int) (leftTimeInMilliseconds / 1000));
-                textViewShowTime.setText(String.format("%02d", seconds / 60)
+                textViewShowTime.setText(String.format("%01d", hours)+":"+String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds % 60));
                 // format the textview to show the easily readable format
 

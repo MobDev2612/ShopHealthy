@@ -24,30 +24,44 @@
     <include layout="@layout/content_cart" />
 
     <LinearLayout
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-    <TextView
-        android:id="@+id/cart_total_amount"
-        style="@style/BlackText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
-        android:text="Total:  Rs 0" />
+        <TextView
+            android:id="@+id/cart_total_amount"
+            style="@style/BlackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="Total:  Rs 0" />
 
-    <Button
-        android:id="@+id/cart_place_order"
-        style="@style/OrangeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:text="PLACE ORDER" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/delivery_address_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/delivery_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address"
+                android:inputType="textPostalAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/cart_place_order"
+            style="@style/OrangeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="PLACE ORDER" />
 
     </LinearLayout>
 

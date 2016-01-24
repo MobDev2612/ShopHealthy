@@ -20,6 +20,9 @@ public class ProductObject implements Parcelable{
     private double sodium;
     private int qtyBought;
 
+    public ProductObject() {
+    }
+
     protected ProductObject(Parcel in) {
         ID = in.readInt();
         product_name = in.readString();

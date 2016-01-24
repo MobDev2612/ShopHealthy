@@ -39,4 +39,5 @@ public class Config {
     public static CustomerRank customerRank;
     public static boolean crunchWon;
     public static boolean loginDone;
+    public static int foodItems;
 }

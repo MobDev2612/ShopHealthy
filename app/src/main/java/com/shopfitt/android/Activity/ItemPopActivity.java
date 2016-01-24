@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
@@ -69,8 +70,11 @@ public class ItemPopActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Config.addToCart.contains(productObject)) {
-                    Config.addToCart.add(productObject);
+                if(CommonMethods.addProductInCart(productObject)) {
+                    if(productObject.getIsfood() == 1) {
+                        Config.foodItems = Config.foodItems+1;
+                    }
+//                    Config.addToCart.add(productObject);
                     Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought()* productObject.getMrp());
                 }
                 Toast.makeText(ItemPopActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
@@ -90,6 +94,13 @@ public class ItemPopActivity extends AppCompatActivity {
     }
 
     private void assignValues() {
+
+        if(CommonMethods.checkProductInCart(productObject)!=null){
+            productObject = CommonMethods.checkProductInCart(productObject);
+            updateButton.setText("Update");
+        } else {
+            updateButton.setText("Add");
+        }
         nameEdtTxt.setText(productObject.getProduct_name());
         priceEdtTxt.setText("INR "+productObject.getMrp()+".00");
         unitEdtTxt.setText(productObject.getWeightms());

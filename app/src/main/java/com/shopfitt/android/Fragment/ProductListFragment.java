@@ -2,6 +2,7 @@ package com.shopfitt.android.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.shopfitt.android.Activity.ItemPopActivity;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
@@ -74,13 +76,13 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(getActivity(),"Added to cart",Toast.LENGTH_LONG).show();
-//                ProductObject productObject = productObjects.get(position);
+                ProductObject productObject = productObjects.get(position);
 //                productObject.setQtyBought(1);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("product", productObject);
-//                Intent intent = new Intent(getActivity(), ItemPopActivity.class);
-//                intent.putExtra("bundle", bundle);
-//                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("product", productObject);
+                Intent intent = new Intent(getActivity(), ItemPopActivity.class);
+                intent.putExtra("bundle", bundle);
+                startActivity(intent);
             }
         });
         getProducts(arguments.getString("subcategory"));

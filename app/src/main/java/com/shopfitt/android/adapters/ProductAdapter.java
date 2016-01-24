@@ -2,9 +2,7 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +14,9 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.shopfitt.android.Activity.ItemPopActivity;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
@@ -50,8 +49,8 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
 
     public class ViewHolder {
         public ImageView mImageView;
-        public TextView mName,mDescription,mCategory,mPrice;
-        public Button cartButton;
+        public TextView mName,mDescription,mCategory,mPrice,mQty;
+        public Button cartButton,plusButton,minusButton;
     }
 
     @Override
@@ -65,28 +64,67 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.mDescription = (TextView) convertView.findViewById(R.id.product_list_item_description);
             viewHolder.mCategory = (TextView) convertView.findViewById(R.id.product_list_item_category);
             viewHolder.mPrice = (TextView) convertView.findViewById(R.id.product_list_item_price);
+
+            viewHolder.mQty = (TextView) convertView.findViewById(R.id.product_list_qty_text);
+            viewHolder.plusButton = (Button) convertView.findViewById(R.id.product_list_add_qty);
+            viewHolder.minusButton = (Button) convertView.findViewById(R.id.product_list_minus_qty);
+
             viewHolder.cartButton= (Button) convertView.findViewById(R.id.product_list_add_cart);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.product_list_item_image);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        if(dataList.get(position).getQtyBought()== 0){
+            dataList.get(position).setQtyBought(1);
+        }
+
+        if(CommonMethods.checkProductInCart(dataList.get(position))!=null){
+            dataList.set(position,CommonMethods.checkProductInCart(dataList.get(position)));
+            viewHolder.cartButton.setText("Update");
+        } else {
+            viewHolder.cartButton.setText("Add");
+        }
+
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mDescription.setText(dataList.get(position).getWeightms());
-        viewHolder.mCategory.setText(dataList.get(position).getProduct_category()+"/"+dataList.get(position).getProduct_subcategory());
+        viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
+        viewHolder.mCategory.setText(dataList.get(position).getWeightms());
         viewHolder.mPrice.setText("INR "+dataList.get(position).getMrp()+".00");
+        viewHolder.mQty.setText(dataList.get(position).getQtyBought() + "");
+        viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductObject productObject = dataList.get(position);
+                int qty = productObject.getQtyBought();
+                productObject.setQtyBought(qty + 1);
+                notifyDataSetChanged();
+            }
+        });
+
+        viewHolder.minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductObject productObject = dataList.get(position);
+                int qty = productObject.getQtyBought();
+                if(qty > 1)
+                productObject.setQtyBought(qty-1);
+                notifyDataSetChanged();
+            }
+        });
+
         loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
 
         viewHolder.cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
-                productObject.setQtyBought(1);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("product", productObject);
-                Intent intent = new Intent(mContext, ItemPopActivity.class);
-                intent.putExtra("bundle", bundle);
-                mContext.startActivity(intent);
+                if(CommonMethods.addProductInCart(productObject)) {
+                    if(productObject.getIsfood() == 1) {
+                        Config.foodItems = Config.foodItems+1;
+                    }
+//                    Config.addToCart.add(productObject);
+                    Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought()* productObject.getMrp());
+                }
             }
         });
         return convertView;
