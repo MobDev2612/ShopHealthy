@@ -117,13 +117,16 @@ public class SharedPreferences {
         return sharedPreferences.getString(SHARED_PREFERENCES_PHONE, "");
     }
 
-    public void performLogin(boolean outlet){
-        editor.putBoolean(SHARED_PREFERENCES_PERFORM_LOGIN, outlet);
+    public void clearAll(){
+        editor.putString(SHARED_PREFERENCES_PHONE, null);
+        editor.putString(SHARED_PREFERENCES_USER_ID, null);
+        editor.putString(SHARED_PREFERENCES_STORE_PREF, null);
+        editor.putString(SHARED_PREFERENCES_EMAIL, null);
+        editor.putString(SHARED_PREFERENCES_LOGIN_ID,null);
+        editor.putString(SHARED_PREFERENCES_PASSWORD,null);
+        editor.putString(SHARED_PREFERENCES_NAME,null);
+        editor.putString(SHARED_PREFERENCES_LOCATION_PREFERENCE,null);
         editor.commit();
-    }
-
-    public boolean performLogin(){
-        return sharedPreferences.getBoolean(SHARED_PREFERENCES_PERFORM_LOGIN, true);
     }
 
 

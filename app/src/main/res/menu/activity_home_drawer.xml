@@ -31,6 +31,11 @@
             android:id="@+id/nav_change_password"
             android:icon="@android:drawable/ic_menu_help"
             android:title="Change Password" />
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Sign-Out" />
+
     </group>
 
 

@@ -26,6 +26,7 @@ import com.shopfitt.android.Fragment.SettingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerRank;
 import com.shopfitt.android.datamodels.ProductObject;
@@ -125,6 +126,12 @@ public class HomeActivity extends AppCompatActivity
             fragment = new NotificationFragment();
         } else if(id == R.id.nav_change_password){
             fragment = new SettingsFragment();
+        } else if(id == R.id.nav_log_out){
+            SharedPreferences sharedPreferences = new SharedPreferences(this);
+            sharedPreferences.clearAll();
+            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         if (fragment != null) {
