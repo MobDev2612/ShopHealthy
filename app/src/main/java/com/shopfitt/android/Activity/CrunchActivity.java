@@ -11,18 +11,25 @@ import android.view.MenuItem;
 
 import com.shopfitt.android.Fragment.DeliveryDateFragment;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.FontView;
 
 public class CrunchActivity extends AppCompatActivity {
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crunch);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public void setTitle(CharSequence title) {
+//        super.setTitle(title);
+        FontView title1 = (FontView) toolbar.findViewById(R.id.app_bar_title);
+        title1.setText(title);
+    }
 
     @Override
     protected void onResume() {

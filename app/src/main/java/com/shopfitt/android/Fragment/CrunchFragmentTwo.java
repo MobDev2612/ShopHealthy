@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     private EditText editText;
     private TextView textView;
     private Context mContext;
+    private Button submitButton;
+    private boolean executed = false;
 
     @Override
     public void onAttach(Context context) {
@@ -63,12 +66,21 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().setTitle("Crunchaton");
         String[] message = new String[]{"There is always a Next time.", "Secret to getting ahead is to get started.", "A legend in anything, was once a beginner.", "It always seems impossible until it is done.",
                 "Success is, going from failure to failure without loss of enthusiasm.", "Never Give up", "Improvise,Adapt,Overcome !", "Anybody can dance if they find the music they love.",
                 "If it was easy, it wouldn’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
         editText.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
         textView = (TextView) view.findViewById(R.id.crunch_message);
+        submitButton = (Button) view.findViewById(R.id.submit_message);
+        submitButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postMessage();
+            }
+        });
         textView.setText(message[randInt(1, 10)]);
         if (Config.crunchWon) {
             textView.setText("Winner's Gyan , You got 30 sec");
@@ -99,32 +111,35 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     }
 
     private void postMessage() {
-        CommonMethods.showProgress(true, mContext);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("comparerid", Config.comparerID.replaceAll("\"",""));
-            jsonObject.put("message", editText.getText().toString() + "");
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
-                    this, this);
-            volleyRequest.setRetryPolicy(new RetryPolicy() {
-                @Override
-                public int getCurrentTimeout() {
-                    return 30000;
-                }
+        if(!executed) {
+            CommonMethods.showProgress(true, mContext);
+            executed = true;
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("comparerid", Config.comparerID.replaceAll("\"", ""));
+                jsonObject.put("message", editText.getText().toString() + "");
+                CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
+                        this, this);
+                volleyRequest.setRetryPolicy(new RetryPolicy() {
+                    @Override
+                    public int getCurrentTimeout() {
+                        return 30000;
+                    }
 
-                @Override
-                public int getCurrentRetryCount() {
-                    return 0;
-                }
+                    @Override
+                    public int getCurrentRetryCount() {
+                        return 0;
+                    }
 
-                @Override
-                public void retry(VolleyError volleyError) throws VolleyError {
+                    @Override
+                    public void retry(VolleyError volleyError) throws VolleyError {
 
-                }
-            });
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
-        } catch (JSONException e) {
-            e.printStackTrace();
+                    }
+                });
+                Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -144,12 +159,15 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
+        CommonMethods.showProgress(false,mContext);
+//        executed = false;
         Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_LONG).show();
         showThankyou();
     }
 
     @Override
     public void onResponse(Object o) {
+        CommonMethods.showProgress(false,mContext);
         showThankyou();
     }
 

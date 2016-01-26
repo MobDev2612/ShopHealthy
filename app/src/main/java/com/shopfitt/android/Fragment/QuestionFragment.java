@@ -61,6 +61,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().setTitle("Crunchaton");
         initialiseComponents();
         getFitCartStatus(Config.customerID);
     }

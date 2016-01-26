@@ -15,6 +15,7 @@
     tools:showIn="@layout/activity_cart">
 
     <com.shopfitt.android.Utils.FontView
+        android:visibility="gone"
         android:id="@+id/cart_place_outlet_name"
         android:text="Four Points Super Market"
         android:gravity="center"
@@ -49,6 +50,7 @@
         android:divider="@android:color/black"
         android:dividerHeight="1dp"
         android:layout_width="match_parent"
+        android:layout_marginBottom="100dp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

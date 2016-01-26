@@ -2,7 +2,9 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +43,9 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
     public class ViewHolder {
         public ImageView mImageView;
-        public FontView mName, mPrice, mSugar, mCalories,mFat,mSodium;
+        public FontView mName, mPrice, mSugar, mCalories, mFat, mSodium;
         public Button cartRemoveButton;
-        public ImageButton plusButton,minusButton;
+        public ImageButton plusButton, minusButton;
         public FontView qtyText;
         public LinearLayout linearLayout;
     }
@@ -68,19 +70,19 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.minusButton = (ImageButton) convertView.findViewById(R.id.product_list_minus_qty);
 
             viewHolder.qtyText = (FontView) convertView.findViewById(R.id.list_item_qty);
-            viewHolder.linearLayout =(LinearLayout) convertView.findViewById(R.id.list_item_desc_visible);
+            viewHolder.linearLayout = (LinearLayout) convertView.findViewById(R.id.list_item_desc_visible);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon)+" "+dataList.get(position).getMrp() + "");
+        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + " " + dataList.get(position).getMrp() + "");
         viewHolder.qtyText.setText(dataList.get(position).getQtyBought() + "");
         viewHolder.qtyText.setId(position);
-        if(dataList.get(position).getIsfood()==1) {
+        if (dataList.get(position).getIsfood() == 1) {
             viewHolder.linearLayout.setVisibility(View.VISIBLE);
             viewHolder.mSugar.setText("" + dataList.get(position).getSugar());
-            viewHolder.mCalories.setText(dataList.get(position).getCalories()+"");
+            viewHolder.mCalories.setText(dataList.get(position).getCalories() + "");
             viewHolder.mFat.setText("" + dataList.get(position).getFat());
             viewHolder.mSodium.setText("" + dataList.get(position).getSodium());
         } else {
@@ -98,17 +100,21 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
         viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dataList.get(position).getIsfood() == 1) {
-                    Config.foodItems = Config.foodItems - 1;
-                }
-                Config.cartTotalAmount = Config.cartTotalAmount - (dataList.get(position).getQtyBought()* dataList.get(position).getMrp());
-//                Config.addToCart.remove(position);
-                dataList.get(position).setQtyBought(0);
-                dataList.remove(position);
-                notifyDataSetChanged();
+                new AlertDialog.Builder(mContext)
+                        .setTitle(mContext.getResources().getString(R.string.app_name))
+                        .setMessage("Do you want to remove the item ?")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                removeItem(position);
+                            }
+                        })
+                        .setPositiveButton("No",null)
+                        .show();
+
             }
         });
-
         viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +135,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
                 int qty = productObject.getQtyBought();
-                if(qty > 1) {
+                if (qty > 1) {
                     productObject.setQtyBought(qty - 1);
 //                    ProductObject productObject1 = Config.addToCart.get(position);
 //                    int qty1 = productObject1.getQtyBought();
@@ -141,6 +147,17 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
         loadImages(viewHolder.mImageView, "http://shopfitt.in/product_images/" + dataList.get(position).getID() + ".jpg");
         return convertView;
+    }
+
+    private void removeItem(int position) {
+        if (dataList.get(position).getIsfood() == 1) {
+            Config.foodItems = Config.foodItems - 1;
+        }
+        Config.cartTotalAmount = Config.cartTotalAmount - (dataList.get(position).getQtyBought() * dataList.get(position).getMrp());
+//                Config.addToCart.remove(position);
+        dataList.get(position).setQtyBought(0);
+        dataList.remove(position);
+        notifyDataSetChanged();
     }
 
 

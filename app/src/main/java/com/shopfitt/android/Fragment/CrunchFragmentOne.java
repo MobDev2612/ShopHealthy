@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,7 +39,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
 //    private ListView listView;
     int requestId=0;
     List<String> list;
-    private ImageButton imageButton1,imageButton2,imageButton3,imageButton4;
+    private Button imageButton1,imageButton2,imageButton3,imageButton4;
     private Context mContext;
 
     @Override
@@ -65,15 +65,16 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().setTitle("Crunchaton");
         initialiseComponents();
         getOptions();
     }
 
     private void initialiseComponents() {
-        imageButton1 = (ImageButton) view.findViewById(R.id.crunch_match_1);
-        imageButton2 = (ImageButton) view.findViewById(R.id.crunch_match_2);
-        imageButton3 = (ImageButton) view.findViewById(R.id.crunch_match_3);
-        imageButton4 = (ImageButton) view.findViewById(R.id.crunch_match_4);
+        imageButton1 = (Button) view.findViewById(R.id.crunch_match_1);
+        imageButton2 = (Button) view.findViewById(R.id.crunch_match_2);
+        imageButton3 = (Button) view.findViewById(R.id.crunch_match_3);
+        imageButton4 = (Button) view.findViewById(R.id.crunch_match_4);
         imageButton1.setOnClickListener(this);
         imageButton2.setOnClickListener(this);
         imageButton3.setOnClickListener(this);

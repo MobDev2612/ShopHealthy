@@ -8,8 +8,11 @@
     <com.shopfitt.android.Utils.FontView
         android:gravity="center"
         android:text="Sub Category"
-        android:layout_marginTop="3dp"
-        style="@style/BlackText"
+        android:paddingTop="5dp"
+        android:paddingBottom="3dp"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@android:color/white"
+        android:background="@android:color/darker_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

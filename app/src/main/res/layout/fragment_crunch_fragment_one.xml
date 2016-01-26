@@ -1,61 +1,80 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
+    android:paddingTop="15dp"
     android:background="@android:color/white"
-    android:orientation="vertical"
     tools:context="com.shopfitt.android.Fragment.CrunchFragmentOne">
 
     <com.shopfitt.android.Utils.FontView
+        android:id="@+id/title"
         style="@style/BlackText"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select one ball to do a crunch match" />
+        android:text="Please select any one user for Crunch Match" />
 
     <LinearLayout
+        android:layout_below="@id/title"
+        android:weightSum="4"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/crunch_options_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <ImageButton
+        <Button
             android:visibility="gone"
             android:id="@+id/crunch_match_1"
-            android:src="@drawable/select_user_small"
+            android:drawableTop="@drawable/select_user_small"
+            android:text="User 1"
+            android:textAllCaps="false"
             android:background="@android:color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp"
+            android:layout_weight="1"   />
 
 
-        <ImageButton
+        <Button
             android:visibility="gone"
             android:id="@+id/crunch_match_2"
-            android:src="@drawable/select_user_small"
+            android:layout_marginTop="5dp"
+            android:drawableTop="@drawable/select_user_small"
+            android:text="User 2"
+            android:textAllCaps="false"
             android:background="@android:color/white"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"   />
 
 
-        <ImageButton
+        <Button
             android:visibility="gone"
+            android:layout_marginTop="5dp"
             android:id="@+id/crunch_match_3"
-            android:src="@drawable/select_user_small"
+            android:drawableTop="@drawable/select_user_small"
+            android:text="User 3"
+            android:textAllCaps="false"
             android:background="@android:color/white"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"   />
 
 
-        <ImageButton
+        <Button
             android:visibility="gone"
             android:id="@+id/crunch_match_4"
-            android:src="@drawable/select_user_small"
+            android:layout_marginTop="5dp"
+            android:drawableTop="@drawable/select_user_small"
+            android:text="User 4"
+            android:textAllCaps="false"
             android:background="@android:color/white"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"   />
 
         </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

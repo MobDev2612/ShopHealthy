@@ -41,6 +41,7 @@ public class ThankQFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().setTitle("Crunchaton");
         final Handler handler = new Handler();
         final Runnable r = new Runnable()
         {

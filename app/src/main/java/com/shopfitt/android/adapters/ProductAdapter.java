@@ -126,6 +126,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
                         }
 //                    Config.addToCart.add(productObject);
                         Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought() * productObject.getMrp());
+                        notifyDataSetChanged();
                     }
                 } else {
                     Toast.makeText(mContext,"You missed adding the quantity. please check",Toast.LENGTH_SHORT).show();

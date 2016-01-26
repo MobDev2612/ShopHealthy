@@ -92,6 +92,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 style="@style/OrangeButton"
+                android:minHeight="0dp"
+                android:padding="2dp"
                 android:text="Delete" />
 
         </LinearLayout>

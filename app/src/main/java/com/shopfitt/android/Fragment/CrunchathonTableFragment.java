@@ -55,6 +55,7 @@ public class CrunchathonTableFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().setTitle("Crunchaton");
         getSelfOrderExtra();
         getOpponentOrderExtra();
         getSelfFinalPercent();
