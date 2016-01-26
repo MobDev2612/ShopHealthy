@@ -7,8 +7,7 @@
     android:orientation="vertical"
     tools:context="com.shopfitt.android.Fragment.CrunchFragmentOne">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.shopfitt.android.Utils.FontView
         style="@style/BlackText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,16 +24,16 @@
         <ImageButton
             android:visibility="gone"
             android:id="@+id/crunch_match_1"
-            android:src="@drawable/ball_1"
+            android:src="@drawable/select_user_small"
             android:background="@android:color/white"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
         <ImageButton
             android:visibility="gone"
             android:id="@+id/crunch_match_2"
-            android:src="@drawable/ball_2"
+            android:src="@drawable/select_user_small"
             android:background="@android:color/white"
             android:layout_width="50dp"
             android:layout_height="50dp" />
@@ -43,7 +42,7 @@
         <ImageButton
             android:visibility="gone"
             android:id="@+id/crunch_match_3"
-            android:src="@drawable/ball_3"
+            android:src="@drawable/select_user_small"
             android:background="@android:color/white"
             android:layout_width="50dp"
             android:layout_height="50dp" />
@@ -52,7 +51,7 @@
         <ImageButton
             android:visibility="gone"
             android:id="@+id/crunch_match_4"
-            android:src="@drawable/ball_4"
+            android:src="@drawable/select_user_small"
             android:background="@android:color/white"
             android:layout_width="50dp"
             android:layout_height="50dp" />

@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private TextInputLayout mailInputLayout, pwdInputLayout;
     private String userName, password;
     private SharedPreferences sharedPreferences;
+    private Button forgotPasswordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,17 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 }
 
             });
+
+            forgotPasswordButton = (Button) findViewById(R.id.email_forgot_password_button);
+            forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
             mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
             registrationButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
             mEmailView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));

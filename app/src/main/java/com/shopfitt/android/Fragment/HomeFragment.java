@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
         categories = new ArrayList<CategoryObject>();
         rank = (FontView) view.findViewById(R.id.customer_rank);
         if(Config.customerRank!=null) {
-            rank.setText("Rank :"+Config.customerRank.getRank()+" Points: "+Config.customerRank.getPoints());
+            rank.setText("Rank :"+Config.customerRank.getRank()+" Crunches: "+Config.customerRank.getPoints());
         }
         outletName = (FontView) view.findViewById(R.id.home_outlet_name);
         outletName.setText(sharedPreferences.getOutlet());

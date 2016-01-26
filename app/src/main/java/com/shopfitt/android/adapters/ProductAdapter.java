@@ -2,19 +2,16 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
@@ -51,7 +48,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
     }
 
     public class ViewHolder {
-        public ImageView mImageView;
+        public NetworkImageView mImageView;
         public FontView mName,mDescription,mCategory,mPrice,mQty;
         public Button cartButton;
         public ImageButton plusButton,minusButton;
@@ -73,7 +70,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.plusButton = (ImageButton) convertView.findViewById(R.id.product_list_add_qty);
             viewHolder.minusButton = (ImageButton) convertView.findViewById(R.id.product_list_minus_qty);
             viewHolder.cartButton= (Button) convertView.findViewById(R.id.product_list_add_cart);
-            viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.product_list_item_image);
+            viewHolder.mImageView = (NetworkImageView) convertView.findViewById(R.id.product_list_item_image);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -88,11 +85,11 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         } else {
             viewHolder.cartButton.setText("Add");
         }
-        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
         viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
         viewHolder.mCategory.setText(dataList.get(position).getWeightms());
-        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon)+" "+dataList.get(position).getMrp()+".00");
+        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + " " + dataList.get(position).getMrp() + ".00");
         viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         viewHolder.mQty.setText(dataList.get(position).getQtyBought() + "");
         viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
@@ -138,26 +135,15 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         return convertView;
     }
 
-    public static ImageView loadImages(final ImageView imageView, String imageURL) {
+    public static void loadImages(final NetworkImageView imageView, String imageURL) {
         if (imageURL!= null) {
             ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
-            imageLoader.get(imageURL, new ImageLoader.ImageListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("Error", error.getMessage(), error.getCause());
-                }
-
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
-                    if (response.getBitmap() != null) {
-                        Bitmap imageBitMap = response.getBitmap();
-                        imageView.setImageBitmap(imageBitMap);
-                    }
-                }
-            });
+            imageLoader.get(imageURL, ImageLoader.getImageListener(imageView,
+                    R.mipmap.ic_launcher, android.R.drawable
+                            .ic_dialog_alert));
+            imageView.setImageUrl(imageURL,imageLoader);
         }
-        return imageView;
+//        return imageView;
     }
 
 }

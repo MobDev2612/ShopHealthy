@@ -7,7 +7,6 @@
     android:background="@android:color/white"
     tools:context=".Fragment.CrunchathonTableFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TableLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
@@ -18,21 +17,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Your Values" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -44,14 +43,14 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Calories" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_calories"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_calories"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -72,7 +71,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -100,14 +99,14 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sodium" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_sodium"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -115,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_sodium"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -128,14 +127,14 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sugar" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_sugar"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -143,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_sugar"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -156,7 +155,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"    >
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -165,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:text="Final %" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_final_percent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -175,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_final_percent"
                 android:layout_weight="1"
                 android:gravity="center"

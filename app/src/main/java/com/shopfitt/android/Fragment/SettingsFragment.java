@@ -154,14 +154,18 @@ public class SettingsFragment extends Fragment implements Response.ErrorListener
         if (s.contains("1")) {
             SharedPreferences sharedPreferences = new SharedPreferences(mContext);
             sharedPreferences.setPassword(password);
-            Toast.makeText(mContext, "Password Changed Successfully", Toast.LENGTH_LONG).show();
-            Fragment fragment = new HomeFragment();
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, fragment);
-            fragmentTransaction.commit();
+            showHome();
         } else if (s.contains("0")) {
             Toast.makeText(mContext, "Something went wong. Please try later", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void showHome(){
+        Toast.makeText(mContext, "Password Changed Successfully", Toast.LENGTH_LONG).show();
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 }

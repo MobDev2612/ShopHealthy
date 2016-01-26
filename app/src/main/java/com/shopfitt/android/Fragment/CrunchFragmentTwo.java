@@ -23,6 +23,7 @@ import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.Shopfitt;
 
 import org.json.JSONException;
@@ -66,6 +67,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
                 "Success is, going from failure to failure without loss of enthusiasm.", "Never Give up", "Improvise,Adapt,Overcome !", "Anybody can dance if they find the music they love.",
                 "If it was easy, it wouldn’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
+        editText.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
         textView = (TextView) view.findViewById(R.id.crunch_message);
         textView.setText(message[randInt(1, 10)]);
         if (Config.crunchWon) {

@@ -76,9 +76,9 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         emailView = (FontView) view.findViewById(R.id.profile_email);
         phoneView = (FontView) view.findViewById(R.id.profile_number);
 
-        phoneView.setText(sharedPreferences.getPhoneNumber());
-        nameView.setText(sharedPreferences.getName());
-        emailView.setText(sharedPreferences.getEmail());
+        phoneView.setText("Phone: "+sharedPreferences.getPhoneNumber());
+        nameView.setText("Name: "+sharedPreferences.getName());
+        emailView.setText("Email: "+sharedPreferences.getEmail());
 
         phone_edt_text = (EditText) view.findViewById(R.id.phone);
         otp_edt_text = (EditText) view.findViewById(R.id.otp_verify_text);

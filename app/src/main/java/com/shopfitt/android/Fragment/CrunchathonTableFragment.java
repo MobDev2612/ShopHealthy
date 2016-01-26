@@ -152,7 +152,7 @@ public class CrunchathonTableFragment extends Fragment {
     private void decideWinner() {
         String message = "";
         if (requestId == 2) {
-            if (selfpercent > opponentpercent) {
+            if (selfpercent < opponentpercent) {
                 Config.crunchWon = true;
                 double diff = selfpercent - opponentpercent;
                 if (diff <= 3.0) {

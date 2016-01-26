@@ -51,7 +51,6 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 
         completeOrder.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
         address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-//        mobile = (EditText) findViewById(R.id.delivery_phone_number);
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override

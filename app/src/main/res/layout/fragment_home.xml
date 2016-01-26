@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:gravity="center"
+        android:paddingTop ="5dp"
         android:lines="1"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_medium" />
@@ -22,6 +23,7 @@
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:lines="2"
+        android:paddingTop="3dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_medium" />
 
