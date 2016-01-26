@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.LocationAdapter;
@@ -68,6 +69,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     private void initialiseComponents() {
         EditText searchArea = (EditText) view.findViewById(R.id.search_bar);
+        searchArea.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
         areaList = (ListView) view.findViewById(R.id.location_list);
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

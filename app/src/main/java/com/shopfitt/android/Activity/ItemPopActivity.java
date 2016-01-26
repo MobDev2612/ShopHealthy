@@ -9,7 +9,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -17,13 +16,15 @@ import com.android.volley.toolbox.ImageLoader;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
 public class ItemPopActivity extends AppCompatActivity {
 
     private ProductObject productObject;
-    private TextView nameEdtTxt, priceEdtTxt, unitEdtTxt, sugarEdtTxt, saltEdtTxt, fatEdtTxt, bhtEdtTxt, qtyEdtTxt;
+    private FontView nameEdtTxt, priceEdtTxt, unitEdtTxt, sugarEdtTxt, saltEdtTxt, fatEdtTxt, bhtEdtTxt, qtyEdtTxt;
     private Button plusButton, minusButton, updateButton;
     private ImageButton closeButton;
     private ImageView imageView;
@@ -39,19 +40,23 @@ public class ItemPopActivity extends AppCompatActivity {
     }
 
     private void initialiseComponents() {
-        nameEdtTxt = (TextView) findViewById(R.id.item_pop_name);
-        priceEdtTxt = (TextView) findViewById(R.id.item_pop_price);
-        unitEdtTxt = (TextView) findViewById(R.id.item_pop_unit);
-        sugarEdtTxt = (TextView) findViewById(R.id.item_pop_sugar);
-        saltEdtTxt = (TextView) findViewById(R.id.item_pop_salt);
-        fatEdtTxt = (TextView) findViewById(R.id.item_pop_fat);
-        bhtEdtTxt = (TextView) findViewById(R.id.item_pop_bht);
-        qtyEdtTxt = (TextView) findViewById(R.id.item_pop_quantity);
+        nameEdtTxt = (FontView) findViewById(R.id.item_pop_name);
+        priceEdtTxt = (FontView) findViewById(R.id.item_pop_price);
+        unitEdtTxt = (FontView) findViewById(R.id.item_pop_unit);
+        sugarEdtTxt = (FontView) findViewById(R.id.item_pop_sugar);
+        saltEdtTxt = (FontView) findViewById(R.id.item_pop_salt);
+        fatEdtTxt = (FontView) findViewById(R.id.item_pop_fat);
+        bhtEdtTxt = (FontView) findViewById(R.id.item_pop_bht);
+        qtyEdtTxt = (FontView) findViewById(R.id.item_pop_quantity);
         imageView = (ImageView) findViewById(R.id.item_pop_image);
 
         plusButton =(Button) findViewById(R.id.item_pop_plus);
         minusButton =(Button) findViewById(R.id.item_pop_minus);
         updateButton =(Button) findViewById(R.id.item_pop_update);
+
+        plusButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        minusButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        updateButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +75,19 @@ public class ItemPopActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonMethods.addProductInCart(productObject)) {
-                    if(productObject.getIsfood() == 1) {
-                        Config.foodItems = Config.foodItems+1;
-                    }
+                if(productObject.getQtyBought() > 0) {
+                    if (CommonMethods.addProductInCart(productObject, ItemPopActivity.this)) {
+                        if (productObject.getIsfood() == 1) {
+                            Config.foodItems = Config.foodItems + 1;
+                        }
 //                    Config.addToCart.add(productObject);
-                    Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought()* productObject.getMrp());
+                        Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought() * productObject.getMrp());
+                    }
+//                    Toast.makeText(ItemPopActivity.this, "Added to Cart", Toast.LENGTH_LONG).show();
+                    finish();
+                }  else {
+                    Toast.makeText(ItemPopActivity.this,"You missed adding the quantity. please check",Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(ItemPopActivity.this,"Added to Cart",Toast.LENGTH_LONG).show();
-                finish();
             }
         });
 
@@ -102,7 +111,8 @@ public class ItemPopActivity extends AppCompatActivity {
             updateButton.setText("Add");
         }
         nameEdtTxt.setText(productObject.getProduct_name());
-        priceEdtTxt.setText("INR "+productObject.getMrp()+".00");
+        priceEdtTxt.setText(getResources().getString(R.string.rupee_icon)+" "+productObject.getMrp()+".00");
+        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
         unitEdtTxt.setText(productObject.getWeightms());
         sugarEdtTxt.setText(productObject.getSugar() + "");
         saltEdtTxt.setText(productObject.getCalories() + "");

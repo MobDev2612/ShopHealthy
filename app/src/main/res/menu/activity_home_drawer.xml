@@ -14,7 +14,7 @@
         <item
             android:id="@+id/nav_track_order"
             android:icon="@drawable/ic_menu_track_order"
-            android:title="Track My Order" />
+            android:title="Order History" />
 
         <item
             android:id="@+id/nav_change_store"
@@ -24,9 +24,13 @@
 
     <group>
         <item
-            android:id="@+id/nav_customer_support"
+            android:id="@+id/nav_notification"
             android:icon="@android:drawable/ic_menu_help"
-            android:title="Customer Support" />
+            android:title="Notification" />
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Change Password" />
     </group>
 
 

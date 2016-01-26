@@ -18,7 +18,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <TextView
+        <com.shopfitt.android.Utils.FontView
             android:text="Welcome To ShopFitt"
             style="@style/BlackText"
             android:gravity="center"

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.datamodels.LocationObject;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class LocationAdapter extends ArrayAdapter<LocationObject> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mTextView.setText(dataList.get(position).getArea());
+        viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         return convertView;
     }
 

@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     tools:context="com.shopfitt.android.Fragment.ThankQFragment">
 
-    <TextView
+    <com.shopfitt.android.Utils.FontView
         style="@style/BlackText"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

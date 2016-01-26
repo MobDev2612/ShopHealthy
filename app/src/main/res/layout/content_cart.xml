@@ -14,7 +14,7 @@
     tools:context="com.shopfitt.android.Activity.CartActivity"
     tools:showIn="@layout/activity_cart">
 
-    <TextView
+    <com.shopfitt.android.Utils.FontView
         android:id="@+id/cart_place_outlet_name"
         android:text="Four Points Super Market"
         android:gravity="center"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <com.shopfitt.android.Utils.FontView
         android:drawableLeft="@drawable/ic_delivery"
         android:drawableStart="@drawable/ic_delivery"
         android:layout_marginTop="5dp"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <com.shopfitt.android.Utils.FontView
         android:layout_marginTop="5dp"
         android:text="Minimum order amount: INR 200.00"
         android:gravity="center"
@@ -46,6 +46,8 @@
 
     <ListView
         android:id="@+id/cart_list"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -135,7 +136,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (cancel) {
             focusView.requestFocus();
         } else {
-            CommonMethods.showProgress(true, this);
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("Email", email_text);
@@ -156,10 +156,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-//                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
-//                linearLayout.setVisibility(View.VISIBLE);
-                register_button.setVisibility(View.VISIBLE);
-                get_otp_button.setVisibility(View.GONE);
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.verify_otp_layout);
+                linearLayout.setVisibility(View.VISIBLE);
+//                register_button.setVisibility(View.VISIBLE);
+//                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }

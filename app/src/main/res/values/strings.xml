@@ -12,6 +12,7 @@
     <string name="btn_skip_intro">Skip Intro</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
+    <string name="rupee_icon">&#xf156;</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Username</string>
@@ -28,4 +29,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_delivery">"My Cart"</string>
+    <string name="title_activity_forgot_password">" "</string>
 </resources>

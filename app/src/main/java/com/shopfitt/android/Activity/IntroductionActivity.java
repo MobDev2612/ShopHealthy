@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -14,6 +13,8 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 
 public class IntroductionActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
@@ -21,7 +22,7 @@ public class IntroductionActivity extends YouTubeBaseActivity implements YouTube
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     Button skipIntroductionButton;
     Toolbar toolbar;
-    TextView mTextView;
+    FontView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,12 @@ public class IntroductionActivity extends YouTubeBaseActivity implements YouTube
         if(show) {
             setContentView(R.layout.activity_introduction);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
-            mTextView = (TextView) toolbar.findViewById(R.id.app_bar_title);
+            mTextView = (FontView) toolbar.findViewById(R.id.app_bar_title);
             mTextView.setText(getTitle());
             YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
             youTubePlayerView.initialize(Config.YOUTUBE_DEVELOPER_KEY, this);
             skipIntroductionButton = (Button) findViewById(R.id.skip_introduction);
+            skipIntroductionButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
             skipIntroductionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

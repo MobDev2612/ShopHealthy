@@ -31,7 +31,7 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
+        <com.shopfitt.android.Utils.FontView
             android:id="@+id/cart_total_amount"
             style="@style/BlackText"
             android:layout_width="wrap_content"
@@ -40,19 +40,19 @@
             android:layout_marginBottom="5dp"
             android:text="Total:  Rs 0" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/delivery_address_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/delivery_address_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <EditText
-                android:id="@+id/delivery_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address"
-                android:inputType="textPostalAddress" />
+            <!--<EditText-->
+                <!--android:id="@+id/delivery_address"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Address"-->
+                <!--android:inputType="textPostalAddress" />-->
 
-        </android.support.design.widget.TextInputLayout>
+        <!--</android.support.design.widget.TextInputLayout>-->
 
         <Button
             android:id="@+id/cart_place_order"

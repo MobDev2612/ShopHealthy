@@ -32,12 +32,12 @@
         <activity
             android:name=".Activity.CartActivity"
             android:label="@string/title_activity_cart"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activity.IntroductionActivity" />
         <activity android:name=".Activity.SelectLocationActivity" />
-        <activity android:name=".Activity.RegistrationActivity"
-            android:label=""/>
+        <activity
+            android:name=".Activity.RegistrationActivity"
+            android:label="" />
         <activity
             android:name=".Activity.DeliveryActivity"
             android:label="@string/title_activity_delivery"
@@ -47,7 +47,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shopfitt.android.Activity.CartActivity" />
         </activity>
-        <activity android:name=".Activity.CrunchActivity"  android:label=""/>
+        <activity
+            android:name=".Activity.CrunchActivity"
+            android:label="" />
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".Activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shopfitt.android.Activity.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -9,14 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
@@ -49,8 +52,9 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
 
     public class ViewHolder {
         public ImageView mImageView;
-        public TextView mName,mDescription,mCategory,mPrice,mQty;
-        public Button cartButton,plusButton,minusButton;
+        public FontView mName,mDescription,mCategory,mPrice,mQty;
+        public Button cartButton;
+        public ImageButton plusButton,minusButton;
     }
 
     @Override
@@ -60,24 +64,23 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
             viewHolder = new ViewHolder();
-            viewHolder.mName = (TextView) convertView.findViewById(R.id.product_list_item_name);
-            viewHolder.mDescription = (TextView) convertView.findViewById(R.id.product_list_item_description);
-            viewHolder.mCategory = (TextView) convertView.findViewById(R.id.product_list_item_category);
-            viewHolder.mPrice = (TextView) convertView.findViewById(R.id.product_list_item_price);
+            viewHolder.mName = (FontView) convertView.findViewById(R.id.product_list_item_name);
+            viewHolder.mDescription = (FontView) convertView.findViewById(R.id.product_list_item_description);
+            viewHolder.mCategory = (FontView) convertView.findViewById(R.id.product_list_item_category);
+            viewHolder.mPrice = (FontView) convertView.findViewById(R.id.product_list_item_price);
 
-            viewHolder.mQty = (TextView) convertView.findViewById(R.id.product_list_qty_text);
-            viewHolder.plusButton = (Button) convertView.findViewById(R.id.product_list_add_qty);
-            viewHolder.minusButton = (Button) convertView.findViewById(R.id.product_list_minus_qty);
-
+            viewHolder.mQty = (FontView) convertView.findViewById(R.id.product_list_qty_text);
+            viewHolder.plusButton = (ImageButton) convertView.findViewById(R.id.product_list_add_qty);
+            viewHolder.minusButton = (ImageButton) convertView.findViewById(R.id.product_list_minus_qty);
             viewHolder.cartButton= (Button) convertView.findViewById(R.id.product_list_add_cart);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.product_list_item_image);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(dataList.get(position).getQtyBought()== 0){
-            dataList.get(position).setQtyBought(1);
-        }
+//        if(dataList.get(position).getQtyBought()== 0){
+//            dataList.get(position).setQtyBought(1);
+//        }
 
         if(CommonMethods.checkProductInCart(dataList.get(position))!=null){
             dataList.set(position,CommonMethods.checkProductInCart(dataList.get(position)));
@@ -85,11 +88,12 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         } else {
             viewHolder.cartButton.setText("Add");
         }
-
+        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
         viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
         viewHolder.mCategory.setText(dataList.get(position).getWeightms());
-        viewHolder.mPrice.setText("INR "+dataList.get(position).getMrp()+".00");
+        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon)+" "+dataList.get(position).getMrp()+".00");
+        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         viewHolder.mQty.setText(dataList.get(position).getQtyBought() + "");
         viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +110,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
                 int qty = productObject.getQtyBought();
-                if(qty > 1)
+                if(qty > 0)
                 productObject.setQtyBought(qty-1);
                 notifyDataSetChanged();
             }
@@ -118,12 +122,16 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             @Override
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
-                if(CommonMethods.addProductInCart(productObject)) {
-                    if(productObject.getIsfood() == 1) {
-                        Config.foodItems = Config.foodItems+1;
-                    }
+                if(productObject.getQtyBought() > 0) {
+                    if (CommonMethods.addProductInCart(productObject, mContext)) {
+                        if (productObject.getIsfood() == 1) {
+                            Config.foodItems = Config.foodItems + 1;
+                        }
 //                    Config.addToCart.add(productObject);
-                    Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought()* productObject.getMrp());
+                        Config.cartTotalAmount = Config.cartTotalAmount + (productObject.getQtyBought() * productObject.getMrp());
+                    }
+                } else {
+                    Toast.makeText(mContext,"You missed adding the quantity. please check",Toast.LENGTH_SHORT).show();
                 }
             }
         });

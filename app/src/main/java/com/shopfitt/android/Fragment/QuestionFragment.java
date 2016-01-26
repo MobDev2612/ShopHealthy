@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -22,6 +21,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 
 /**
@@ -32,11 +33,12 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     private View view;
     private Button fitYes, fitNo, crunchYes, crunchNo;
 //    private int questionAnswered = 0;
-    private TextView fitCartQuestion;
+    private FontView fitCartQuestion;
     private int requestId;
     private Context mContext;
     LinearLayout crunchQuestion;
     boolean fitCartAccess;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -65,7 +67,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     private void initialiseComponents() {
         crunchQuestion = (LinearLayout) view.findViewById(R.id.crunch_match_question);
-        fitCartQuestion = (TextView) view.findViewById(R.id.question_fit_cart);
+        fitCartQuestion = (FontView) view.findViewById(R.id.question_fit_cart);
         fitYes = (Button) view.findViewById(R.id.question_fit_cart_yes);
         fitYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +84,12 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         });
         crunchYes = (Button) view.findViewById(R.id.question_crunch_match_yes);
         crunchNo = (Button) view.findViewById(R.id.question_crunch_match_no);
+
+        fitYes.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        fitNo.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        crunchNo.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        crunchYes.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+
         crunchYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

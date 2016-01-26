@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.datamodels.SubCategoryObject;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class SubCategoryAdapter extends ArrayAdapter<SubCategoryObject> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mTextView.setText(dataList.get(position).getSubcategory());
+        viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         return convertView;
     }
 }

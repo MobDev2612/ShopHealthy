@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -23,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.CategoryAdapter;
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private View view;
     private ListView categoryList;
     List<CategoryObject> categories;
-    TextView outletName,rank;
+    FontView outletName,rank;
     private Context mContext;
 
     @Override
@@ -71,11 +71,11 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     private void initialiseComponents(Bundle arguments) {
         SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         categories = new ArrayList<CategoryObject>();
-        rank = (TextView) view.findViewById(R.id.customer_rank);
+        rank = (FontView) view.findViewById(R.id.customer_rank);
         if(Config.customerRank!=null) {
             rank.setText("Rank :"+Config.customerRank.getRank()+" Points: "+Config.customerRank.getPoints());
         }
-        outletName = (TextView) view.findViewById(R.id.home_outlet_name);
+        outletName = (FontView) view.findViewById(R.id.home_outlet_name);
         outletName.setText(sharedPreferences.getOutlet());
         categoryList = (ListView) view.findViewById(R.id.home_list);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

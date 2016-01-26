@@ -20,6 +20,7 @@ import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
@@ -47,6 +48,9 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 
         completeOrder = (Button)findViewById(R.id.delivery_order_complete);
         address = (EditText) findViewById(R.id.delivery_address);
+
+        completeOrder.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
 //        mobile = (EditText) findViewById(R.id.delivery_phone_number);
 
         completeOrder.setOnClickListener(new View.OnClickListener() {

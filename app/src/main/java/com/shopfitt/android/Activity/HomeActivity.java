@@ -21,11 +21,16 @@ import com.android.volley.VolleyError;
 import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
+import com.shopfitt.android.Fragment.NotificationFragment;
+import com.shopfitt.android.Fragment.SettingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerRank;
+import com.shopfitt.android.datamodels.ProductObject;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Response.ErrorListener, Response.Listener<CustomerRank> {
@@ -42,7 +47,9 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        if(Config.addToCart==null){
+            Config.addToCart = new ArrayList<ProductObject>();
+        }
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFragments(R.id.nav_home);
@@ -81,8 +88,12 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cart) {
-            Intent intent = new Intent(this, CartActivity.class);
-            startActivity(intent);
+            if(Config.addToCart.isEmpty()){
+                Toast.makeText(this,"Cart is empty. Add Products to cart",Toast.LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+            }
             return true;
         }
 
@@ -110,8 +121,10 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_change_store) {
             fragment = new LocationFragment();
-        } else if (id == R.id.nav_customer_support) {
-
+        } else if (id == R.id.nav_notification) {
+            fragment = new NotificationFragment();
+        } else if(id == R.id.nav_change_password){
+            fragment = new SettingsFragment();
         }
 
         if (fragment != null) {

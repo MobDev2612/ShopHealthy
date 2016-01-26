@@ -21,6 +21,8 @@ public class SharedPreferences {
     public static final String SHARED_PREFERENCES_USER_ID = "Key8";
     public static final String SHARED_PREFERENCES_PHONE = "Key9";
     public static final String SHARED_PREFERENCES_PERFORM_LOGIN = "Key10";
+    public static final String SHARED_PREFERENCES_NAME = "Key11";
+    public static final String SHARED_PREFERENCES_EMAIL = "Key12";
 
     public SharedPreferences(Context context) {
         mContext = context;
@@ -68,6 +70,24 @@ public class SharedPreferences {
 
     public String getLocation(){
         return sharedPreferences.getString(SHARED_PREFERENCES_LOCATION_PREFERENCE, "");
+    }
+
+    public void setName(String location){
+        editor.putString(SHARED_PREFERENCES_NAME, location);
+        editor.commit();
+    }
+
+    public String getName(){
+        return sharedPreferences.getString(SHARED_PREFERENCES_NAME, "");
+    }
+
+    public void setEmail(String location){
+        editor.putString(SHARED_PREFERENCES_EMAIL, location);
+        editor.commit();
+    }
+
+    public String getEmail(){
+        return sharedPreferences.getString(SHARED_PREFERENCES_EMAIL, "");
     }
 
     public void setOutlet(String outlet){

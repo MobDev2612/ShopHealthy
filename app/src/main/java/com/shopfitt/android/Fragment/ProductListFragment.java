@@ -22,7 +22,6 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.Activity.ItemPopActivity;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
-import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.ProductAdapter;
 import com.shopfitt.android.datamodels.ProductObject;
@@ -41,7 +40,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
     private ListView productList;
     List<ProductObject> productObjects;
     Context mContext;
-
+    ProductAdapter outletAdapter;
 
     public ProductListFragment() {
     }
@@ -67,9 +66,6 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
     }
 
     private void initialiseComponents(Bundle arguments) {
-        if(Config.addToCart==null){
-            Config.addToCart = new ArrayList<ProductObject>();
-        }
         productObjects = new ArrayList<ProductObject>();
         productList = (ListView) view.findViewById(R.id.product_list);
         productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -136,12 +132,11 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
     private void setList(List<ProductObject> outlets){
         try {
-            ProductAdapter outletAdapter = new ProductAdapter(mContext, R.layout.product_list_item, outlets);
+            outletAdapter = new ProductAdapter(mContext, R.layout.product_list_item, outlets);
             productList.setAdapter(outletAdapter);
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -151,5 +146,11 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
         super.onStop();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(outletAdapter != null) {
+            outletAdapter.notifyDataSetChanged();
+        }
+    }
 }

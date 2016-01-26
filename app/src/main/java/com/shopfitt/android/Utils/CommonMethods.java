@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.shopfitt.android.datamodels.ProductObject;
 
@@ -34,7 +35,7 @@ public class CommonMethods {
         ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static boolean addProductInCart(ProductObject productObject) {
+    public static boolean addProductInCart(ProductObject productObject,Context mContext) {
         boolean found = false;
         for (int i = 0; i < Config.addToCart.size(); i++) {
             if (productObject.getID() == Config.addToCart.get(i).getID()) {
@@ -46,6 +47,7 @@ public class CommonMethods {
             ProductObject newProduct = new ProductObject();
             newProduct = productObject;
             Config.addToCart.add(newProduct);
+            Toast.makeText(mContext,"Added to Cart",Toast.LENGTH_SHORT).show();
             found = true;
         }
         return found;

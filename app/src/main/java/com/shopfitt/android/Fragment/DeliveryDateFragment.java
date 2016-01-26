@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -23,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
@@ -33,7 +34,7 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
 
     private View view;
 //    private EditText qtyText;
-    private TextView textViewShowTime;
+    private FontView textViewShowTime;
     private Button submit;
     SharedPreferences sharedPreferences;
     private Context mContext;
@@ -67,10 +68,11 @@ public class DeliveryDateFragment extends Fragment implements Response.Listener<
 
     private void initialiseComponents() {
         sharedPreferences = new SharedPreferences(mContext);
-        textViewShowTime = (TextView) view.findViewById(R.id.tvTimeCount);
+        textViewShowTime = (FontView) view.findViewById(R.id.tvTimeCount);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         submit = (Button) view.findViewById(R.id.delivery_date_submit);
-        totalTimeCountInMilliseconds = 60 * 180 * 1000;
+        submit.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        totalTimeCountInMilliseconds = 60 * 120 * 1000;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

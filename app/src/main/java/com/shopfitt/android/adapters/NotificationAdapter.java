@@ -9,19 +9,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.shopfitt.android.Utils.Font;
-import com.shopfitt.android.datamodels.OutletObject;
+import com.shopfitt.android.datamodels.NotificationObject;
 
 import java.util.List;
 
 /**
- * Created by Hari Haran on 13-Jan-16.
+ * Created by Hari Haran on 26-Jan-16.
  */
-public class OutletAdapter extends ArrayAdapter<OutletObject> {
+public class NotificationAdapter extends ArrayAdapter<NotificationObject> {
     private Context mContext;
     private int mResource;
-    List<OutletObject> dataList;
+    List<NotificationObject> dataList;
 
-    public OutletAdapter(Context context, int resource, List<OutletObject> objects) {
+    public NotificationAdapter(Context context, int resource, List<NotificationObject> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -40,7 +40,7 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.mTextView.setText(dataList.get(position).getStore_name());
+        viewHolder.mTextView.setText(dataList.get(position).getMessage());
         viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         return convertView;
     }
@@ -52,7 +52,7 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
     }
 
     @Override
-    public OutletObject getItem(int position) {
+    public NotificationObject getItem(int position) {
         return dataList.get(position);
     }
 

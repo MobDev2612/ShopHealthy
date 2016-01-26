@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,6 +24,8 @@ import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
@@ -35,11 +38,12 @@ import org.json.JSONObject;
 public class EditPhoneNumberFragment extends Fragment implements View.OnClickListener, Response.ErrorListener, Response.Listener {
     private int requestID=0;
     private View view;
-    private Button get_otp_button,verify_otp_button,register_button;
+    private Button get_otp_button,verify_otp_button,register_button,changeNumberButton;
     private EditText phone_edt_text,otp_edt_text;
     TextInputLayout phone_edt_text_layout,otp_edt_text_layout;
     SharedPreferences sharedPreferences;
     private Context mContext;
+    private FontView nameView,emailView,phoneView;
 
     @Override
     public void onAttach(Context context) {
@@ -68,6 +72,14 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     }
 
     private void initialiseComponents() {
+        nameView = (FontView) view.findViewById(R.id.profile_name);
+        emailView = (FontView) view.findViewById(R.id.profile_email);
+        phoneView = (FontView) view.findViewById(R.id.profile_number);
+
+        phoneView.setText(sharedPreferences.getPhoneNumber());
+        nameView.setText(sharedPreferences.getName());
+        emailView.setText(sharedPreferences.getEmail());
+
         phone_edt_text = (EditText) view.findViewById(R.id.phone);
         otp_edt_text = (EditText) view.findViewById(R.id.otp_verify_text);
         phone_edt_text_layout = (TextInputLayout) view.findViewById(R.id.phone_layout);
@@ -76,6 +88,24 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         get_otp_button = (Button) view.findViewById(R.id.get_otp);
         verify_otp_button = (Button) view.findViewById(R.id.verify_otp_button);
         register_button = (Button) view.findViewById(R.id.register);
+        changeNumberButton = (Button) view.findViewById(R.id.change_number_button);
+
+        phone_edt_text.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        otp_edt_text.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        phone_edt_text_layout.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        otp_edt_text_layout.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        get_otp_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        verify_otp_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        register_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        changeNumberButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+
+        changeNumberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phone_edt_text.setVisibility(View.VISIBLE);
+                get_otp_button.setVisibility(View.VISIBLE);
+            }
+        });
 
         get_otp_button.setOnClickListener(this);
         verify_otp_button.setOnClickListener(this);
@@ -89,10 +119,10 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         if (v == get_otp_button) {
             if(!number.isEmpty()){
                 requestOTP(number);
-//                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
-//                linearLayout.setVisibility(View.VISIBLE);
-                register_button.setVisibility(View.VISIBLE);
-                get_otp_button.setVisibility(View.GONE);
+                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
+                linearLayout.setVisibility(View.VISIBLE);
+//                register_button.setVisibility(View.VISIBLE);
+//                get_otp_button.setVisibility(View.GONE);
             } else {
                 phone_edt_text_layout.setError(getString(R.string.error_field_required));
             }

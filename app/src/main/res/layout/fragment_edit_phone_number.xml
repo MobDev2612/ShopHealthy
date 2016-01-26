@@ -3,19 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="15dp"
     tools:context="com.shopfitt.android.Fragment.EditPhoneNumberFragment">
 
+    <com.shopfitt.android.Utils.FontView
+        android:id="@+id/profile_name"
+        style="@style/BlackText"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:id="@+id/profile_email"
+        style="@style/BlackText"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:id="@+id/profile_number"
+        style="@style/BlackText"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/change_number_button"
+        android:layout_marginTop="5dp"
+        style="@style/OrangeButton"
+        android:text="Change Phone Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="5dp"
         android:id="@+id/phone_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="New Phone Number"
             android:inputType="phone"
             android:maxLines="1"
             android:singleLine="true"
@@ -24,6 +56,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/get_otp"
         style="@style/OrangeButton"
         android:layout_width="match_parent"

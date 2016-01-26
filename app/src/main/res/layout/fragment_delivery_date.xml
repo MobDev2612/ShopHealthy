@@ -23,7 +23,7 @@
             android:secondaryProgress="500"
             android:progressDrawable="@drawable/circular" />
 
-        <TextView
+        <com.shopfitt.android.Utils.FontView
             android:id="@+id/tvTimeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

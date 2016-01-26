@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.LoginObject;
@@ -85,6 +86,10 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 }
 
             });
+            mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+            registrationButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+            mEmailView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+            mPasswordView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
         }
     }
 
@@ -166,6 +171,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private void loginSuccess(LoginObject loginObject) {
         sharedPreferences.setLoginID(userName);
         sharedPreferences.setPassword(password);
+        sharedPreferences.setName(loginObject.getName());
+        sharedPreferences.setEmail(loginObject.getEmail());
         Config.customerID = loginObject.getID();
         sharedPreferences.setCustomerID(loginObject.getID());
         sharedPreferences.setPhoneNumber(loginObject.getMobile());
