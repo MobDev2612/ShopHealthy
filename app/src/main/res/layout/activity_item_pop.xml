@@ -167,17 +167,13 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/item_pop_minus"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:background="@android:color/white"
-            android:text="-"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="@dimen/text_size_large" />
+            android:src="@drawable/ic_minus_sign" />
 
         <com.shopfitt.android.Utils.FontView
             android:id="@+id/item_pop_quantity"
@@ -185,24 +181,21 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/item_pop_minus"
             android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp"
+            android:padding="2dp"
             android:text="1"
+            android:layout_marginLeft="5dp"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_large" />
 
-        <Button
+        <ImageButton
             android:id="@+id/item_pop_plus"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/item_pop_quantity"
+            android:layout_marginLeft="5dp"
             android:background="@android:color/white"
-            android:text="+"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="@dimen/text_size_large" />
+            android:src="@drawable/ic_plus_sign" />
 
         <Button
             android:id="@+id/item_pop_update"
@@ -211,7 +204,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:minHeight="20dp"
             android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:paddingRight="5dp"
             android:text="@string/update" />
 

@@ -25,7 +25,8 @@ public class ItemPopActivity extends AppCompatActivity {
 
     private ProductObject productObject;
     private FontView nameEdtTxt, priceEdtTxt, unitEdtTxt, sugarEdtTxt, saltEdtTxt, fatEdtTxt, bhtEdtTxt, qtyEdtTxt;
-    private Button plusButton, minusButton, updateButton;
+    private ImageButton plusButton, minusButton;
+    private Button updateButton;
     private ImageButton closeButton;
     private ImageView imageView;
     @Override
@@ -50,12 +51,9 @@ public class ItemPopActivity extends AppCompatActivity {
         qtyEdtTxt = (FontView) findViewById(R.id.item_pop_quantity);
         imageView = (ImageView) findViewById(R.id.item_pop_image);
 
-        plusButton =(Button) findViewById(R.id.item_pop_plus);
-        minusButton =(Button) findViewById(R.id.item_pop_minus);
+        plusButton =(ImageButton) findViewById(R.id.item_pop_plus);
+        minusButton =(ImageButton) findViewById(R.id.item_pop_minus);
         updateButton =(Button) findViewById(R.id.item_pop_update);
-
-        plusButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        minusButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
         updateButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
 
         plusButton.setOnClickListener(new View.OnClickListener() {

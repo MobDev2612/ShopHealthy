@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@android:color/white"
     tools:context="com.shopfitt.android.Fragment.QuestionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/question_fit_cart"
         android:layout_width="match_parent"

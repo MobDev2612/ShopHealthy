@@ -10,7 +10,7 @@
         android:id="@+id/title"
         style="@style/BlackText"
         android:layout_alignParentTop="true"
-        android:paddingLeft="3dp"
+        android:padding="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please select any one user for Crunch Match" />

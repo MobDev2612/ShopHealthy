@@ -152,7 +152,7 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"    >
             <com.shopfitt.android.Utils.FontView
@@ -162,7 +162,7 @@
                 android:textSize="@dimen/text_size_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Final %" />
+                android:text="Final Result" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_final_percent"
