@@ -2,7 +2,9 @@ package com.shopfitt.android.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -49,6 +51,9 @@ public class CommonMethods {
             Config.addToCart.add(newProduct);
             Toast.makeText(mContext,"Added to Cart",Toast.LENGTH_SHORT).show();
             found = true;
+            Intent intent = new Intent("custom-event-name");
+            intent.putExtra("message", "This is my message!");
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
         }
         return found;
     }

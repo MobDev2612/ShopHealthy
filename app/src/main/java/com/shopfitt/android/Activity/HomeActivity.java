@@ -1,18 +1,27 @@
 package com.shopfitt.android.Activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -51,6 +60,8 @@ public class HomeActivity extends AppCompatActivity
         if(Config.addToCart==null){
             Config.addToCart = new ArrayList<ProductObject>();
         }
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-event-name"));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFragments(R.id.nav_home);
@@ -75,9 +86,34 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home, menu);
+        MenuItem item = menu.findItem(R.id.action_cart);
+        MenuItemCompat.setActionView(item, R.layout.cart_icon);
+        RelativeLayout count = (RelativeLayout) MenuItemCompat.getActionView(item);
+        TextView notifCount = (TextView) count.findViewById(R.id.actionbar_notifcation_textview);
+        if(Config.addToCart.size()>0) {
+            notifCount.setVisibility(View.VISIBLE);
+            notifCount.setText(String.valueOf(Config.addToCart.size()));
+        } else {
+            notifCount.setVisibility(View.GONE);
+        }
+        count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Config.addToCart.isEmpty()){
+                    Toast.makeText(HomeActivity.this,"Cart is empty. Add Products to cart",Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void updateCount(){
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -143,6 +179,23 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(this, "Not Available", Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+//            String message = intent.getStringExtra("message");
+//            Log.d("receiver", "Got message: " + message);
+            updateCount();
+        }
+    };
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {

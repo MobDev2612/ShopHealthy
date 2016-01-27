@@ -3,7 +3,9 @@ package com.shopfitt.android.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -157,6 +159,9 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 //                Config.addToCart.remove(position);
         dataList.get(position).setQtyBought(0);
         dataList.remove(position);
+        Intent intent = new Intent("custom-event-name");
+        intent.putExtra("message", "This is my message!");
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
         notifyDataSetChanged();
     }
 
