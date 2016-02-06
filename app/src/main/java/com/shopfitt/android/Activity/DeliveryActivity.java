@@ -219,6 +219,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
             executed = true;
             Toast.makeText(this,"Thanks for order",Toast.LENGTH_LONG).show();
             Config.addToCart.clear();
+            Config.cartTotalAmount =0;
             Intent intent = new Intent(this,CrunchActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

@@ -4,7 +4,6 @@ package com.shopfitt.android.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.shopfitt.android.datamodels.NotificationObject;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,8 +64,8 @@ public class NotificationFragment extends Fragment implements Response.ErrorList
 
     private void getNotifications(String id) {
         CommonMethods.showProgress(true, mContext);
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/getNotificationMessages/"+id,this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outletapi");
+        JsonArrayRequest fetchNotifications = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/getNotificationMessages/"+id,this, this);
+        Shopfitt.getInstance().addToRequestQueue(fetchNotifications, "notification");
     }
 
     @Override
@@ -82,22 +80,20 @@ public class NotificationFragment extends Fragment implements Response.ErrorList
             CommonMethods.showProgress(false, mContext);
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
-            List<NotificationObject> posts = new ArrayList<NotificationObject>();
-            posts = Arrays.asList(gson.fromJson(jsonArray.toString(), NotificationObject[].class));
+            List<NotificationObject> posts = Arrays.asList(gson.fromJson(jsonArray.toString(), NotificationObject[].class));
             setList(posts);
         }catch (Exception e){
-            Toast.makeText(mContext, "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Error in fetching Notifications", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setList(List<NotificationObject> outlets){
-        NotificationAdapter outletAdapter = new NotificationAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
+    private void setList(List<NotificationObject> notificationObjects){
+        NotificationAdapter outletAdapter = new NotificationAdapter(mContext, android.R.layout.simple_list_item_1, notificationObjects);
         listView.setAdapter(outletAdapter);
     }
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

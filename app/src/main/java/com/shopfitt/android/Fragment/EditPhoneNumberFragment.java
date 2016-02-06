@@ -7,7 +7,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +37,15 @@ import org.json.JSONObject;
 public class EditPhoneNumberFragment extends Fragment implements View.OnClickListener, Response.ErrorListener, Response.Listener {
     private int requestID=0;
     private View view;
-    private Button get_otp_button,verify_otp_button,register_button,changeNumberButton;
-    private EditText phone_edt_text,otp_edt_text;
-    TextInputLayout phone_edt_text_layout,otp_edt_text_layout;
+    private Button getOtpButton;
+    private Button verifyOtpButton;
+    private Button registerButton;
+    private EditText phoneEdtText, otpEdtText;
+    TextInputLayout phoneEdtTextLayout, otpEdtTextLayout;
     SharedPreferences sharedPreferences;
     private Context mContext;
-    private FontView nameView,emailView,phoneView;
+    private FontView emailView;
+    private FontView phoneView;
 
     @Override
     public void onAttach(Context context) {
@@ -72,72 +74,72 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     }
 
     private void initialiseComponents() {
-        nameView = (FontView) view.findViewById(R.id.profile_name);
+        FontView nameView = (FontView) view.findViewById(R.id.profile_name);
         emailView = (FontView) view.findViewById(R.id.profile_email);
         phoneView = (FontView) view.findViewById(R.id.profile_number);
 
         phoneView.setText("Phone: "+sharedPreferences.getPhoneNumber());
-        nameView.setText("Name: "+sharedPreferences.getName());
+        nameView.setText("Name: " + sharedPreferences.getName());
         emailView.setText("Email: "+sharedPreferences.getEmail());
 
-        phone_edt_text = (EditText) view.findViewById(R.id.phone);
-        otp_edt_text = (EditText) view.findViewById(R.id.otp_verify_text);
-        phone_edt_text_layout = (TextInputLayout) view.findViewById(R.id.phone_layout);
-        otp_edt_text_layout = (TextInputLayout) view.findViewById(R.id.otp_verify_text_layout);
+        phoneEdtText = (EditText) view.findViewById(R.id.phone);
+        otpEdtText = (EditText) view.findViewById(R.id.otp_verify_text);
+        phoneEdtTextLayout = (TextInputLayout) view.findViewById(R.id.phone_layout);
+        otpEdtTextLayout = (TextInputLayout) view.findViewById(R.id.otp_verify_text_layout);
 
-        get_otp_button = (Button) view.findViewById(R.id.get_otp);
-        verify_otp_button = (Button) view.findViewById(R.id.verify_otp_button);
-        register_button = (Button) view.findViewById(R.id.register);
-        changeNumberButton = (Button) view.findViewById(R.id.change_number_button);
+        getOtpButton = (Button) view.findViewById(R.id.get_otp);
+        verifyOtpButton = (Button) view.findViewById(R.id.verify_otp_button);
+        registerButton = (Button) view.findViewById(R.id.register);
+        Button changeNumberButton = (Button) view.findViewById(R.id.change_number_button);
 
-        phone_edt_text.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        otp_edt_text.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        phone_edt_text_layout.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        otp_edt_text_layout.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        get_otp_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        verify_otp_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        register_button.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        changeNumberButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        phoneEdtText.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        otpEdtText.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        phoneEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        otpEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        getOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        verifyOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        registerButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        changeNumberButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
 
         changeNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phone_edt_text.setVisibility(View.VISIBLE);
-                get_otp_button.setVisibility(View.VISIBLE);
+                phoneEdtText.setVisibility(View.VISIBLE);
+                getOtpButton.setVisibility(View.VISIBLE);
             }
         });
 
-        get_otp_button.setOnClickListener(this);
-        verify_otp_button.setOnClickListener(this);
-        register_button.setOnClickListener(this);
+        getOtpButton.setOnClickListener(this);
+        verifyOtpButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        String number = phone_edt_text.getText().toString();
-        String oldnumber = sharedPreferences.getPhoneNumber();
-        if (v == get_otp_button) {
+        String number = phoneEdtText.getText().toString();
+        String oldNumber = sharedPreferences.getPhoneNumber();
+        if (v == getOtpButton) {
             if(!number.isEmpty()){
                 requestOTP(number);
                 LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.verify_otp_layout);
                 linearLayout.setVisibility(View.VISIBLE);
-//                register_button.setVisibility(View.VISIBLE);
-//                get_otp_button.setVisibility(View.GONE);
+//                registerButton.setVisibility(View.VISIBLE);
+//                getOtpButton.setVisibility(View.GONE);
             } else {
-                phone_edt_text_layout.setError(getString(R.string.error_field_required));
+                phoneEdtTextLayout.setError(getString(R.string.error_field_required));
             }
-        } else if (v == verify_otp_button){
-            String otp = otp_edt_text.getText().toString();
+        } else if (v == verifyOtpButton){
+            String otp = otpEdtText.getText().toString();
             if(!otp.isEmpty()){
                 verifyOTP(number, otp);
             } else {
-                otp_edt_text_layout.setError(getString(R.string.error_field_required));
+                otpEdtTextLayout.setError(getString(R.string.error_field_required));
             }
-        } else if( v == register_button){
+        } else if( v == registerButton){
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("newnumber", number);
-                jsonObject.put("oldnumber", oldnumber);
+                jsonObject.put("oldNumber", oldNumber);
                 saveNumber(jsonObject);
             }catch (Exception e){
                 e.printStackTrace();
@@ -154,7 +156,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         try {
             jsonObject.put("mobile", number);
             jsonObject.put("OTP", otp);
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/confirmMobile/",String.class,jsonObject,
+            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/confirmMobile/",String.class,jsonObject,
                     this,this);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
@@ -172,7 +174,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
                 }
             });
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyOtp");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -184,9 +186,9 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", number);
-            VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SendConfirmationOTP/",String.class,null,
+            VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SendConfirmationOTP/",String.class,null,
                     this,this,jsonObject);
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "sendotpapi");
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "sendOtp");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -196,9 +198,9 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         requestID =3;
         CommonMethods.showProgress(true,mContext);
         try {
-            VolleyRequest<JSONObject> request = new VolleyRequest<JSONObject>(Request.Method.POST," http://23.91.69.85:61090/ProductService.svc/updateMobileNumber/",JSONObject.class,null,
+            VolleyRequest<JSONObject> request = new VolleyRequest<>(Request.Method.POST," http://23.91.69.85:61090/ProductService.svc/updateMobileNumber/",JSONObject.class,null,
                     this,this,jsonObject);
-            Shopfitt.getInstance().addToRequestQueue(request, "registerapi");
+            Shopfitt.getInstance().addToRequestQueue(request, "register");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -218,15 +220,15 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         if(requestID == 2){
             String result = (String) o;
             if(result.equalsIgnoreCase("1")) {
-                register_button.setVisibility(View.VISIBLE);
+                registerButton.setVisibility(View.VISIBLE);
             } else if (result.equalsIgnoreCase("0")){
-                otp_edt_text_layout.setError("Wrong OTP");
+                otpEdtTextLayout.setError("Wrong OTP");
             }
         }
         if(requestID == 3){
             String result = (String) o;
             if(result.equalsIgnoreCase("1")) {
-                sharedPreferences.setPhoneNumber(phone_edt_text.getText().toString());
+                sharedPreferences.setPhoneNumber(phoneEdtText.getText().toString());
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -242,7 +244,6 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

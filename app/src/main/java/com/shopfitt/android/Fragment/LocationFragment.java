@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import com.shopfitt.android.datamodels.LocationObject;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -117,7 +115,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
         CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchLocations = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?area=all",
                 this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "location");
     }
 
     @Override
@@ -132,8 +130,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
-            List<LocationObject> posts = new ArrayList<LocationObject>();
-            posts =  new LinkedList<LocationObject>(Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class)));
+            List<LocationObject> posts = new LinkedList<>(Arrays.asList(gson.fromJson(jsonArray.toString(), LocationObject[].class)));
             setList(posts);
         }catch (Exception e){
             Toast.makeText(mContext, "Error in fetching location", Toast.LENGTH_SHORT).show();
@@ -148,7 +145,6 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

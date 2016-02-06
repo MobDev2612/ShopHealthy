@@ -39,9 +39,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
     private View view;
     private EditText editText;
-    private TextView textView;
     private Context mContext;
-    private Button submitButton;
     private boolean executed = false;
 
     @Override
@@ -66,15 +64,15 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle("Crunchaton");
+        getActivity().setTitle("Crunchathon");
         String[] message = new String[]{"There is always a Next time.", "Secret to getting ahead is to get started.", "A legend in anything, was once a beginner.", "It always seems impossible until it is done.",
                 "Success is, going from failure to failure without loss of enthusiasm.", "Never Give up", "Improvise,Adapt,Overcome !", "Anybody can dance if they find the music they love.",
-                "If it was easy, it wouldn’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
+                "If it was easy, it would n’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
         editText.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        textView = (TextView) view.findViewById(R.id.crunch_message);
-        submitButton = (Button) view.findViewById(R.id.submit_message);
-        submitButton.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        TextView textView = (TextView) view.findViewById(R.id.crunch_message);
+        Button submitButton = (Button) view.findViewById(R.id.submit_message);
+        submitButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +102,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
     private void redirect() {
         if (!Config.crunchWon) {
-            showThankyou();
+            showThankYou();
         } else {
             postMessage();
         }
@@ -118,7 +116,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
             try {
                 jsonObject.put("comparerid", Config.comparerID.replaceAll("\"", ""));
                 jsonObject.put("message", editText.getText().toString() + "");
-                CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
+                CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
                         this, this);
                 volleyRequest.setRetryPolicy(new RetryPolicy() {
                     @Override
@@ -136,14 +134,14 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
                     }
                 });
-                Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
+                Shopfitt.getInstance().addToRequestQueue(volleyRequest, "postWinnerMessage");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void showThankyou() {
+    private void showThankYou() {
         Fragment fragment = new ThankQFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -153,22 +151,20 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
     public static int randInt(int min, int max) {
         Random rand = new Random();
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        return randomNum;
+        return rand.nextInt((max - min) + 1) + min;
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         CommonMethods.showProgress(false,mContext);
-//        executed = false;
         Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_LONG).show();
-        showThankyou();
+        showThankYou();
     }
 
     @Override
     public void onResponse(Object o) {
         CommonMethods.showProgress(false,mContext);
-        showThankyou();
+        showThankYou();
     }
 
     @Override

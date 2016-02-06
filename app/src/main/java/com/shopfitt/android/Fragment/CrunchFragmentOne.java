@@ -36,7 +36,6 @@ import java.util.List;
 public class CrunchFragmentOne extends Fragment implements Response.ErrorListener, Response.Listener, View.OnClickListener {
 
     private View view;
-//    private ListView listView;
     int requestId=0;
     List<String> list;
     private Button imageButton1,imageButton2,imageButton3,imageButton4;
@@ -48,11 +47,9 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
         mContext = context;
     }
 
-
     public CrunchFragmentOne() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +62,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle("Crunchaton");
+        getActivity().setTitle("Crunchathon");
         initialiseComponents();
         getOptions();
     }
@@ -86,28 +83,28 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
         CommonMethods.showProgress(true, mContext);
         StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getCustomertoCompare/" + Config.customerID,
                 this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "getOptions");
     }
 
-    private void getOpponentOrderID(String custId) {
+    private void getOpponentOrderID(String customerId) {
         requestId = 3;
-        custId= custId.replaceAll("\"","");
+        customerId= customerId.replaceAll("\"","");
         CommonMethods.showProgress(true, mContext);
-        StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getMatchingOrder/" + custId,
+        StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/getMatchingOrder/" + customerId,
                 this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "getOpponentOrderId");
     }
 
-    private void doCrunchMatch(String comparerOrderId) {
+    private void doCrunchMatch(String opponentOrderId) {
         requestId =2;
         CommonMethods.showProgress(true, mContext);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("comparercustid", Config.comparerID.replaceAll("\"",""));
-            jsonObject.put("corderID", comparerOrderId);
+            jsonObject.put("corderID", opponentOrderId);
             jsonObject.put("orderID", Config.orderId);
             jsonObject.put("custid", Config.customerID);
-            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/match/",String.class,jsonObject,
+            CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/match/",String.class,jsonObject,
                     this,this);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
@@ -125,7 +122,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
 
                 }
             });
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "verifyotpapi");
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "doCrunchMatch");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,7 +150,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
             } else if (response.equalsIgnoreCase("0")){
                 Config.crunchWon =false;
             }
-            showThankyou();
+            showNextScreen();
         } if (requestId == 3){
             String response = (String) o;
             Config.comparerOrderID = response;
@@ -177,7 +174,7 @@ public class CrunchFragmentOne extends Fragment implements Response.ErrorListene
 
     }
 
-    private void showThankyou() {
+    private void showNextScreen() {
         Fragment fragment = new CrunchathonTableFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,12 +64,12 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle arguments = getArguments();
-        initialiseComponents(arguments);
+        initialiseComponents();
     }
 
-    private void initialiseComponents(Bundle arguments) {
+    private void initialiseComponents() {
         SharedPreferences sharedPreferences = new SharedPreferences(mContext);
-        categories = new ArrayList<CategoryObject>();
+        categories = new ArrayList<>();
         rank = (FontView) view.findViewById(R.id.customer_rank);
         if(Config.customerRank!=null) {
             rank.setText("Rank :"+Config.customerRank.getRank()+" Crunches: "+Config.customerRank.getPoints());
@@ -101,8 +100,8 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
 
     private void getCategories() {
         CommonMethods.showProgress(true, mContext);
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?category=all",this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "categoryapi");
+        JsonArrayRequest fetchCategories = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?category=all",this, this);
+        Shopfitt.getInstance().addToRequestQueue(fetchCategories, "category");
     }
 
     @Override
@@ -131,7 +130,6 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

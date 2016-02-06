@@ -31,7 +31,7 @@ public class CrunchathonTableFragment extends Fragment {
     private View view;
     private Context mContext;
     int requestId = 0;
-    double selfpercent, opponentpercent;
+    double selfPercent, opponentPercent;
 
     @Override
     public void onAttach(Context context) {
@@ -55,7 +55,7 @@ public class CrunchathonTableFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle("Crunchaton");
+        getActivity().setTitle("Crunchathon");
         getSelfOrderExtra();
         getOpponentOrderExtra();
         getSelfFinalPercent();
@@ -63,7 +63,7 @@ public class CrunchathonTableFragment extends Fragment {
     }
 
     private void getSelfOrderExtra() {
-        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<Crunch>(Request.Method.GET,
+        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<>(Request.Method.GET,
                 "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.orderId, Crunch.class, null,
                 new Response.Listener<Crunch>() {
                     @Override
@@ -79,16 +79,15 @@ public class CrunchathonTableFragment extends Fragment {
                 Toast.makeText(mContext, "Please try later", Toast.LENGTH_SHORT).show();
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "selfOrderExtra");
     }
 
     private void getOpponentOrderExtra() {
-        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<Crunch>(Request.Method.GET,
+        VolleyRequest<Crunch> fetchLocations = new VolleyRequest<>(Request.Method.GET,
                 "http://23.91.69.85:61090/ProductService.svc/getOrderExtraDetails/" + Config.comparerOrderID, Crunch.class, null,
                 new Response.Listener<Crunch>() {
                     @Override
                     public void onResponse(Crunch crunch) {
-//                        Crunch crunch = crunch1[0];
                         ((TextView) view.findViewById(R.id.opponent_calories)).setText(crunch.getCalories());
                         ((TextView) view.findViewById(R.id.opponent_fat)).setText(crunch.getFat());
                         ((TextView) view.findViewById(R.id.opponent_sodium)).setText(crunch.getSodium());
@@ -100,62 +99,61 @@ public class CrunchathonTableFragment extends Fragment {
                 Toast.makeText(mContext, "Please try later", Toast.LENGTH_SHORT).show();
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "opponentOrderExtra");
     }
 
     private void getSelfFinalPercent() {
-        VolleyRequest<String> fetchLocations = new VolleyRequest<String>(Request.Method.GET,
+        VolleyRequest<String> fetchLocations = new VolleyRequest<>(Request.Method.GET,
                 "http://23.91.69.85:61090/ProductService.svc/returnFinalPercentage/" + Config.orderId, String.class, null,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String crunch) {
                         requestId++;
                         ((TextView) view.findViewById(R.id.your_final_percent)).setText(crunch);
-                        selfpercent = Double.parseDouble(crunch);
+                        selfPercent = Double.parseDouble(crunch);
                         decideWinner();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-//                decideWinner();
                 requestId++;
-                selfpercent = 0.0;
+                selfPercent = 0.0;
                 Toast.makeText(mContext, "Please try later", Toast.LENGTH_SHORT).show();
                 decideWinner();
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "selfFinalPercent");
     }
 
     private void getOpponentFinalPercent() {
-        VolleyRequest<String> fetchLocations = new VolleyRequest<String>(Request.Method.GET,
+        VolleyRequest<String> fetchLocations = new VolleyRequest<>(Request.Method.GET,
                 "http://23.91.69.85:61090/ProductService.svc/returnFinalPercentage/" + Config.comparerOrderID, String.class, null,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String crunch) {
                         requestId++;
                         ((TextView) view.findViewById(R.id.opponent_final_percent)).setText(crunch);
-                        opponentpercent = Double.parseDouble(crunch);
+                        opponentPercent = Double.parseDouble(crunch);
                         decideWinner();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 requestId++;
-                opponentpercent = 0.0;
+                opponentPercent = 0.0;
                 Toast.makeText(mContext, "Please try later", Toast.LENGTH_SHORT).show();
                 decideWinner();
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "opponentFinalPercent");
     }
 
     private void decideWinner() {
         String message = "";
         if (requestId == 2) {
-            if (selfpercent < opponentpercent) {
+            if (selfPercent < opponentPercent) {
                 Config.crunchWon = true;
-                double diff = selfpercent - opponentpercent;
+                double diff = selfPercent - opponentPercent;
                 if (diff <= 3.0) {
                     message = "You Win! CLOSE CALL! 50 CRUNCHES WON.";
                 }
@@ -165,7 +163,6 @@ public class CrunchathonTableFragment extends Fragment {
                 if (diff > 5.0) {
                     message = "You Win! Sublime! 50 CRUNCHES WON";
                 }
-//                Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(mContext)
                         .setTitle(getResources().getString(R.string.app_name))
                         .setMessage(message)
@@ -173,19 +170,19 @@ public class CrunchathonTableFragment extends Fragment {
                         .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                showThankyou();
+                                showNextScreen();
                             }
                         })
                         .show();
             } else {
                 Config.crunchWon = false;
-                showThankyou();
+                showNextScreen();
             }
-//            showThankyou();
+//            showNextScreen();
         }
     }
 
-    private void showThankyou() {
+    private void showNextScreen() {
         final Handler handler = new Handler();
         final Runnable r = new Runnable()
         {

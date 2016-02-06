@@ -30,9 +30,8 @@ import com.shopfitt.android.Utils.SharedPreferences;
 public class DeliveryDateFragment extends Fragment {
 
     private View view;
-    //    private EditText qtyText;
     private FontView textViewShowTime;
-    private Button submit, backButton;
+    private Button backButton;
     SharedPreferences sharedPreferences;
     private Context mContext;
     ProgressBar mProgressBar;
@@ -68,7 +67,7 @@ public class DeliveryDateFragment extends Fragment {
         sharedPreferences = new SharedPreferences(mContext);
         textViewShowTime = (FontView) view.findViewById(R.id.tvTimeCount);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        submit = (Button) view.findViewById(R.id.delivery_date_submit);
+        Button submit = (Button) view.findViewById(R.id.delivery_date_submit);
         submit.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         backButton = (Button) view.findViewById(R.id.delivery_date_no);
         backButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
@@ -87,7 +86,7 @@ public class DeliveryDateFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showThankyou();
+                showNextScreen();
             }
         });
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +103,15 @@ public class DeliveryDateFragment extends Fragment {
     }
 
     private void goHome(){
+        Config.foodItems =0;
         Intent intent = new Intent(mContext,HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();
     }
 
-    private void showThankyou() {
+    private void showNextScreen() {
+        Config.foodItems =0;
         Fragment fragment = new QuestionFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

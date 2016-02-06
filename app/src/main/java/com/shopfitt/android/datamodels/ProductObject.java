@@ -23,6 +23,24 @@ public class ProductObject implements Parcelable{
     public ProductObject() {
     }
 
+    public ProductObject(ProductObject productObject){
+        ID = productObject.ID;
+        product_name = productObject.product_name;
+        product_description = productObject.product_description;
+        product_category = productObject.product_category;
+        product_subcategory = productObject.product_subcategory;
+        mrp = productObject.mrp;
+        weightms = productObject.weightms;
+        isfood = productObject.isfood;
+        isCB = productObject.isCB;
+        manfcompany = productObject.manfcompany;
+        sugar = productObject.sugar;
+        fat = productObject.fat;
+        calories = productObject.calories;
+        sodium = productObject.sodium;
+        qtyBought = productObject.qtyBought;
+    }
+
     protected ProductObject(Parcel in) {
         ID = in.readInt();
         product_name = in.readString();

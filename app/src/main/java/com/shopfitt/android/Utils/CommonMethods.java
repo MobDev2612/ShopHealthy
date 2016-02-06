@@ -46,8 +46,8 @@ public class CommonMethods {
             }
         }
         if (!found) {
-            ProductObject newProduct = new ProductObject();
-            newProduct = productObject;
+            ProductObject newProduct = new ProductObject(productObject);
+//            newProduct = productObject;
             Config.addToCart.add(newProduct);
             Toast.makeText(mContext,"Added to Cart",Toast.LENGTH_SHORT).show();
             found = true;
