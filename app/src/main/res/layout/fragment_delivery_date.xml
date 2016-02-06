@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:minHeight="0dp"
             android:padding="5dp"
+            android:background="@drawable/green_button"
             android:text="Yes, I am in" />
 
         <Button

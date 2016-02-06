@@ -3,31 +3,40 @@ package com.shopfitt.android.Fragment;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.shopfitt.android.Activity.HomeActivity;
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
+import com.shopfitt.android.Utils.Shopfitt;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DeliveryDateFragment extends Fragment {
+public class DeliveryDateFragment extends Fragment  implements Response.ErrorListener, Response.Listener<String> {
+
 
     private View view;
     private FontView textViewShowTime;
@@ -37,6 +46,8 @@ public class DeliveryDateFragment extends Fragment {
     ProgressBar mProgressBar;
     private CountDownTimer countDownTimer;
     private long totalTimeCountInMilliseconds;
+    boolean fitCartAccess;
+    private int requestId;
 
     @Override
     public void onAttach(Context context) {
@@ -112,17 +123,12 @@ public class DeliveryDateFragment extends Fragment {
 
     private void showNextScreen() {
         Config.foodItems =0;
-        Fragment fragment = new QuestionFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onStop() {
-        Log.e("test", "test1");
-        super.onStop();
+//        Fragment fragment = new QuestionFragment();
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.container, fragment);
+//        fragmentTransaction.commit();
+        getFitCartStatus(Config.customerID);
     }
 
     private void startTimer() {
@@ -148,8 +154,177 @@ public class DeliveryDateFragment extends Fragment {
             public void onFinish() {
                 textViewShowTime.setText("Time up!");
                 textViewShowTime.setVisibility(View.VISIBLE);
+                goHome();
             }
 
         }.start();
+    }
+
+    private void showThankYou() {
+        Fragment fragment = new ThankQFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void doCrunchMatch() {
+        Fragment fragment = new CrunchFragmentOne();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
+
+
+    private void getFitCartStatus(String id) {
+        requestId = 1;
+        CommonMethods.showProgress(true, mContext);
+        StringRequest getFitCartStatus = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkFitCart/" + id,
+                this, this);
+        getFitCartStatus.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 30000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError volleyError) throws VolleyError {
+
+            }
+        });
+        Shopfitt.getInstance().addToRequestQueue(getFitCartStatus, "fitCartStatus");
+    }
+
+    private void setFitCartNo(String id) {
+        fitCartAccess = false;
+        requestId = 2;
+        CommonMethods.showProgress(true, mContext);
+        StringRequest setFitCart= new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
+                this, this);
+        setFitCart.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 30000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError volleyError) throws VolleyError {
+
+            }
+        });
+        Shopfitt.getInstance().addToRequestQueue(setFitCart, "setFitCart");
+    }
+
+
+    private void setFitCartYes(String id) {
+        fitCartAccess = true;
+        requestId = 2;
+        CommonMethods.showProgress(true, mContext);
+        StringRequest setFitCartStatus = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
+                this, this);
+        setFitCartStatus.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 30000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError volleyError) throws VolleyError {
+
+            }
+        });
+        Shopfitt.getInstance().addToRequestQueue(setFitCartStatus, "setFitCart");
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError volleyError) {
+        CommonMethods.showProgress(false, mContext);
+        Toast.makeText(mContext, "Unable to fetch Crunchathon details", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(String s) {
+        CommonMethods.showProgress(false, mContext);
+        if (requestId == 1) {
+            if (s.contains("1")) {
+               showSecondQuestion();
+                fitCartAccess = true;
+            } else if (s.contains("0")) {
+                showFirstQuestion();
+            }
+        }
+        if (requestId == 2) {
+            if(s.contains("1")) {
+                if(fitCartAccess) {
+                    showSecondQuestion();
+                }  else {
+                    showThankYou();
+                }
+            } else if (s.contains("0")){
+                Toast.makeText(mContext, "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showSecondQuestion(){
+        new AlertDialog.Builder(mContext)
+                .setTitle(getResources().getString(R.string.app_name))
+                .setMessage("Do you want to have a Crunch Match ?")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doCrunchMatch();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showThankYou();
+                    }
+                })
+                .show();
+    }
+
+    private void showFirstQuestion(){
+        new AlertDialog.Builder(mContext)
+                .setTitle(getResources().getString(R.string.app_name))
+                .setMessage("Allow access to Fitt Cart ?")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setFitCartYes(Config.customerID);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setFitCartNo(Config.customerID);
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void onStop() {
+        CommonMethods.showProgress(false,mContext);
+        super.onStop();
     }
 }

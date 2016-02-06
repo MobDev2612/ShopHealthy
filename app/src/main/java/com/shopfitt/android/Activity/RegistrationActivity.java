@@ -22,6 +22,7 @@ import com.shopfitt.android.Network.CustomVolleyRequest;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
@@ -67,6 +68,28 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         get_otp_button = (Button) findViewById(R.id.get_otp);
         verify_otp_button = (Button) findViewById(R.id.verify_otp_button);
         register_button = (Button) findViewById(R.id.register);
+
+        name_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        email_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        username_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        confirm_pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        phone_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        otp_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+
+        name_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        email_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        username_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        confirm_pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        phone_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        otp_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+
+        get_otp_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        register_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+
+
 
         get_otp_button.setOnClickListener(this);
         verify_otp_button.setOnClickListener(this);

@@ -115,12 +115,13 @@
 
         <Button
             android:id="@+id/product_list_add_cart"
-            style="@style/OrangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_small"
             android:layout_marginTop="10dp"
-            android:drawableRight="@drawable/ic_menu_cart"
+            android:background="@drawable/green_button"
             android:gravity="center"
             android:minHeight="0dp"
             android:padding="3dp"

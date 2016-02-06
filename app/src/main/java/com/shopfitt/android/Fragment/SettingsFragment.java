@@ -74,6 +74,8 @@ public class SettingsFragment extends Fragment implements Response.ErrorListener
         changePassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         newConfirmPassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         newPassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        newPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        newConfirmPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override

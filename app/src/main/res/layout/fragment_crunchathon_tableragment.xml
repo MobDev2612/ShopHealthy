@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:text="Fat" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_fat"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="" />
 
-            <TextView
+            <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_fat"
                 android:layout_weight="1"
                 android:gravity="center"

@@ -102,6 +102,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             registrationButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
             mEmailView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
             mPasswordView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+            mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+            pwdInputLayout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
         }
     }
 

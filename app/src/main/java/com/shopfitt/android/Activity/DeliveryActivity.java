@@ -47,7 +47,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
         final SharedPreferences sharedPreferences = new SharedPreferences(this);
 
         completeOrder = (Button)findViewById(R.id.delivery_order_complete);
-        address = (EditText) findViewById(R.id.delivery_address);
+        address = (EditText) findViewById(R.id.delivery_address_line_1);
 
         completeOrder.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
         address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
@@ -60,7 +60,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                     String addressText = address.getText().toString();
 //                    if(Config.orderId == null) {
                     if (addressText.isEmpty()) {
-                        ((TextInputLayout) findViewById(R.id.delivery_address_layout)).setError(getResources().getString(R.string.error_field_required));
+                        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setError(getResources().getString(R.string.error_field_required));
                     }
                     if (!addressText.isEmpty()) {
                         JSONObject jsonObject = new JSONObject();

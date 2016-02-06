@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.Crunch;
 
@@ -68,10 +68,10 @@ public class CrunchathonTableFragment extends Fragment {
                 new Response.Listener<Crunch>() {
                     @Override
                     public void onResponse(Crunch crunch) {
-                        ((TextView) view.findViewById(R.id.your_calories)).setText(crunch.getCalories());
-                        ((TextView) view.findViewById(R.id.your_fat)).setText(crunch.getFat());
-                        ((TextView) view.findViewById(R.id.your_sodium)).setText(crunch.getSodium());
-                        ((TextView) view.findViewById(R.id.your_sugar)).setText(crunch.getSugar());
+                        ((FontView) view.findViewById(R.id.your_calories)).setText(crunch.getCalories());
+                        ((FontView) view.findViewById(R.id.your_fat)).setText(crunch.getFat());
+                        ((FontView) view.findViewById(R.id.your_sodium)).setText(crunch.getSodium());
+                        ((FontView) view.findViewById(R.id.your_sugar)).setText(crunch.getSugar());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -88,10 +88,10 @@ public class CrunchathonTableFragment extends Fragment {
                 new Response.Listener<Crunch>() {
                     @Override
                     public void onResponse(Crunch crunch) {
-                        ((TextView) view.findViewById(R.id.opponent_calories)).setText(crunch.getCalories());
-                        ((TextView) view.findViewById(R.id.opponent_fat)).setText(crunch.getFat());
-                        ((TextView) view.findViewById(R.id.opponent_sodium)).setText(crunch.getSodium());
-                        ((TextView) view.findViewById(R.id.opponent_sugar)).setText(crunch.getSugar());
+                        ((FontView) view.findViewById(R.id.opponent_calories)).setText(crunch.getCalories());
+                        ((FontView) view.findViewById(R.id.opponent_fat)).setText(crunch.getFat());
+                        ((FontView) view.findViewById(R.id.opponent_sodium)).setText(crunch.getSodium());
+                        ((FontView) view.findViewById(R.id.opponent_sugar)).setText(crunch.getSugar());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -109,7 +109,7 @@ public class CrunchathonTableFragment extends Fragment {
                     @Override
                     public void onResponse(String crunch) {
                         requestId++;
-                        ((TextView) view.findViewById(R.id.your_final_percent)).setText(crunch);
+                        ((FontView) view.findViewById(R.id.your_final_percent)).setText(crunch);
                         selfPercent = Double.parseDouble(crunch);
                         decideWinner();
                     }
@@ -132,7 +132,7 @@ public class CrunchathonTableFragment extends Fragment {
                     @Override
                     public void onResponse(String crunch) {
                         requestId++;
-                        ((TextView) view.findViewById(R.id.opponent_final_percent)).setText(crunch);
+                        ((FontView) view.findViewById(R.id.opponent_final_percent)).setText(crunch);
                         opponentPercent = Double.parseDouble(crunch);
                         decideWinner();
                     }
@@ -178,7 +178,6 @@ public class CrunchathonTableFragment extends Fragment {
                 Config.crunchWon = false;
                 showNextScreen();
             }
-//            showNextScreen();
         }
     }
 

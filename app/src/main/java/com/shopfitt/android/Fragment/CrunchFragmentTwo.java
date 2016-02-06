@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,7 +156,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     @Override
     public void onErrorResponse(VolleyError volleyError) {
         CommonMethods.showProgress(false,mContext);
-        Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Unable to post message", Toast.LENGTH_LONG).show();
         showThankYou();
     }
 
@@ -169,7 +168,6 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

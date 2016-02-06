@@ -199,7 +199,9 @@
 
         <Button
             android:id="@+id/item_pop_update"
-            style="@style/OrangeButton"
+            android:background="@drawable/green_button"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_size_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

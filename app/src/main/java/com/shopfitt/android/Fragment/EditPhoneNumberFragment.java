@@ -139,7 +139,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("newnumber", number);
-                jsonObject.put("oldNumber", oldNumber);
+                jsonObject.put("oldnumber", oldNumber);
                 saveNumber(jsonObject);
             }catch (Exception e){
                 e.printStackTrace();
