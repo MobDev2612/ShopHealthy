@@ -4,16 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_homee"
+            android:icon="@drawable/ic_menu_home"
             android:title="Home" />
         <item
             android:id="@+id/nav_my_account"
-            android:icon="@drawable/ic_menu_signin"
+            android:icon="@drawable/ic_menu_account"
             android:title="My Account" />
 
         <item
             android:id="@+id/nav_track_order"
-            android:icon="@drawable/ic_menu_track_order"
+            android:icon="@drawable/ic_menu_order_history"
             android:title="Order History" />
 
         <item
@@ -23,15 +23,15 @@
 
         <item
             android:id="@+id/nav_notification"
-            android:icon="@android:drawable/ic_menu_help"
+            android:icon="@drawable/ic_menu_notification"
             android:title="Notification" />
         <item
             android:id="@+id/nav_change_password"
-            android:icon="@android:drawable/ic_menu_help"
+            android:icon="@drawable/ic_menu_change_password"
             android:title="Change Password" />
         <item
             android:id="@+id/nav_log_out"
-            android:icon="@android:drawable/ic_menu_help"
+            android:icon="@drawable/ic_menu_logout"
             android:title="Sign Out" />
     </group>
 
