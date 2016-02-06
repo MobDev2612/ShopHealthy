@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,6 +23,7 @@ import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 
 import org.json.JSONException;
@@ -69,7 +69,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
                 "If it was easy, it would n’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
         editText.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        TextView textView = (TextView) view.findViewById(R.id.crunch_message);
+        FontView textView = (FontView) view.findViewById(R.id.crunch_message);
         Button submitButton = (Button) view.findViewById(R.id.submit_message);
         submitButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
             textView.setText("Winner's Gyan , You got 30 sec");
         } else {
             editText.setVisibility(View.GONE);
+            submitButton.setVisibility(View.GONE);
         }
         final Handler handler = new Handler();
         final Runnable r = new Runnable() {

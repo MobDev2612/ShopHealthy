@@ -21,58 +21,111 @@ import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DeliveryActivity extends AppCompatActivity implements  Response.ErrorListener, Response.Listener{
+public class DeliveryActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener {
 
     private Button completeOrder;
-    private EditText address;
+    private EditText address1, address2, area, city, landmark, pincode;
     int requestID;
     String orderId;
     boolean executed;
+    SharedPreferences sharedPreferences;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initialiseComponents();
     }
 
-    private void initialiseComponents() {
-        final SharedPreferences sharedPreferences = new SharedPreferences(this);
+    @Override
+    public void setTitle(CharSequence title) {
+        FontView title1 = (FontView) toolbar.findViewById(R.id.app_bar_title);
+        title1.setText(title);
+    }
 
-        completeOrder = (Button)findViewById(R.id.delivery_order_complete);
-        address = (EditText) findViewById(R.id.delivery_address_line_1);
+    private void initialiseComponents() {
+        sharedPreferences = new SharedPreferences(this);
+        setTitle(getResources().getString(R.string.title_activity_delivery));
+        completeOrder = (Button) findViewById(R.id.delivery_order_complete);
+        address1 = (EditText) findViewById(R.id.delivery_address_line_1);
+        address2 = (EditText) findViewById(R.id.delivery_address_line_2);
+        area = (EditText) findViewById(R.id.delivery_area);
+        city = (EditText) findViewById(R.id.delivery_city);
+        landmark = (EditText) findViewById(R.id.delivery_land_mark);
+        pincode = (EditText) findViewById(R.id.delivery_pin_code);
 
         completeOrder.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        address1.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        address2.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        area.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        city.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        landmark.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        pincode.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+
+        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean all = true;
                 try {
                     String mobileNumber = sharedPreferences.getPhoneNumber();
-                    String addressText = address.getText().toString();
-//                    if(Config.orderId == null) {
-                    if (addressText.isEmpty()) {
+                    String areaName = area.getText().toString();
+                    String addressText1 = address1.getText().toString();
+                    String addressText2 = address2.getText().toString();
+                    String cityName = city.getText().toString();
+                    String landMark = landmark.getText().toString();
+                    String pinCode = pincode.getText().toString();
+
+                    if (areaName.isEmpty()) {
+                        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setError(getResources().getString(R.string.error_field_required));
+                        all = false;
+                    }
+                    if (addressText1.isEmpty()) {
+                        all = false;
                         ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setError(getResources().getString(R.string.error_field_required));
                     }
-                    if (!addressText.isEmpty()) {
+                    if (addressText2.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if (cityName.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if (landMark.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if (pinCode.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+
+                    if (all) {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("mobile", mobileNumber);
-                        jsonObject.put("address", addressText);
+                        jsonObject.put("address", addressText1);
                         jsonObject.put("total", Config.cartTotalAmount + "");
                         getOrderID(jsonObject);
                     }
-//                    } else {
-//                        sendOrder();
-//                    }
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -81,11 +134,11 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
     }
 
     private void getOrderID(JSONObject jsonObject) {
-        requestID =1;
+        requestID = 1;
         CommonMethods.showProgress(true, this);
         try {
-            VolleyRequest<String> volleyRequest = new VolleyRequest<String>(Request.Method.POST,"http://23.91.69.85:61090/ProductService.svc/SaveOrder/",String.class,null,
-                    this,this,jsonObject);
+            VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/SaveOrder/", String.class, null,
+                    this, this, jsonObject);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
@@ -144,20 +197,20 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 //        }
 //    }
 
-    private void sendOrder(){
-        requestID =2;
+    private void sendOrder() {
+        requestID = 2;
 //        CommonMethods.showProgress(true, this);
         try {
 //            JSONArray jsonArray = new JSONArray();
-            for (int i=0;i< Config.addToCart.size();i++) {
+            for (int i = 0; i < Config.addToCart.size(); i++) {
 //                JSONObject jsonObject = new JSONObject();
 //                jsonObject.put("OrderID",Config.orderId);
 //                jsonObject.put("Product",Config.addToCart.get(i).getProduct_name());
 //                jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
 //                jsonArray.put(jsonObject);
 //            }
-                String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/"+Config.orderId+"/"+Config.addToCart.get(i).getProduct_name()
-                        +"/"+Config.addToCart.get(i).getQtyBought()+"/";
+                String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/" + Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
+                        + "/" + Config.addToCart.get(i).getQtyBought() + "/";
                 url = url.replace(" ", "%20");
                 StringRequest volleyRequest = new StringRequest(Request.Method.GET,
                         url,
@@ -179,7 +232,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                     }
                 });
                 Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
-                if(i == Config.addToCart.size() -1){
+                if (i == Config.addToCart.size() - 1) {
                     requestID = 10;
                 }
             }
@@ -190,7 +243,7 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        if(requestID == 1) {
+        if (requestID == 1) {
             CommonMethods.showProgress(false, this);
         }
         Toast.makeText(this, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
@@ -198,16 +251,16 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
 
     @Override
     public void onResponse(Object o) {
-        if(requestID == 1){
-            CommonMethods.showProgress(false,this);
-            String result ="0" ;
-            if(o instanceof String){
-               result = (String) o;
-            } else if (o instanceof Integer){
+        if (requestID == 1) {
+            CommonMethods.showProgress(false, this);
+            String result = "0";
+            if (o instanceof String) {
+                result = (String) o;
+            } else if (o instanceof Integer) {
                 result = String.valueOf(o);
             }
-            if(result.equalsIgnoreCase("0")){
-                Toast.makeText(this,"Unable to get order ID",Toast.LENGTH_SHORT).show();
+            if (result.equalsIgnoreCase("0")) {
+                Toast.makeText(this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
             } else {
                 orderId = result;
                 Config.orderId = result;
@@ -215,21 +268,108 @@ public class DeliveryActivity extends AppCompatActivity implements  Response.Err
                 sendOrder();
             }
         }
-        if(requestID == 10 && !executed){
+        if (requestID == 10 && !executed) {
             executed = true;
-            Toast.makeText(this,"Thanks for order",Toast.LENGTH_LONG).show();
+            parseAddress();
+        }
+        if (requestID == 11) {
+            Toast.makeText(this, "Thanks for order", Toast.LENGTH_LONG).show();
             Config.addToCart.clear();
-            Config.cartTotalAmount =0;
-            Intent intent = new Intent(this,CrunchActivity.class);
+            Config.cartTotalAmount = 0;
+            Intent intent = new Intent(this, CrunchActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         }
     }
+
+    private void parseAddress() {
+        boolean all = true;
+        try {
+            String personName = sharedPreferences.getName();
+            String mobileNumber = sharedPreferences.getPhoneNumber();
+            String areaName = area.getText().toString();
+            String addressText1 = address1.getText().toString();
+            String addressText2 = address2.getText().toString();
+            String cityName = city.getText().toString();
+            String landMark = landmark.getText().toString();
+            String pinCode = pincode.getText().toString();
+
+            if (areaName.isEmpty()) {
+                ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setError(getResources().getString(R.string.error_field_required));
+                all = false;
+            }
+            if (addressText1.isEmpty()) {
+                all = false;
+                ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setError(getResources().getString(R.string.error_field_required));
+            }
+            if (addressText2.isEmpty()) {
+                all = false;
+                ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setError(getResources().getString(R.string.error_field_required));
+            }
+            if (cityName.isEmpty()) {
+                all = false;
+                ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setError(getResources().getString(R.string.error_field_required));
+            }
+            if (landMark.isEmpty()) {
+                all = false;
+                ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setError(getResources().getString(R.string.error_field_required));
+            }
+            if (pinCode.isEmpty()) {
+                all = false;
+                ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setError(getResources().getString(R.string.error_field_required));
+            }
+
+            if (all) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("address1", addressText1);
+                jsonObject.put("address2", addressText2);
+                jsonObject.put("area", areaName);
+                jsonObject.put("city", cityName);
+                jsonObject.put("landmark", landMark);
+                jsonObject.put("mobile", mobileNumber);
+                jsonObject.put("name", personName);
+                jsonObject.put("orderid", Config.orderId);
+                jsonObject.put("pincode", pinCode);
+                sendAddress(jsonObject);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendAddress(JSONObject jsonObject) {
+        requestID = 11;
+        CommonMethods.showProgress(true, this);
+        try {
+            VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/SaveOrderAddress/", String.class, null,
+                    this, this, jsonObject);
+            volleyRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 30000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 0;
+                }
+
+                @Override
+                public void retry(VolleyError volleyError) throws VolleyError {
+
+                }
+            });
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "address");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void onStop() {
-        Log.e("test", "test1");
-        CommonMethods.showProgress(false,this);
+        CommonMethods.showProgress(false, this);
         super.onStop();
     }
 }

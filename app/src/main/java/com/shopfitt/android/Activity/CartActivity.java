@@ -29,12 +29,13 @@ public class CartActivity extends AppCompatActivity {
 //    String orderId;
 //    boolean executed;
     SharedPreferences sharedPreferences;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPreferences = new SharedPreferences(this);
@@ -46,7 +47,7 @@ public class CartActivity extends AppCompatActivity {
 
         placeOrder.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
 //        address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-
+        setTitle(getResources().getString(R.string.title_activity_delivery));
 
         if(Config.addToCart!=null) {
 //            List<ProductObject> cartItems = new ArrayList<>();
@@ -62,6 +63,12 @@ public class CartActivity extends AppCompatActivity {
                 showDelivery();
             }
         });
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        FontView title1 = (FontView) toolbar.findViewById(R.id.app_bar_title);
+        title1.setText(title);
     }
 
     private void showDelivery() {
