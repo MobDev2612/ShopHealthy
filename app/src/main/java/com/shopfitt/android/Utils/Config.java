@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Config {
 
-    public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyABYoczeHg4XABx_jMRfv-CqmA2YMsIY4A"; //TODO
-
-    public static final String YOUTUBE_VIDEO_CODE = "_oEA18Y8gM0"; //TODO
+    public static final String YOUTUBE_DEVELOPER_KEY = "AIzaSyCnCEWzGlr7YErf5RNib7g8f9KjGSNKXdU";
+    public static final String YOUTUBE_VIDEO_CODE = "dg2GZbn8WQI";
     public static final boolean DEBUG = true;
     public static final int INT_256 = 256;
     public static final int INT_100 = 100;

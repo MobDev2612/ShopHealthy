@@ -19,10 +19,10 @@
 
     <ListView
         android:id="@+id/subcategory_list"
-        android:divider="@android:color/black"
+        android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:layout_width="match_parent"
-        android:background="@android:color/white"
+        android:background="@drawable/list_gradient"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
