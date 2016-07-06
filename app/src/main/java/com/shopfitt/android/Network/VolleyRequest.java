@@ -1,6 +1,5 @@
 package com.shopfitt.android.Network;
 
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -13,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.shopfitt.android.Utils.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,7 +95,7 @@ public class VolleyRequest<T> extends Request<T> {
         try {
             return parameters.toString().getBytes(getParamsEncoding());
         } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.toString(), e);
+            Logger.e(TAG, e.toString(), e);
         }
         return null;
     }
@@ -121,7 +121,7 @@ public class VolleyRequest<T> extends Request<T> {
         try {
             String json = new String(
                     response.data, HttpHeaderParser.parseCharset(response.headers));
-            Log.e("Response",json);
+            Logger.i("Response",json);
 //            if (isJSONValid(json)) {
                 if (json.length() > 1) {
                     return Response.success(
@@ -134,10 +134,10 @@ public class VolleyRequest<T> extends Request<T> {
 //                throw new JsonSyntaxException("Object cannot be casted");
 //            }
         } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
+            Logger.e(TAG, e.getMessage(), e);
             return Response.error(new ParseError(e));
         } catch (JsonSyntaxException e) {
-            Log.e(TAG, e.getMessage(), e);
+            Logger.e(TAG, e.getMessage(), e);
             return Response.error(new VolleyError(response));
         }
     }
@@ -173,11 +173,11 @@ public class VolleyRequest<T> extends Request<T> {
             try {
                 new JSONObject(responseString);
             } catch (JSONException ex) {
-                Log.e(TAG, ex.toString(), ex);
+                Logger.e(TAG, ex.toString(), ex);
                 try {
                     new JSONArray(responseString);
                 } catch (JSONException ex1) {
-                    Log.e(TAG, ex1.toString(), ex1);
+                    Logger.e(TAG, ex1.toString(), ex1);
                     return false;
                 }
             }
@@ -185,7 +185,7 @@ public class VolleyRequest<T> extends Request<T> {
                 GSON_VERIFY.fromJson(responseString, this.clazz);
                 return true;
             } catch (com.google.gson.JsonSyntaxException ex) {
-                Log.e(TAG, ex.toString(), ex);
+                Logger.e(TAG, ex.toString(), ex);
                 return false;
             }
         } else {

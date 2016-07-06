@@ -3,7 +3,6 @@ package com.shopfitt.android.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +17,7 @@ import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
+import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
@@ -54,7 +54,7 @@ public class ItemPopActivity extends AppCompatActivity {
         plusButton =(ImageButton) findViewById(R.id.item_pop_plus);
         minusButton =(ImageButton) findViewById(R.id.item_pop_minus);
         updateButton =(Button) findViewById(R.id.item_pop_update);
-        updateButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        updateButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +110,7 @@ public class ItemPopActivity extends AppCompatActivity {
         }
         nameEdtTxt.setText(productObject.getProduct_name());
         priceEdtTxt.setText(getResources().getString(R.string.rupee_icon)+" "+productObject.getMrp()+".00");
-        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
         unitEdtTxt.setText(productObject.getWeightms());
         sugarEdtTxt.setText(productObject.getSugar() + "");
         saltEdtTxt.setText(productObject.getCalories() + "");
@@ -138,7 +138,7 @@ public class ItemPopActivity extends AppCompatActivity {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Error", error.getMessage(), error.getCause());
+                    Logger.e("Error", error.getMessage(), error.getCause());
                 }
 
                 @Override

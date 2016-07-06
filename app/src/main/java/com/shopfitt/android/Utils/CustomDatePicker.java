@@ -1,10 +1,10 @@
 package com.shopfitt.android.Utils;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.TextView;
@@ -29,9 +29,9 @@ public class CustomDatePicker {
      * @param date            qtyText in which date to be populate
      */
 
-    public static void openDatePicker(FragmentManager fragmentManager, final TextView date,Context mcontext) {
+    public static void openDatePicker(FragmentManager fragmentManager, final TextView date,Context mContext) {
         dateEdit = date;
-        mContext = mcontext;
+        CustomDatePicker.mContext = mContext;
         DatePickerFragment datePickerFragment = new DatePickerFragment();
         datePickerFragment.show(fragmentManager, "Time");
     }
@@ -60,12 +60,10 @@ public class CustomDatePicker {
 //    }
 
     public static class DatePickerFragment extends DialogFragment {
-        DatePickerDialog.OnDateSetListener onDateSet;
 
-
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-
             return new TimePickerDialog(mContext,
                     timePickerListener, hour, minute,false);
         }

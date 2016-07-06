@@ -9,8 +9,8 @@
     <com.shopfitt.android.Utils.FontView
         android:gravity="center"
         style="@style/BlackText"
-        android:text="Select Your Area"
-        android:layout_marginTop="3dp"
+        android:text="@string/select_your_area"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -21,7 +21,8 @@
         android:layout_height="40dp"
         android:background="@android:color/darker_gray"
         android:drawableLeft="@android:drawable/ic_menu_search"
-        android:hint="Search Area"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:hint="@string/search"
         android:maxLines="1"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white" />
@@ -30,7 +31,6 @@
         android:id="@+id/location_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_bar"
         android:background="@drawable/list_gradient"
         android:layout_marginTop="5dp"
         android:divider="@android:color/darker_gray"

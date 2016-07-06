@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -97,13 +96,13 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 }
             });
 
-            forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-            mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-            registrationButton.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-            mEmailView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-            mPasswordView.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-            mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-            pwdInputLayout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+            forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+            mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+            registrationButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            mEmailView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            mPasswordView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            pwdInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
         }
     }
 
@@ -204,7 +203,6 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false, this);
         super.onStop();
     }

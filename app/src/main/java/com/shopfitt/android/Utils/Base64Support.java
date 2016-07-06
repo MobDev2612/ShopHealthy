@@ -13,10 +13,6 @@ public class Base64Support {
      */
     public static final int NO_PADDING = 1;
 
-
-
-
-
     /**
      * Encoder flag bit to omit all line terminators (i.e., the output
      * will be on one long line).
@@ -55,7 +51,7 @@ public class Base64Support {
     /**
      * Decode the Base64-encoded data in input and return the data in
      * a new byte array.
-     * <p/>
+     * <p>
      * <p>The padding '=' characters at the end are considered optional, but
      * if any are present, there must be the correct number of them.
      *
@@ -77,7 +73,7 @@ public class Base64Support {
     /**
      * Decode the Base64-encoded data in input and return the data in
      * a new byte array.
-     * <p/>
+     * <p>
      * <p>The padding '=' characters at the end are considered optional, but
      * if any are present, there must be the correct number of them.
      *
@@ -94,7 +90,7 @@ public class Base64Support {
     /**
      * Decode the Base64-encoded data in input and return the data in
      * a new byte array.
-     * <p/>
+     * <p>
      * <p>The padding '=' characters at the end are considered optional, but
      * if any are present, there must be the correct number of them.
      *
@@ -126,7 +122,6 @@ public class Base64Support {
         System.arraycopy(decoder.output, 0, temp, 0, decoder.op);
         return temp;
     }
-
 
 
     //  --------------------------------------------------------

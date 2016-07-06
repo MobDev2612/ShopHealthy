@@ -4,10 +4,6 @@ import android.content.Context;
 
 public class SharedPreferences {
 
-    protected static final String UTF8 = "utf-8";
-    private static final String ALGO = "AES";
-
-    private static String TAG = "SharedPrefs";
     ObscuredSharedPreferences sharedPreferences;
     ObscuredSharedPreferences.Editor editor;
     Context mContext;
@@ -37,9 +33,8 @@ public class SharedPreferences {
     }
 
     public String getLoginID(String defaultValue) {
-        String encryptedLogin = sharedPreferences.getString(SHARED_PREFERENCES_LOGIN_ID, defaultValue);
-//        return decryptCredentials(encryptedLogin, key);
-        return  encryptedLogin;
+        //        return decryptCredentials(encryptedLogin, key);
+        return sharedPreferences.getString(SHARED_PREFERENCES_LOGIN_ID, defaultValue);
     }
 
     public void setPassword(String value) {
@@ -49,48 +44,47 @@ public class SharedPreferences {
     }
 
     public String getPassword(String defaultValue) {
-        String encryptedPwd = sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, defaultValue);
-//        return decryptCredentials(encryptedPwd, key);
-        return  encryptedPwd;
+        //        return decryptCredentials(encryptedPwd, key);
+        return sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, defaultValue);
     }
 
-    public void setShowYoutubeVideo(boolean show){
+    public void setShowYoutubeVideo(boolean show) {
         editor.putBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW, show);
         editor.commit();
     }
 
-    public boolean getShowYoutubeVideo(){
+    public boolean getShowYoutubeVideo() {
         return sharedPreferences.getBoolean(SHARED_PREFERENCES_YOUTUBE_VIEW, true);
     }
 
-    public void setLocation(String location){
+    public void setLocation(String location) {
         editor.putString(SHARED_PREFERENCES_LOCATION_PREFERENCE, location);
         editor.commit();
     }
 
-    public String getLocation(){
+    public String getLocation() {
         return sharedPreferences.getString(SHARED_PREFERENCES_LOCATION_PREFERENCE, "");
     }
 
-    public void setName(String location){
+    public void setName(String location) {
         editor.putString(SHARED_PREFERENCES_NAME, location);
         editor.commit();
     }
 
-    public String getName(){
+    public String getName() {
         return sharedPreferences.getString(SHARED_PREFERENCES_NAME, "");
     }
 
-    public void setEmail(String location){
+    public void setEmail(String location) {
         editor.putString(SHARED_PREFERENCES_EMAIL, location);
         editor.commit();
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return sharedPreferences.getString(SHARED_PREFERENCES_EMAIL, "");
     }
 
-    public void setOutlet(String outlet){
+    public void setOutlet(String outlet) {
         editor.putString(SHARED_PREFERENCES_STORE_PREF, outlet);
         editor.commit();
     }
@@ -99,33 +93,33 @@ public class SharedPreferences {
         return sharedPreferences.getString(SHARED_PREFERENCES_STORE_PREF, "");
     }
 
-    public void setCustomerID(String outlet){
+    public void setCustomerID(String outlet) {
         editor.putString(SHARED_PREFERENCES_USER_ID, outlet);
         editor.commit();
     }
 
-    public String getCustomerId(){
+    public String getCustomerId() {
         return sharedPreferences.getString(SHARED_PREFERENCES_USER_ID, "");
     }
 
-    public void setPhoneNumber(String outlet){
+    public void setPhoneNumber(String outlet) {
         editor.putString(SHARED_PREFERENCES_PHONE, outlet);
         editor.commit();
     }
 
-    public String getPhoneNumber(){
+    public String getPhoneNumber() {
         return sharedPreferences.getString(SHARED_PREFERENCES_PHONE, "");
     }
 
-    public void clearAll(){
+    public void clearAll() {
         editor.putString(SHARED_PREFERENCES_PHONE, null);
         editor.putString(SHARED_PREFERENCES_USER_ID, null);
         editor.putString(SHARED_PREFERENCES_STORE_PREF, null);
         editor.putString(SHARED_PREFERENCES_EMAIL, null);
-        editor.putString(SHARED_PREFERENCES_LOGIN_ID,null);
-        editor.putString(SHARED_PREFERENCES_PASSWORD,null);
-        editor.putString(SHARED_PREFERENCES_NAME,null);
-        editor.putString(SHARED_PREFERENCES_LOCATION_PREFERENCE,null);
+        editor.putString(SHARED_PREFERENCES_LOGIN_ID, null);
+        editor.putString(SHARED_PREFERENCES_PASSWORD, null);
+        editor.putString(SHARED_PREFERENCES_NAME, null);
+        editor.putString(SHARED_PREFERENCES_LOCATION_PREFERENCE, null);
         editor.commit();
     }
 

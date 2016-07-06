@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +21,7 @@ import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
+import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 
@@ -65,20 +65,20 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
         landmark = (EditText) findViewById(R.id.delivery_land_mark);
         pincode = (EditText) findViewById(R.id.delivery_pin_code);
 
-        completeOrder.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        address1.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        address2.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        area.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        city.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        landmark.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        pincode.setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        completeOrder.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        address1.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        address2.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        area.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        city.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        landmark.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        pincode.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
 
-        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(this, Font.FONTAWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,7 +264,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
             } else {
                 orderId = result;
                 Config.orderId = result;
-                Log.e("OrderId", result);
+                Logger.i("OrderId", result);
                 sendOrder();
             }
         }

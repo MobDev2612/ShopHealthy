@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -45,8 +44,8 @@ public class CartActivity extends AppCompatActivity {
         cartTotalAmount = (FontView) findViewById(R.id.cart_total_amount);
 //        address = (EditText) findViewById(R.id.delivery_address);
 
-        placeOrder.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-//        address.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        placeOrder.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+//        address.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
         setTitle(getResources().getString(R.string.title_activity_delivery));
 
         if(Config.addToCart!=null) {
@@ -56,7 +55,7 @@ public class CartActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
         }
         cartTotalAmount.setText("Total: "+getResources().getString(R.string.rupee_icon)+" "+Config.cartTotalAmount);
-        cartTotalAmount.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        cartTotalAmount.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,7 +259,6 @@ public class CartActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,this);
         super.onStop();
     }

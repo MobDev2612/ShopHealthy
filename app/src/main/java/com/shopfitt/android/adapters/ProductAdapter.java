@@ -22,9 +22,6 @@ import com.shopfitt.android.datamodels.ProductObject;
 
 import java.util.List;
 
-/**
- * Created by Hari Haran on 15-Jan-16.
- */
 public class ProductAdapter extends ArrayAdapter<ProductObject> {
     private Context mContext;
     private int mResource;
@@ -49,14 +46,14 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
 
     public class ViewHolder {
         public NetworkImageView mImageView;
-        public FontView mName,mDescription,mCategory,mPrice,mQty;
+        public FontView mName, mDescription, mCategory, mPrice, mQty;
         public Button cartButton;
-        public ImageButton plusButton,minusButton;
+        public ImageButton plusButton, minusButton;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
@@ -65,11 +62,10 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.mDescription = (FontView) convertView.findViewById(R.id.product_list_item_description);
             viewHolder.mCategory = (FontView) convertView.findViewById(R.id.product_list_item_category);
             viewHolder.mPrice = (FontView) convertView.findViewById(R.id.product_list_item_price);
-
             viewHolder.mQty = (FontView) convertView.findViewById(R.id.product_list_qty_text);
             viewHolder.plusButton = (ImageButton) convertView.findViewById(R.id.product_list_add_qty);
             viewHolder.minusButton = (ImageButton) convertView.findViewById(R.id.product_list_minus_qty);
-            viewHolder.cartButton= (Button) convertView.findViewById(R.id.product_list_add_cart);
+            viewHolder.cartButton = (Button) convertView.findViewById(R.id.product_list_add_cart);
             viewHolder.mImageView = (NetworkImageView) convertView.findViewById(R.id.product_list_item_image);
             convertView.setTag(viewHolder);
         } else {
@@ -78,20 +74,19 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
 //        if(dataList.get(position).getQtyBought()== 0){
 //            dataList.get(position).setQtyBought(1);
 //        }
-
-        if(CommonMethods.checkProductInCart(dataList.get(position))!=null){
-            dataList.set(position,CommonMethods.checkProductInCart(dataList.get(position)));
+        if (CommonMethods.checkProductInCart(dataList.get(position)) != null) {
+            dataList.set(position, CommonMethods.checkProductInCart(dataList.get(position)));
             viewHolder.cartButton.setText("Update");
         } else {
             viewHolder.cartButton.setText("Add");
         }
-        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
         viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
         viewHolder.mCategory.setText(dataList.get(position).getWeightms());
-        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + " " + dataList.get(position).getMrp() + ".00");
-        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        viewHolder.mQty.setText(dataList.get(position).getQtyBought() + "");
+        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + dataList.get(position).getMrp() + ".00");
+        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        viewHolder.mQty.setText(String.valueOf(dataList.get(position).getQtyBought()));
         viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,8 +102,8 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
                 int qty = productObject.getQtyBought();
-                if(qty > 0)
-                productObject.setQtyBought(qty-1);
+                if (qty > 0)
+                    productObject.setQtyBought(qty - 1);
                 notifyDataSetChanged();
             }
         });
@@ -119,7 +114,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             @Override
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
-                if(productObject.getQtyBought() > 0) {
+                if (productObject.getQtyBought() > 0) {
                     if (CommonMethods.addProductInCart(productObject, mContext)) {
                         if (productObject.getIsfood() == 1) {
                             Config.foodItems = Config.foodItems + 1;
@@ -129,22 +124,21 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
                         notifyDataSetChanged();
                     }
                 } else {
-                    Toast.makeText(mContext,"You missed adding the quantity. please check",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please add the quantity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         return convertView;
     }
 
-    public static void loadImages(final NetworkImageView imageView, String imageURL) {
-        if (imageURL!= null) {
+    private static void loadImages(final NetworkImageView imageView, String imageURL) {
+        if (imageURL != null) {
             ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
             imageLoader.get(imageURL, ImageLoader.getImageListener(imageView,
                     R.drawable.default_image, android.R.drawable
                             .ic_dialog_alert));
-            imageView.setImageUrl(imageURL,imageLoader);
+            imageView.setImageUrl(imageURL, imageLoader);
         }
-//        return imageView;
     }
 
 }

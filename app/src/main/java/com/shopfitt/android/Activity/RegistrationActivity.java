@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -69,25 +68,25 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         verify_otp_button = (Button) findViewById(R.id.verify_otp_button);
         register_button = (Button) findViewById(R.id.register);
 
-        name_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        email_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        username_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        confirm_pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        phone_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        otp_edt_text.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        name_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        email_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        username_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        confirm_pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        phone_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        otp_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
 
-        name_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        email_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        username_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        confirm_pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        phone_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        otp_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        name_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        email_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        username_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        confirm_pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        phone_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        otp_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
 
-        get_otp_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
-        register_button.setTypeface(Font.getTypeface(this,Font.FONTAWESOME));
+        get_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        register_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
 
 
 
@@ -294,7 +293,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,this);
         super.onStop();
     }

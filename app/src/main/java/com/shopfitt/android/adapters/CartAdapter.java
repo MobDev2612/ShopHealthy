@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +22,12 @@ import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
+import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.ProductObject;
 
 import java.util.List;
 
-/**
- * Created by Hari Haran on 09-Jan-16.
- */
 public class CartAdapter extends ArrayAdapter<ProductObject> {
     private Context mContext;
     private int mResource;
@@ -54,10 +51,11 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
+
             viewHolder = new ViewHolder();
             viewHolder.mName = (FontView) convertView.findViewById(R.id.list_item_text1);
             viewHolder.mPrice = (FontView) convertView.findViewById(R.id.list_item_text2);
@@ -66,38 +64,38 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.mSodium = (FontView) convertView.findViewById(R.id.list_item_text5);
             viewHolder.mFat = (FontView) convertView.findViewById(R.id.list_item_text6);
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.list_item_image);
-
             viewHolder.cartRemoveButton = (Button) convertView.findViewById(R.id.list_item_remove);
             viewHolder.plusButton = (ImageButton) convertView.findViewById(R.id.product_list_add_qty);
             viewHolder.minusButton = (ImageButton) convertView.findViewById(R.id.product_list_minus_qty);
-
             viewHolder.qtyText = (FontView) convertView.findViewById(R.id.list_item_qty);
             viewHolder.linearLayout = (LinearLayout) convertView.findViewById(R.id.list_item_desc_visible);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
-        viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + " " + dataList.get(position).getMrp() + "");
-        viewHolder.qtyText.setText(dataList.get(position).getQtyBought() + "");
+        String mRate = mContext.getString(R.string.rupee_icon) + dataList.get(position).getMrp();
+        viewHolder.mPrice.setText(mRate);
+        viewHolder.qtyText.setText(String.valueOf(dataList.get(position).getQtyBought()));
         viewHolder.qtyText.setId(position);
         if (dataList.get(position).getIsfood() == 1) {
             viewHolder.linearLayout.setVisibility(View.VISIBLE);
-            viewHolder.mSugar.setText("" + dataList.get(position).getSugar());
-            viewHolder.mCalories.setText(dataList.get(position).getCalories() + "");
-            viewHolder.mFat.setText("" + dataList.get(position).getFat());
-            viewHolder.mSodium.setText("" + dataList.get(position).getSodium());
+            viewHolder.mSugar.setText(String.valueOf(dataList.get(position).getSugar()));
+            viewHolder.mCalories.setText(String.valueOf(dataList.get(position).getCalories()));
+            viewHolder.mFat.setText(String.valueOf(dataList.get(position).getFat()));
+            viewHolder.mSodium.setText(String.valueOf(dataList.get(position).getSodium()));
         } else {
             viewHolder.linearLayout.setVisibility(View.GONE);
         }
 
-        viewHolder.cartRemoveButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.qtyText.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.mSodium.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.mSugar.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.mCalories.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-//        viewHolder.mFat.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        viewHolder.cartRemoveButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.qtyText.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.mSodium.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.mSugar.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.mCalories.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+//        viewHolder.mFat.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
 
         viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +110,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
                                 removeItem(position);
                             }
                         })
-                        .setPositiveButton("No",null)
+                        .setPositiveButton("No", null)
                         .show();
 
             }
@@ -165,7 +163,6 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
         notifyDataSetChanged();
     }
 
-
     @Override
     public int getCount() {
         return dataList.size();
@@ -183,7 +180,7 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Error", error.getMessage(), error.getCause());
+                    Logger.e("Error", error.getMessage(), error.getCause());
                 }
 
                 @Override

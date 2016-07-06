@@ -67,7 +67,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     private void initialiseComponents() {
         EditText searchArea = (EditText) view.findViewById(R.id.search_bar);
-        searchArea.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        searchArea.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
         areaList = (ListView) view.findViewById(R.id.location_list);
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,10 +101,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
     private void showOutlets(String areaName) {
         SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         sharedPreferences.setLocation(areaName);
-        Bundle bundle = new Bundle();
-        bundle.putString("area",areaName);
         Fragment fragment = new OutletFragment();
-        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment).addToBackStack("loc");
@@ -136,7 +133,6 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
             Toast.makeText(mContext, "Error in fetching location", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void setList(List<LocationObject> areas) {
         locationAdapter = new LocationAdapter(mContext, android.R.layout.simple_list_item_1, areas);

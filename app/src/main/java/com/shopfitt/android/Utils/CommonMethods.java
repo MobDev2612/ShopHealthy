@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import com.shopfitt.android.datamodels.ProductObject;
 
-/**
- * Created by Hari Haran on 13-Jan-16.
- */
 public class CommonMethods {
     public static void showProgress(final boolean show, Context context) {
         CustomProgressDialog customProgressDialog = CustomProgressDialog.getInstance();
@@ -37,7 +34,7 @@ public class CommonMethods {
         ((AppCompatActivity) activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static boolean addProductInCart(ProductObject productObject,Context mContext) {
+    public static boolean addProductInCart(ProductObject productObject, Context mContext) {
         boolean found = false;
         for (int i = 0; i < Config.addToCart.size(); i++) {
             if (productObject.getID() == Config.addToCart.get(i).getID()) {
@@ -49,7 +46,7 @@ public class CommonMethods {
             ProductObject newProduct = new ProductObject(productObject);
 //            newProduct = productObject;
             Config.addToCart.add(newProduct);
-            Toast.makeText(mContext,"Added to Cart",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Added to Cart", Toast.LENGTH_SHORT).show();
             found = true;
             Intent intent = new Intent("custom-event-name");
             intent.putExtra("message", "This is my message!");

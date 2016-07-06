@@ -2,6 +2,7 @@ package com.shopfitt.android.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,6 @@ import com.shopfitt.android.datamodels.OutletObject;
 
 import java.util.List;
 
-/**
- * Created by Hari Haran on 13-Jan-16.
- */
 public class OutletAdapter extends ArrayAdapter<OutletObject> {
     private Context mContext;
     private int mResource;
@@ -30,18 +28,19 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
             viewHolder = new ViewHolder();
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);
+            viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+            viewHolder.mTextView.setBackgroundColor(Color.WHITE);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mTextView.setText(dataList.get(position).getStore_name());
-        viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
         return convertView;
     }
 

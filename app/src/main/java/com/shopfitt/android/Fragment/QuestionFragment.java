@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,10 +85,10 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         crunchYes = (Button) view.findViewById(R.id.question_crunch_match_yes);
         crunchNo = (Button) view.findViewById(R.id.question_crunch_match_no);
 
-        fitYes.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        fitNo.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
-        crunchNo.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        crunchYes.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        fitYes.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
+        fitNo.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
+        crunchNo.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        crunchYes.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
 
         crunchYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,7 +239,6 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

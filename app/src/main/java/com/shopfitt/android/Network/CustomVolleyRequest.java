@@ -14,9 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Hari Haran on 15-Jan-16.
- */
+
 public class CustomVolleyRequest<T> extends JsonRequest<T>{
     private final Gson gson = new Gson();
     private final Class<T> clazz;

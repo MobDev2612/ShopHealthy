@@ -21,7 +21,7 @@ public class SelectLocationActivity extends AppCompatActivity {
 //            startActivity(intent);
 //            finish();
 //        } else {
-            setContentView(R.layout.activity_select_location);
+        setContentView(R.layout.activity_select_location);
 //        }
     }
 

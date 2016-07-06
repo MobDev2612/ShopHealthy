@@ -71,11 +71,11 @@ public class SettingsFragment extends Fragment implements Response.ErrorListener
         newPasswordLayout = (TextInputLayout) view.findViewById(R.id.pwd_layout);
         newConfirmPasswordLayout = (TextInputLayout) view.findViewById(R.id.confirm_pwd_layout);
 
-        changePassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        newConfirmPassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        newPassword.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        newPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        newConfirmPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        changePassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        newConfirmPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        newPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        newPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        newConfirmPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override

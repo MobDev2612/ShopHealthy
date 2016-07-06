@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.shopfitt.android.Activity.IntroductionActivity">
 
     <include layout="@layout/custom_app_bar" />
@@ -19,17 +19,18 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <com.shopfitt.android.Utils.FontView
-            android:text="Welcome To ShopFitt"
+            android:layout_marginTop="10dp"
             style="@style/BlackText"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/welcome_to_shopfitt" />
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/youtube_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp" />
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp" />
 
         <Button
             android:id="@+id/skip_introduction"

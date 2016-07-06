@@ -92,14 +92,14 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         registerButton = (Button) view.findViewById(R.id.register);
         Button changeNumberButton = (Button) view.findViewById(R.id.change_number_button);
 
-        phoneEdtText.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        otpEdtText.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        phoneEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        otpEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        getOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        verifyOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        registerButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
-        changeNumberButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        phoneEdtText.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        otpEdtText.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        phoneEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        otpEdtTextLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        getOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        verifyOtpButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        registerButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        changeNumberButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
 
         changeNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override

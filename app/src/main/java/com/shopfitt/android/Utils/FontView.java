@@ -3,12 +3,8 @@ package com.shopfitt.android.Utils;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
-/**
- * Created by Hari Haran on 26-Jan-16.
- */
 public class FontView extends TextView{
     private static final String TAG = FontView.class.getSimpleName();
     //Cache the font load status to improve performance
@@ -38,10 +34,10 @@ public class FontView extends TextView{
         //Check for font is already loaded
         if(font == null) {
             try {
-                font = Typeface.createFromAsset(context.getAssets(), "fontawesome-webfont.ttf");
-                Log.d(TAG, "Font awesome loaded");
+                font = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
+                Logger.d(TAG, "Font awesome loaded");
             } catch (RuntimeException e) {
-                Log.e(TAG, "Font awesome not loaded");
+                Logger.e(TAG, "Font awesome not loaded",e);
             }
         }
 

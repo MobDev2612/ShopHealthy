@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ import com.shopfitt.android.datamodels.OutletObject;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,11 +39,13 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     private View view;
     private ListView outletList;
     private Context mContext;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        sharedPreferences = new SharedPreferences(mContext);
     }
 
     public OutletFragment() {
@@ -61,11 +61,10 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle arguments = getArguments();
-        initialiseComponents(arguments);
+        initialiseComponents();
     }
 
-    private void initialiseComponents(Bundle arguments) {
+    private void initialiseComponents() {
         outletList = (ListView) view.findViewById(R.id.outlet_list);
         outletList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,13 +74,12 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
                 goToMenu(outlet);
             }
         });
-        getOutlets(arguments.getString("area"));
+        getOutlets(sharedPreferences.getLocation());
     }
 
     private void goToMenu(String outlet) {
-        SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         sharedPreferences.setOutlet(outlet);
-        if(Config.loginDone) {
+        if (Config.loginDone) {
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -95,15 +93,15 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
     }
 
     private void getOutlets(String area) {
-        CommonMethods.showProgress(true,mContext);
-        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?store="+area,this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outletapi");
+        CommonMethods.showProgress(true, mContext);
+        JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?store=" + area, this, this);
+        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "outlet");
     }
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        CommonMethods.showProgress(false,mContext);
-        Toast.makeText(mContext, "Unable to fetch categories", Toast.LENGTH_SHORT).show();
+        CommonMethods.showProgress(false, mContext);
+        Toast.makeText(mContext, "Unable to fetch outlets", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -112,23 +110,21 @@ public class OutletFragment extends Fragment implements Response.ErrorListener, 
             CommonMethods.showProgress(false, mContext);
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
-            List<OutletObject> posts = new ArrayList<OutletObject>();
-            posts = Arrays.asList(gson.fromJson(jsonArray.toString(), OutletObject[].class));
+            List<OutletObject> posts = Arrays.asList(gson.fromJson(jsonArray.toString(), OutletObject[].class));
             setList(posts);
-        }catch (Exception e){
-            Toast.makeText(mContext, "Erroring in fetching categories", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(mContext, "Error in fetching outlets", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setList(List<OutletObject> outlets){
+    private void setList(List<OutletObject> outlets) {
         OutletAdapter outletAdapter = new OutletAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
         outletList.setAdapter(outletAdapter);
     }
 
     @Override
     public void onStop() {
-        Log.e("test", "test1");
-        CommonMethods.showProgress(false,mContext);
+        CommonMethods.showProgress(false, mContext);
         super.onStop();
     }
 

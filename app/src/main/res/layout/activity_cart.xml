@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:text="Total:  Rs 0" />
+            android:text="@string/total_rs_0" />
 
         <Button
             android:id="@+id/cart_place_order"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:text="PLACE ORDER" />
+            android:text="@string/place_order" />
 
     </LinearLayout>
 

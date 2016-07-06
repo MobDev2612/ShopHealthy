@@ -68,10 +68,10 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
                 "Success is, going from failure to failure without loss of enthusiasm.", "Never Give up", "Improvise,Adapt,Overcome !", "Anybody can dance if they find the music they love.",
                 "If it was easy, it would n’t be worth doing it.", "If you think you can or you can’t, you’ll be right both the times.", "No one’s perfect, that’s why pencils have erasers."};
         editText = (EditText) view.findViewById(R.id.crunch_message_input);
-        editText.setTypeface(Font.getTypeface(mContext,Font.FONTAWESOME));
+        editText.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
         FontView textView = (FontView) view.findViewById(R.id.crunch_message);
         Button submitButton = (Button) view.findViewById(R.id.submit_message);
-        submitButton.setTypeface(Font.getTypeface(mContext, Font.FONTAWESOME));
+        submitButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
