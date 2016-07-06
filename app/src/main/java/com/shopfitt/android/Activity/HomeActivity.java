@@ -36,6 +36,7 @@ import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.FontView;
+import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerRank;
@@ -75,13 +76,18 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setHeaders() {
-        FontView name = (FontView) navigationView.findViewById(R.id.header_name);
-        FontView email = (FontView) navigationView.findViewById(R.id.header_email);
+        View hView =  navigationView.getHeaderView(0);
+        FontView name = (FontView) hView.findViewById(R.id.header_name);
+        FontView email = (FontView) hView.findViewById(R.id.header_email);
         if (name != null) {
             name.setText(sharedPreferences.getName());
+        } else{
+            Logger.w("Null","null");
         }
         if (email != null) {
             email.setText(sharedPreferences.getEmail());
+        } else{
+            Logger.w("Null","null");
         }
     }
 
