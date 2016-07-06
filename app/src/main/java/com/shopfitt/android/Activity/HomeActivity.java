@@ -35,31 +35,36 @@ import com.shopfitt.android.Fragment.SettingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerRank;
-import com.shopfitt.android.datamodels.ProductObject;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Response.ErrorListener, Response.Listener<CustomerRank> {
 
+    SharedPreferences sharedPreferences;
+    DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        sharedPreferences = new SharedPreferences(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        if(Config.addToCart==null){
-            Config.addToCart = new ArrayList<ProductObject>();
+        if (Config.addToCart == null) {
+            Config.addToCart = new ArrayList<>();
         }
+        setHeaders();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-event-name"));
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -68,19 +73,31 @@ public class HomeActivity extends AppCompatActivity
         getCustomerRank();
     }
 
+    private void setHeaders() {
+        FontView name = (FontView) findViewById(R.id.header_name);
+        FontView email = (FontView) findViewById(R.id.header_email);
+        if (name != null) {
+            name.setText(sharedPreferences.getName());
+        }
+        if (email != null) {
+            email.setText(sharedPreferences.getEmail());
+        }
+    }
+
     private void getCustomerRank() {
-        VolleyRequest<CustomerRank> volleyRequest = new VolleyRequest<CustomerRank>(Request.Method.GET, "http://23.91.69.85:61090/ProductService.svc/getCustomerRank/" + Config.customerID,
-                CustomerRank.class,null, this, this);
-        Shopfitt.getInstance().addToRequestQueue(volleyRequest, "locationapi");
+        VolleyRequest<CustomerRank> volleyRequest = new VolleyRequest<>(Request.Method.GET, "http://23.91.69.85:61090/ProductService.svc/getCustomerRank/" + Config.customerID,
+                CustomerRank.class, null, this, this);
+        Shopfitt.getInstance().addToRequestQueue(volleyRequest, "location");
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        if (drawer != null) {
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -91,18 +108,18 @@ public class HomeActivity extends AppCompatActivity
         MenuItem item = menu.findItem(R.id.action_cart);
         MenuItemCompat.setActionView(item, R.layout.cart_icon);
         RelativeLayout count = (RelativeLayout) MenuItemCompat.getActionView(item);
-        TextView notifCount = (TextView) count.findViewById(R.id.actionbar_notifcation_textview);
-        if(Config.addToCart.size()>0) {
-            notifCount.setVisibility(View.VISIBLE);
-            notifCount.setText(String.valueOf(Config.addToCart.size()));
+        TextView notificationCount = (TextView) count.findViewById(R.id.actionbar_notifcation_textview);
+        if (Config.addToCart.size() > 0) {
+            notificationCount.setVisibility(View.VISIBLE);
+            notificationCount.setText(String.valueOf(Config.addToCart.size()));
         } else {
-            notifCount.setVisibility(View.GONE);
+            notificationCount.setVisibility(View.GONE);
         }
         count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Config.addToCart.isEmpty()){
-                    Toast.makeText(HomeActivity.this,"Cart is empty. Add Products to cart",Toast.LENGTH_LONG).show();
+                if (Config.addToCart.isEmpty()) {
+                    Toast.makeText(HomeActivity.this, "Cart is empty. Add Products to cart", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                     startActivity(intent);
@@ -112,7 +129,7 @@ public class HomeActivity extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void updateCount(){
+    public void updateCount() {
         invalidateOptionsMenu();
     }
 
@@ -125,8 +142,8 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cart) {
-            if(Config.addToCart.isEmpty()){
-                Toast.makeText(this,"Cart is empty. Add Products to cart",Toast.LENGTH_LONG).show();
+            if (Config.addToCart.isEmpty()) {
+                Toast.makeText(this, "Cart is empty. Add Products to cart", Toast.LENGTH_LONG).show();
             } else {
                 Intent intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
@@ -143,8 +160,9 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         changeFragments(id);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 
@@ -160,12 +178,11 @@ public class HomeActivity extends AppCompatActivity
             fragment = new LocationFragment();
         } else if (id == R.id.nav_notification) {
             fragment = new NotificationFragment();
-        } else if(id == R.id.nav_change_password){
+        } else if (id == R.id.nav_change_password) {
             fragment = new SettingsFragment();
-        } else if(id == R.id.nav_log_out){
-            SharedPreferences sharedPreferences = new SharedPreferences(this);
+        } else if (id == R.id.nav_log_out) {
             sharedPreferences.clearAll();
-            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -190,9 +207,6 @@ public class HomeActivity extends AppCompatActivity
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-//            String message = intent.getStringExtra("message");
-//            Log.d("receiver", "Got message: " + message);
             updateCount();
         }
     };
