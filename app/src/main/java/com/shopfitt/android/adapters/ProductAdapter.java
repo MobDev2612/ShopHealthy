@@ -140,7 +140,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         if (imageURL!= null) {
             ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
             imageLoader.get(imageURL, ImageLoader.getImageListener(imageView,
-                    R.mipmap.ic_launcher, android.R.drawable
+                    R.drawable.default_image, android.R.drawable
                             .ic_dialog_alert));
             imageView.setImageUrl(imageURL,imageLoader);
         }
