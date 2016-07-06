@@ -14,7 +14,7 @@
         android:gravity="center"
         android:paddingTop ="5dp"
         android:lines="1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_light"
         android:textSize="@dimen/text_size_medium" />
 
     <com.shopfitt.android.Utils.FontView
@@ -25,7 +25,7 @@
         android:gravity="center"
         android:lines="2"
         android:paddingTop="3dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_light"
         android:textSize="@dimen/text_size_medium" />
 
     <com.shopfitt.android.Utils.FontView
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonPanel"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/divider"
         android:dividerHeight="1dp"
         android:background="@drawable/list_gradient"
         android:layout_marginTop="5dp" />

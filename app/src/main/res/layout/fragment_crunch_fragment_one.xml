@@ -11,6 +11,7 @@
         style="@style/BlackText"
         android:layout_alignParentTop="true"
         android:padding="3dp"
+        android:textColor="@color/primary_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please select any one user for Crunch Match" />

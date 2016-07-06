@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/list_gradient"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/divider"
         android:dividerHeight="1dp" />
 
 </RelativeLayout>

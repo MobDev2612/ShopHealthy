@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textColor="@color/primary_text"
             android:text="1" />
 
         <com.shopfitt.android.Utils.FontView
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textColor="@color/primary_text"
             android:maxLines="2"
             android:text="1" />
 
@@ -53,6 +55,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:text="1"
+            android:textColor="@color/primary_text"
             android:visibility="visible" />
 
         <com.shopfitt.android.Utils.FontView
@@ -63,6 +66,7 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textColor="@color/primary_text"
             android:singleLine="true"
             android:text="1" />
 
@@ -99,6 +103,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 style="@style/BlackText"
+                android:textColor="@color/primary_text"
                 android:padding="5dp"
                 android:text="1" />
 

@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/list_gradient"
         android:layout_marginTop="5dp"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/divider"
         android:dividerHeight="1dp" />
 
 </LinearLayout>

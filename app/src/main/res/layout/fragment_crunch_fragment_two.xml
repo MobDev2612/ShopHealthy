@@ -2,33 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@android:color/white"
     tools:context="com.shopfitt.android.Activity.CrunchFragmentTwo">
 
     <com.shopfitt.android.Utils.FontView
-        android:layout_marginTop="30dp"
         android:id="@+id/crunch_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="hi" />
+        android:text="hi"
+        android:textColor="@color/primary_text" />
 
     <EditText
-        android:layout_marginTop="30dp"
-        android:maxLength="20"
         android:id="@+id/crunch_message_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Message" />
+        android:layout_marginTop="30dp"
+        android:hint="Enter Message"
+        android:maxLength="20"
+        android:textColor="@color/primary_text"
+        android:textColorHint="@color/secondary_text" />
 
     <Button
         android:id="@+id/submit_message"
-        style="@style/OrangeButton"
-        android:layout_gravity="center"
-        android:text="Submit"
+        style="@style/BlueButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Submit" />
 
 </LinearLayout>

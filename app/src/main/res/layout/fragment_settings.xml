@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="15dp"
     tools:context="com.shopfitt.android.Fragment.SettingsFragment">
 
     <android.support.design.widget.TextInputLayout
@@ -20,8 +20,8 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black" />
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -37,17 +37,17 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black" />
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text" />
     </android.support.design.widget.TextInputLayout>
 
 
     <Button
         android:id="@+id/change_password_button"
-        style="@style/OrangeButton"
+        style="@style/BlueButton"
         android:layout_width="match_parent"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:text="Update Password" />
 

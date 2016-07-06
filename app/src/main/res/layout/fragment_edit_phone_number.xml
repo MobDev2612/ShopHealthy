@@ -31,7 +31,7 @@
     <Button
         android:id="@+id/change_number_button"
         android:layout_marginTop="5dp"
-        style="@style/OrangeButton"
+        style="@style/BlueButton"
         android:text="Change Phone Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -58,7 +58,7 @@
     <Button
         android:visibility="gone"
         android:id="@+id/get_otp"
-        style="@style/OrangeButton"
+        style="@style/BlueButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -91,7 +91,7 @@
 
         <Button
             android:id="@+id/verify_otp_button"
-            style="@style/OrangeButton"
+            style="@style/BlueButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Verify OTP" />
@@ -100,7 +100,7 @@
 
     <Button
         android:id="@+id/register"
-        style="@style/OrangeButton"
+        style="@style/BlueButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save Number"

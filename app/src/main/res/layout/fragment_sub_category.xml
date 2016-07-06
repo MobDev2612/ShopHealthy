@@ -19,7 +19,7 @@
 
     <ListView
         android:id="@+id/subcategory_list"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/divider"
         android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:background="@drawable/list_gradient"

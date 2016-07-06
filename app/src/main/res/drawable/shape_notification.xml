@@ -5,7 +5,7 @@
     android:thickness="9dp"
     android:useLevel="false">
 
-    <solid android:color="#F00" />
+    <solid android:color="@color/red_color" />
 
     <padding
         android:bottom="2dp"

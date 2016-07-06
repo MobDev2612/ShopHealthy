@@ -37,8 +37,8 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black" />
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/secondary_text" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -58,14 +58,14 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/black" />
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/secondary_text"  />
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="@style/OrangeButton"
+                style="@style/BlueButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/forgot_password"
+                android:textColor="@color/primary_text"
                 android:textStyle="bold" />
 
             <Button
@@ -89,7 +90,8 @@
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/primary_text"
                 android:text="@string/action_sign_up"
                 android:textStyle="bold" />
 

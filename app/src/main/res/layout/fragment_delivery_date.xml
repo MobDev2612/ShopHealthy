@@ -71,7 +71,7 @@
 
         <Button
             android:id="@+id/delivery_date_submit"
-            style="@style/OrangeButton"
+            style="@style/BlueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
@@ -81,7 +81,7 @@
 
         <Button
             android:id="@+id/delivery_date_no"
-            style="@style/OrangeButton"
+            style="@style/BlueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

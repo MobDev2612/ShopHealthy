@@ -42,8 +42,8 @@
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -59,8 +59,8 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -76,8 +76,8 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -93,8 +93,8 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -110,8 +110,8 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -127,13 +127,13 @@
                         android:inputType="phone"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:id="@+id/get_otp"
-                    style="@style/OrangeButton"
+                    style="@style/BlueButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Get OTP" />
@@ -141,11 +141,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/verify_otp_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/otp_verify_text_layout"
@@ -160,26 +160,26 @@
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black" />
+                        android:textColor="@color/primary_text"
+                        android:textColorHint="@color/secondary_text" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:text="Verify OTP"
                     android:id="@+id/verify_otp_button"
-                    style="@style/OrangeButton"
+                    style="@style/BlueButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Verify OTP" />
 
             </LinearLayout>
 
             <Button
-                android:visibility="gone"
                 android:id="@+id/register"
-                android:text="Register"
-                style="@style/OrangeButton"
+                style="@style/BlueButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:visibility="gone" />
         </LinearLayout>
 
     </ScrollView>

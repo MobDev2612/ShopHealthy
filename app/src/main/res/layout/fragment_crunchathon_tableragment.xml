@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@android:color/white"
     tools:context=".Fragment.CrunchathonTableFragment">
 
     <TableLayout
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -18,171 +18,193 @@
             android:layout_gravity="center_horizontal">
 
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="" />
 
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Values" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Your Values"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opponent Values" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Opponent Values"
+                android:textColor="@color/primary_text" />
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Calories" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Calories"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_calories"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_calories"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fat" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Fat"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_fat"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_fat"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sodium" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Sodium"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_sodium"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_sodium"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sugar" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Sugar"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_sugar"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_sugar"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text" />
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"    >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
             <com.shopfitt.android.Utils.FontView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Final Result" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Final Result"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/your_final_percent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/opponent_final_percent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
     android:padding="5dp">
 
     <LinearLayout
@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:text="Name" />
+                android:text="Name"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/list_item_text2"
@@ -41,7 +42,8 @@
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="Price" />
+                android:text="Price"
+                android:textColor="@color/primary_text" />
 
         </LinearLayout>
 
@@ -54,36 +56,37 @@
             android:paddingRight="5dp">
 
             <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <ImageButton
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/ic_minus_sign"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="center"
                     android:id="@+id/product_list_minus_qty"
                     android:layout_width="30dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/ic_minus_sign" />
 
                 <com.shopfitt.android.Utils.FontView
                     android:id="@+id/list_item_qty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="@color/primary_text" />
 
                 <ImageButton
-                    android:contentDescription="@string/image"
                     android:id="@+id/product_list_add_qty"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_plus_sign"
+                    android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:layout_gravity="center"/>
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/ic_plus_sign" />
 
 
             </LinearLayout>
@@ -93,13 +96,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:minHeight="0dp"
                 android:background="@drawable/red_button"
+                android:minHeight="0dp"
                 android:padding="2dp"
-                android:textSize="@dimen/text_size_small"
-                android:text="Delete" />
+                android:text="Delete"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
     </LinearLayout>
@@ -108,8 +111,8 @@
         android:id="@+id/list_item_desc_visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,49 +126,53 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/table_cell"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:padding="2dp"
                 android:singleLine="true"
-                android:text="Sugar" />
+                android:text="Sugar"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:padding="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:padding="2dp"
                 android:singleLine="true"
-                android:text="Calories" />
+                android:text="Calories"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:background="@drawable/table_cell"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell"
                 android:ellipsize="end"
-                android:padding="2dp"
                 android:gravity="center"
+                android:padding="2dp"
                 android:singleLine="true"
-                android:text="Sodium" />
+                android:text="Sodium"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:padding="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:padding="2dp"
                 android:singleLine="true"
-                android:text="Fat" />
+                android:text="Fat"
+                android:textColor="@color/primary_text" />
 
         </LinearLayout>
 
@@ -175,55 +182,60 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="3dp"
-            android:paddingRight="3dp">
+            android:paddingRight="3dp"
+            android:textColor="@color/primary_text">
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/list_item_text3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:padding="2dp"
-                android:background="@drawable/table_cell"
                 android:singleLine="true"
-                android:text="desc" />
+                android:text="desc"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/list_item_text4"
                 android:layout_width="0dp"
-                android:background="@drawable/table_cell"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:padding="2dp"
                 android:singleLine="true"
-                android:text="desc" />
+                android:text="desc"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/list_item_text5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ellipsize="end"
                 android:background="@drawable/table_cell"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:padding="2dp"
                 android:singleLine="true"
-                android:text="desc" />
+                android:text="desc"
+                android:textColor="@color/primary_text" />
 
             <com.shopfitt.android.Utils.FontView
                 android:id="@+id/list_item_text6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:layout_weight="1"
+                android:background="@drawable/table_cell"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:padding="2dp"
                 android:singleLine="true"
-                android:background="@drawable/table_cell"
-                android:text="desc" />
+                android:text="desc"
+                android:textColor="@color/primary_text" />
 
         </LinearLayout>
     </LinearLayout>

@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity
 
     SharedPreferences sharedPreferences;
     DrawerLayout drawer;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +62,21 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         if (Config.addToCart == null) {
             Config.addToCart = new ArrayList<>();
         }
         setHeaders();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-event-name"));
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         changeFragments(R.id.nav_home);
         getCustomerRank();
     }
 
     private void setHeaders() {
-        FontView name = (FontView) findViewById(R.id.header_name);
-        FontView email = (FontView) findViewById(R.id.header_email);
+        FontView name = (FontView) navigationView.findViewById(R.id.header_name);
+        FontView email = (FontView) navigationView.findViewById(R.id.header_email);
         if (name != null) {
             name.setText(sharedPreferences.getName());
         }

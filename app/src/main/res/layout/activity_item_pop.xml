@@ -42,7 +42,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="Bananas"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_size_medium" />
 
         <com.shopfitt.android.Utils.FontView
@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:text="1 Kg"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_size_medium" />
 
         <com.shopfitt.android.Utils.FontView
@@ -62,7 +62,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:text="Rs. 35.00"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_size_medium" />
 
         <TableLayout
@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Sugar"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -88,7 +88,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Calories"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -97,7 +97,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Fat"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -106,7 +106,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Sodium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
 
@@ -121,7 +121,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.5%"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -131,7 +131,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.5%"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -141,7 +141,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.5%"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
                 <com.shopfitt.android.Utils.FontView
@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.5%"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_small" />
 
             </TableRow>
@@ -189,7 +189,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primary_text"
             android:textSize="@dimen/text_size_large" />
 
         <ImageButton
