@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     public HomeFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,7 +65,17 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
         SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         categories = new ArrayList<>();
         outletName = (FontView) view.findViewById(R.id.home_outlet_name);
-        outletName.setText(sharedPreferences.getOutlet());
+        outletName.setText(sharedPreferences.getOutlet()+ " in "+sharedPreferences.getLocation());
+        outletName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new LocationFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.commit();
+            }
+        });
         categoryList = (ListView) view.findViewById(R.id.home_list);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -12,8 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:gravity="center"
+        android:drawableRight="@drawable/ic_edit"
+        android:drawableEnd="@drawable/ic_edit"
         android:lines="2"
         android:paddingTop="3dp"
+        android:paddingEnd="3dp"
+        android:paddingRight="3dp"
         android:textColor="@color/primary_light"
         android:textSize="@dimen/text_size_medium" />
 

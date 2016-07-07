@@ -82,13 +82,16 @@ public class HomeActivity extends AppCompatActivity
             name.setText(sharedPreferences.getName());
         }
         if (email != null) {
-            String text = "Rank: "+rank+", Points: "+points;
+            String text = "Rank: "+rank+", Crunches: "+points;
             email.setText(text);
         }
         hView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeFragments(1001);
+                if (drawer != null) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
             }
         });
     }
