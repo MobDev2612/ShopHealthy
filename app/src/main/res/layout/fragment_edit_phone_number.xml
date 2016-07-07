@@ -10,21 +10,21 @@
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/profile_name"
         style="@style/BlackText"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/profile_email"
         style="@style/BlackText"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/profile_number"
         style="@style/BlackText"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -51,8 +51,8 @@
             android:inputType="phone"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black" />
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -85,8 +85,8 @@
                 android:inputType="textNoSuggestions"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black" />
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/secondary_text" />
         </android.support.design.widget.TextInputLayout>
 
         <Button

@@ -3,9 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="com.shopfitt.android.Fragment.NotificationFragment">
 
+    <com.shopfitt.android.Utils.FontView
+        android:id="@+id/no_notifications"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/primary_text"
+        android:text="No Notifications to Show"
+        android:layout_height="match_parent" />
+
     <ListView
+        android:visibility="gone"
         android:id="@+id/notification_list"
         android:layout_width="match_parent"
         android:divider="@color/divider"

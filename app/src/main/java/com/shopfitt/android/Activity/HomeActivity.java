@@ -36,7 +36,6 @@ import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.FontView;
-import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerRank;
@@ -68,27 +67,30 @@ public class HomeActivity extends AppCompatActivity
         if (Config.addToCart == null) {
             Config.addToCart = new ArrayList<>();
         }
-        setHeaders();
+        setHeaders("-","-");
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-event-name"));
         changeFragments(R.id.nav_home);
         getCustomerRank();
     }
 
-    private void setHeaders() {
+    private void setHeaders(String rank,String points) {
         View hView =  navigationView.getHeaderView(0);
         FontView name = (FontView) hView.findViewById(R.id.header_name);
         FontView email = (FontView) hView.findViewById(R.id.header_email);
         if (name != null) {
             name.setText(sharedPreferences.getName());
-        } else{
-            Logger.w("Null","null");
         }
         if (email != null) {
-            email.setText(sharedPreferences.getEmail());
-        } else{
-            Logger.w("Null","null");
+            String text = "Rank: "+rank+", Points: "+points;
+            email.setText(text);
         }
+        hView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragments(1001);
+            }
+        });
     }
 
     private void getCustomerRank() {
@@ -115,12 +117,12 @@ public class HomeActivity extends AppCompatActivity
         MenuItem item = menu.findItem(R.id.action_cart);
         MenuItemCompat.setActionView(item, R.layout.cart_icon);
         RelativeLayout count = (RelativeLayout) MenuItemCompat.getActionView(item);
-        TextView notificationCount = (TextView) count.findViewById(R.id.actionbar_notifcation_textview);
+        TextView cartItemsCount = (TextView) count.findViewById(R.id.actionbar_notifcation_textview);
         if (Config.addToCart.size() > 0) {
-            notificationCount.setVisibility(View.VISIBLE);
-            notificationCount.setText(String.valueOf(Config.addToCart.size()));
+            cartItemsCount.setVisibility(View.VISIBLE);
+            cartItemsCount.setText(String.valueOf(Config.addToCart.size()));
         } else {
-            notificationCount.setVisibility(View.GONE);
+            cartItemsCount.setVisibility(View.GONE);
         }
         count.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +158,9 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
             }
             return true;
+        } else if (id == R.id.action_notification) {
+            changeFragments(1000);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -177,13 +182,13 @@ public class HomeActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = new HomeFragment();
-        } else if (id == R.id.nav_my_account) {
+        } else if (id == 1001) {
             fragment = new EditPhoneNumberFragment();
         } else if (id == R.id.nav_track_order) {
 
         } else if (id == R.id.nav_change_store) {
             fragment = new LocationFragment();
-        } else if (id == R.id.nav_notification) {
+        } else if (id == 1000) {
             fragment = new NotificationFragment();
         } else if (id == R.id.nav_change_password) {
             fragment = new SettingsFragment();
@@ -225,6 +230,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onResponse(CustomerRank customerRank) {
-        Config.customerRank = customerRank;
+        setHeaders(customerRank.getRank(),customerRank.getPoints());
     }
 }

@@ -20,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
-import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
@@ -33,14 +32,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONArray> {
     private View view;
     private ListView categoryList;
     List<CategoryObject> categories;
-    FontView outletName,rank;
+    FontView outletName;
     private Context mContext;
 
     @Override
@@ -63,17 +59,12 @@ public class HomeFragment extends Fragment implements Response.ErrorListener, Re
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle arguments = getArguments();
         initialiseComponents();
     }
 
     private void initialiseComponents() {
         SharedPreferences sharedPreferences = new SharedPreferences(mContext);
         categories = new ArrayList<>();
-        rank = (FontView) view.findViewById(R.id.customer_rank);
-        if(Config.customerRank!=null) {
-            rank.setText("Rank: "+Config.customerRank.getRank()+" Crunches: "+Config.customerRank.getPoints());
-        }
         outletName = (FontView) view.findViewById(R.id.home_outlet_name);
         outletName.setText(sharedPreferences.getOutlet());
         categoryList = (ListView) view.findViewById(R.id.home_list);

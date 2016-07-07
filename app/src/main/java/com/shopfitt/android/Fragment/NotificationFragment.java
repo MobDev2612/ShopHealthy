@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.NotificationAdapter;
 import com.shopfitt.android.datamodels.NotificationObject;
@@ -81,7 +82,14 @@ public class NotificationFragment extends Fragment implements Response.ErrorList
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             List<NotificationObject> posts = Arrays.asList(gson.fromJson(jsonArray.toString(), NotificationObject[].class));
-            setList(posts);
+            if(posts.size()>0) {
+                ((FontView) view.findViewById(R.id.no_notifications)).setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+                setList(posts);
+            } else {
+                ((FontView) view.findViewById(R.id.no_notifications)).setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+            }
         }catch (Exception e){
             Toast.makeText(mContext, "Error in fetching Notifications", Toast.LENGTH_SHORT).show();
         }
