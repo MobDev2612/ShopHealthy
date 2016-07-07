@@ -1,27 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
     tools:context="com.shopfitt.android.Fragment.NotificationFragment">
 
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/no_notifications"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@drawable/ic_mood_bad_black"
         android:gravity="center"
-        android:textSize="@dimen/text_size_large"
+        android:text="No Notifications"
         android:textColor="@color/primary_text"
-        android:text="No Notifications to Show"
-        android:layout_height="match_parent" />
+        android:textSize="@dimen/text_size_large" />
 
     <ListView
-        android:visibility="gone"
         android:id="@+id/notification_list"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_gradient"
         android:divider="@color/divider"
         android:dividerHeight="1dp"
-        android:background="@drawable/list_gradient"
-        android:layout_height="wrap_content"/>
+        android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

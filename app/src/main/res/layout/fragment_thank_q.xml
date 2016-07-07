@@ -6,9 +6,12 @@
     tools:context="com.shopfitt.android.Fragment.ThankQFragment">
 
     <com.shopfitt.android.Utils.FontView
+        android:drawableTop="@drawable/ic_mood_black_happy"
         style="@style/BlackText"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_large"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thank you for your order" />
 
