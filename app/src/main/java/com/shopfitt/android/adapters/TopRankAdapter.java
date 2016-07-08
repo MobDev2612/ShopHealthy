@@ -61,7 +61,7 @@ public class TopRankAdapter extends ArrayAdapter<TopRank> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.mTextView.setText(dataList.get(position).getCustomer_name());
-        String text = "Rank: "+dataList.get(position).getCust_id()+", Points: "+dataList.get(position).getPoints();
+        String text = "Rank: "+(position+1)+", Points: "+dataList.get(position).getPoints();
         viewHolder.mSecondTextView.setText(text);
         return convertView;
     }
