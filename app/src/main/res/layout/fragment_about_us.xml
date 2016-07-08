@@ -1,12 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@android:color/white"
     tools:context="com.shopfitt.android.Fragment.AboutUsFragment">
 
-    <TextView
+    <com.shopfitt.android.Utils.FontView
+        android:textSize="@dimen/text_size_large"
+        style="@style/BlackText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Coming soon" />
+        android:layout_height="wrap_content"
+        android:text="Our Story" />
 
-</FrameLayout>
+    <com.shopfitt.android.Utils.FontView
+        style="@style/BlackText"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/secondary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_us_1" />
+
+    <com.shopfitt.android.Utils.FontView
+        style="@style/BlackText"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/secondary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_us_2" />
+
+</LinearLayout>
