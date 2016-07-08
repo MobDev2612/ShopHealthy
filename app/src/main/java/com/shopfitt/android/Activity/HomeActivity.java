@@ -27,11 +27,13 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.shopfitt.android.Fragment.AboutUsFragment;
+import com.shopfitt.android.Fragment.ChangePasswordFragment;
+import com.shopfitt.android.Fragment.ContactUsFragment;
 import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.Fragment.NotificationFragment;
-import com.shopfitt.android.Fragment.SettingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
@@ -67,22 +69,22 @@ public class HomeActivity extends AppCompatActivity
         if (Config.addToCart == null) {
             Config.addToCart = new ArrayList<>();
         }
-        setHeaders("-","-");
+        setHeaders("-", "-");
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-event-name"));
         changeFragments(R.id.nav_home);
         getCustomerRank();
     }
 
-    private void setHeaders(String rank,String points) {
-        View hView =  navigationView.getHeaderView(0);
+    private void setHeaders(String rank, String points) {
+        View hView = navigationView.getHeaderView(0);
         FontView name = (FontView) hView.findViewById(R.id.header_name);
         FontView email = (FontView) hView.findViewById(R.id.header_email);
         if (name != null) {
             name.setText(sharedPreferences.getName());
         }
         if (email != null) {
-            String text = "Rank: "+rank+", Crunches: "+points;
+            String text = "Rank: " + rank + ", Crunches: " + points;
             email.setText(text);
         }
         hView.setOnClickListener(new View.OnClickListener() {
@@ -187,14 +189,18 @@ public class HomeActivity extends AppCompatActivity
             fragment = new HomeFragment();
         } else if (id == 1001) {
             fragment = new EditPhoneNumberFragment();
-        } else if (id == R.id.nav_track_order) {
+        } else if (id == R.id.nav_order_history) {
 
         } else if (id == R.id.nav_change_store) {
             fragment = new LocationFragment();
         } else if (id == 1000) {
             fragment = new NotificationFragment();
         } else if (id == R.id.nav_change_password) {
-            fragment = new SettingsFragment();
+            fragment = new ChangePasswordFragment();
+        } else if (id == R.id.nav_about_us) {
+            fragment = new AboutUsFragment();
+        } else if (id == R.id.nav_contact_us) {
+            fragment = new ContactUsFragment();
         } else if (id == R.id.nav_log_out) {
             sharedPreferences.clearAll();
             Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
@@ -233,6 +239,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onResponse(CustomerRank customerRank) {
-        setHeaders(customerRank.getRank(),customerRank.getPoints());
+        setHeaders(customerRank.getRank(), customerRank.getPoints());
     }
 }

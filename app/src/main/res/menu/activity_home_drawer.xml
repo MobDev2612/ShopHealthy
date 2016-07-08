@@ -8,7 +8,7 @@
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_track_order"
+            android:id="@+id/nav_order_history"
             android:icon="@drawable/ic_menu_order_history"
             android:title="Order History" />
 

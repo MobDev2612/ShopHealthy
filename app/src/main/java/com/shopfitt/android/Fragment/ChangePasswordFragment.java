@@ -31,7 +31,7 @@ import org.json.JSONObject;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsFragment extends Fragment implements Response.ErrorListener, Response.Listener<String> {
+public class ChangePasswordFragment extends Fragment implements Response.ErrorListener, Response.Listener<String> {
     private View view;
     private Context mContext;
     private EditText newPassword, newConfirmPassword;
@@ -45,7 +45,7 @@ public class SettingsFragment extends Fragment implements Response.ErrorListener
         mContext = context;
     }
 
-    public SettingsFragment() {
+    public ChangePasswordFragment() {
         // Required empty public constructor
     }
 

@@ -11,9 +11,13 @@ import com.android.volley.toolbox.Volley;
 import com.shopfitt.android.Network.LruBitmapCache;
 
 import org.acra.ACRA;
-import org.acra.config.ACRAConfiguration;
-import org.acra.config.ConfigurationBuilder;
+import org.acra.ReportField;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
 
+@ReportsCrashes(mailTo = "mobdev2612@gmail.com",
+        customReportContent = { ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT },
+        mode = ReportingInteractionMode.TOAST)
 public class Shopfitt extends Application {
     public static final String TAG = Shopfitt.class
             .getSimpleName();
@@ -33,12 +37,13 @@ public class Shopfitt extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        final ACRAConfiguration config = new ConfigurationBuilder(this)
-                .setMailTo("mobdev2612@gmail.com")
-                .build();
+//        final ACRAConfiguration config = new ConfigurationBuilder(this)
+//                .setMailTo("mobdev2612@gmail.com")
+//                .build();
 
         // Initialise ACRA
-        ACRA.init(this, config);
+//        ACRA.init(this, config);
+        ACRA.init(this);
     }
 
     public static synchronized Shopfitt getInstance() {

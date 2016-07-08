@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.shopfitt.android.Fragment.ContactUsFragment">
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="TALK TO US"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_size_large" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="We'd love to hear from you"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="italic" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="E-MAIL"
+        android:textStyle="normal"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_size_medium" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="hearmeout@shopfitt.in"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/text_size_medium" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="PHONE"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_size_medium" />
+
+    <com.shopfitt.android.Utils.FontView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="+91-9986644863"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/text_size_medium" />
+
+</LinearLayout>
