@@ -1,6 +1,7 @@
 package com.shopfitt.android.Utils;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -8,6 +9,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.shopfitt.android.Network.LruBitmapCache;
+
+import org.acra.ACRA;
+import org.acra.config.ACRAConfiguration;
+import org.acra.config.ConfigurationBuilder;
 
 public class Shopfitt extends Application {
     public static final String TAG = Shopfitt.class
@@ -23,6 +28,17 @@ public class Shopfitt extends Application {
         mInstance = this;
         Config.cartTotalAmount = 0;
         Config.foodItems = 0;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        final ACRAConfiguration config = new ConfigurationBuilder(this)
+                .setMailTo("mobdev2612@gmail.com")
+                .build();
+
+        // Initialise ACRA
+        ACRA.init(this, config);
     }
 
     public static synchronized Shopfitt getInstance() {

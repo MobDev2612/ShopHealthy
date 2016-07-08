@@ -3,12 +3,15 @@ package com.shopfitt.android.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.datamodels.NotificationObject;
 
@@ -36,6 +39,11 @@ public class NotificationAdapter extends ArrayAdapter<NotificationObject> {
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);
             viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
             viewHolder.mTextView.setBackgroundColor(Color.WHITE);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                viewHolder.mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));
+            } else {
+                viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
+            }
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

@@ -13,6 +13,6 @@
         android:textSize="@dimen/text_size_large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thank you for your order" />
+        android:text="Thank you for your order!!" />
 
 </RelativeLayout>

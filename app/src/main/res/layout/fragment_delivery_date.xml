@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/primary_text"
         android:text="Done! Your Order has been placed successfully!"
         android:textSize="@dimen/text_size_medium" />
 
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
+        android:textColor="@color/secondary_text"
         android:text="Your Order will delivered in next couple of hours"
         android:textSize="@dimen/text_size_small" />
 
@@ -34,8 +36,8 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="360dp"
-            android:layout_height="360dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_centerInParent="true"
             android:indeterminate="false"
             android:max="500"
@@ -50,7 +52,7 @@
             android:layout_centerInParent="true"
             android:text="8:88:88"
             android:textColor="@color/colorPrimary"
-            android:textSize="80sp" />
+            android:textSize="60sp" />
 
     </RelativeLayout>
 
@@ -59,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/primary_text"
         android:text="You are now eligible for Crunch Match"
         android:textSize="@dimen/text_size_medium" />
 
