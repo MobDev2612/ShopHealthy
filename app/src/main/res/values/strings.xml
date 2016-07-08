@@ -13,7 +13,7 @@
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 
-    <string name="about_us_1">It's true that life is all about \"MAKING CHOICES\" but at ShopFitt we believe that \"MAKING THE RIGHT/BETTER CHOICES\" can be a life changer</string>
+    <string name="about_us_1">It\'s true that life is all about \"MAKING CHOICES\" but at ShopFitt we believe that \"MAKING THE RIGHT/BETTER CHOICES\" can be a life changer</string>
     <string name="about_us_2">At ShopFitt , We are driven by curiosity. We believe in using innovation to give you a \"choice\", Yes a choice to choose a better and a healthier lifestyle</string>
 
     <string name="rupee_icon">Rs. </string>
