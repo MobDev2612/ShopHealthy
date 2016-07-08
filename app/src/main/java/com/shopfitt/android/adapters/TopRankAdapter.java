@@ -13,16 +13,17 @@ import android.widget.TextView;
 
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Font;
-import com.shopfitt.android.datamodels.OutletObject;
+import com.shopfitt.android.datamodels.TopRank;
 
 import java.util.List;
 
-public class OutletAdapter extends ArrayAdapter<OutletObject> {
+public class TopRankAdapter extends ArrayAdapter<TopRank> {
+
     private Context mContext;
     private int mResource;
-    List<OutletObject> dataList;
+    List<TopRank> dataList;
 
-    public OutletAdapter(Context context, int resource, List<OutletObject> objects) {
+    public TopRankAdapter(Context context, int resource, List<TopRank> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -36,6 +37,7 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
             viewHolder = new ViewHolder();
+
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);
             viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
             viewHolder.mTextView.setBackgroundColor(Color.WHITE);
@@ -44,11 +46,23 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
             } else {
                 viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
             }
+
+            viewHolder.mSecondTextView = (TextView) convertView.findViewById(android.R.id.text2);
+            viewHolder.mSecondTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+            viewHolder.mSecondTextView.setBackgroundColor(Color.WHITE);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                viewHolder.mSecondTextView.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));
+            } else {
+                viewHolder.mSecondTextView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
+            }
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.mTextView.setText(dataList.get(position).getStore_name());
+        viewHolder.mTextView.setText(dataList.get(position).getCustomer_name());
+        String text = "Rank: "+dataList.get(position).getCust_id()+", Points: "+dataList.get(position).getPoints();
+        viewHolder.mSecondTextView.setText(text);
         return convertView;
     }
 
@@ -58,11 +72,12 @@ public class OutletAdapter extends ArrayAdapter<OutletObject> {
     }
 
     @Override
-    public OutletObject getItem(int position) {
+    public TopRank getItem(int position) {
         return dataList.get(position);
     }
 
     public class ViewHolder {
         public TextView mTextView;
+        public TextView mSecondTextView;
     }
 }

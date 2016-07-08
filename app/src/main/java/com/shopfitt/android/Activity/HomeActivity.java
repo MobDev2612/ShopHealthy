@@ -34,6 +34,7 @@ import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.Fragment.NotificationFragment;
+import com.shopfitt.android.Fragment.TopRankingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.Config;
@@ -197,6 +198,8 @@ public class HomeActivity extends AppCompatActivity
             fragment = new NotificationFragment();
         } else if (id == R.id.nav_change_password) {
             fragment = new ChangePasswordFragment();
+        } else if (id == R.id.nav_top_rankings) {
+            fragment = new TopRankingsFragment();
         } else if (id == R.id.nav_about_us) {
             fragment = new AboutUsFragment();
         } else if (id == R.id.nav_contact_us) {

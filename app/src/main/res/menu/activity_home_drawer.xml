@@ -18,6 +18,11 @@
             android:title="Change Store" />
 
         <item
+            android:id="@+id/nav_top_rankings"
+            android:icon="@drawable/ic_list_black"
+            android:title="Top 10 Rankings" />
+
+        <item
             android:id="@+id/nav_change_password"
             android:icon="@drawable/ic_menu_change_password"
             android:title="Change Password" />
