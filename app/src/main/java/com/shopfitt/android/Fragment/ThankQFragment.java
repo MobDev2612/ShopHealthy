@@ -43,16 +43,14 @@ public class ThankQFragment extends Fragment {
         super.onResume();
         getActivity().setTitle("Crunchaton");
         final Handler handler = new Handler();
-        final Runnable r = new Runnable()
-        {
-            public void run()
-            {
-                Intent intent = new Intent(mContext,HomeActivity.class);
+        final Runnable r = new Runnable() {
+            public void run() {
+                Intent intent = new Intent(mContext, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();
             }
         };
-        handler.postDelayed(r, 10000);
+        handler.postDelayed(r, 5000);
     }
 }

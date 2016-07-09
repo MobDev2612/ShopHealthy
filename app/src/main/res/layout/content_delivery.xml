@@ -105,7 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Pin Code"
-            android:inputType="textPostalAddress"
+            android:inputType="number"
+            android:maxLength="6"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/secondary_text" />
 

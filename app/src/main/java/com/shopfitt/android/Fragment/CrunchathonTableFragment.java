@@ -183,17 +183,21 @@ public class CrunchathonTableFragment extends Fragment {
 
     private void showNextScreen() {
         final Handler handler = new Handler();
-        final Runnable r = new Runnable()
-        {
-            public void run()
-            {
-                Fragment fragment = new CrunchFragmentTwo();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, fragment);
-                fragmentTransaction.commit();
+        final Runnable r = new Runnable() {
+            public void run() {
+                changeFragment();
             }
         };
         handler.postDelayed(r, 15000);
+    }
+
+    private void changeFragment() {
+        if(getActivity()!= null) {
+            Fragment fragment = new CrunchFragmentTwo();
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+        }
     }
 }
