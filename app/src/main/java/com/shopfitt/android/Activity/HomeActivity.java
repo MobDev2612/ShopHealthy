@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity
     private void getCustomerRank() {
         VolleyRequest<CustomerRank> volleyRequest = new VolleyRequest<>(Request.Method.GET, "http://23.91.69.85:61090/ProductService.svc/getCustomerRank/" + Config.customerID,
                 CustomerRank.class, null, this, this);
-        Shopfitt.getInstance().addToRequestQueue(volleyRequest, "location");
+        Shopfitt.getInstance().addToRequestQueue(volleyRequest, "rank");
     }
 
     @Override

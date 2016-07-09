@@ -88,8 +88,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
         register_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
 
-
-
         get_otp_button.setOnClickListener(this);
         verify_otp_button.setOnClickListener(this);
         register_button.setOnClickListener(this);

@@ -28,10 +28,12 @@ import com.shopfitt.android.Utils.Shopfitt;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
+
 public class DeliveryActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener {
 
     private Button completeOrder;
-    private TextInputEditText address1, address2, area, city, landmark, pincode;
+    private TextInputEditText address1, address2, area, city, landmark, pinCode;
     int requestID;
     String orderId;
     boolean executed;
@@ -63,7 +65,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
         area = (TextInputEditText) findViewById(R.id.delivery_area);
         city = (TextInputEditText) findViewById(R.id.delivery_city);
         landmark = (TextInputEditText) findViewById(R.id.delivery_land_mark);
-        pincode = (TextInputEditText) findViewById(R.id.delivery_pin_code);
+        pinCode = (TextInputEditText) findViewById(R.id.delivery_pin_code);
 
         completeOrder.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
         address1.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
@@ -71,7 +73,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
         area.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
         city.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
         landmark.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        pincode.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        pinCode.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
 
         ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
         ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
@@ -91,7 +93,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
                     String addressText2 = address2.getText().toString();
                     String cityName = city.getText().toString();
                     String landMark = landmark.getText().toString();
-                    String pinCode = pincode.getText().toString();
+                    String pinCode = DeliveryActivity.this.pinCode.getText().toString();
 
                     if (areaName.isEmpty()) {
                         ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setError(getResources().getString(R.string.error_field_required));
@@ -155,7 +157,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
 
                 }
             });
-            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "orderid");
+            Shopfitt.getInstance().addToRequestQueue(volleyRequest, "saveOrder");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -209,9 +211,9 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
 //                jsonObject.put("Quantity",Config.addToCart.get(i).getQtyBought());
 //                jsonArray.put(jsonObject);
 //            }
-                String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/" + Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
-                        + "/" + Config.addToCart.get(i).getQtyBought() + "/";
-                url = url.replace(" ", "%20");
+                String query =  URLEncoder.encode(Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
+                        + "/" + Config.addToCart.get(i).getQtyBought() + "/", "utf-8");
+                String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/" +query ;
                 StringRequest volleyRequest = new StringRequest(Request.Method.GET,
                         url,
                         this, this);
@@ -293,7 +295,7 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
             String addressText2 = address2.getText().toString();
             String cityName = city.getText().toString();
             String landMark = landmark.getText().toString();
-            String pinCode = pincode.getText().toString();
+            String pinCode = this.pinCode.getText().toString();
 
             if (areaName.isEmpty()) {
                 ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setError(getResources().getString(R.string.error_field_required));

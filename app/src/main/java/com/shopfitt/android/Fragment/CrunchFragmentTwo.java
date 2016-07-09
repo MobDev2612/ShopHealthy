@@ -116,7 +116,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
             try {
                 jsonObject.put("comparerid", Config.comparerID.replaceAll("\"", ""));
                 jsonObject.put("message", editText.getText().toString() + "");
-                CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMessage/", String.class, jsonObject,
+                CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMesssage/", String.class, jsonObject,
                         this, this);
                 volleyRequest.setRetryPolicy(new RetryPolicy() {
                     @Override
