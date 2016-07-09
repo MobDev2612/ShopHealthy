@@ -67,20 +67,20 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
         landmark = (TextInputEditText) findViewById(R.id.delivery_land_mark);
         pinCode = (TextInputEditText) findViewById(R.id.delivery_pin_code);
 
-        completeOrder.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        address1.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        address2.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        area.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        city.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        landmark.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        pinCode.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        completeOrder.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        address1.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        address2.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        area.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        city.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        landmark.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        pinCode.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
 
-        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        ((TextInputLayout) findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) findViewById(R.id.delivery_address_line_2_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override

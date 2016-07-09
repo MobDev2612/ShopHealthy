@@ -44,8 +44,8 @@ public class CartActivity extends AppCompatActivity {
         cartTotalAmount = (FontView) findViewById(R.id.cart_total_amount);
 //        address = (EditText) findViewById(R.id.delivery_address);
 
-        placeOrder.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-//        address.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        placeOrder.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+//        address.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
         setTitle(getResources().getString(R.string.title_activity_delivery));
 
         if(Config.addToCart!=null) {
@@ -55,7 +55,7 @@ public class CartActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
         }
         cartTotalAmount.setText("Total: "+getResources().getString(R.string.rupee_icon)+" "+Config.cartTotalAmount);
-        cartTotalAmount.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        cartTotalAmount.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

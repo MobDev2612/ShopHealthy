@@ -65,7 +65,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
     }
 
     private void initialiseComponents(Bundle arguments) {
-        productObjects = new ArrayList<ProductObject>();
+        productObjects = new ArrayList<>();
         productList = (ListView) view.findViewById(R.id.product_list);
         productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,7 +103,7 @@ public class ProductListFragment extends Fragment implements Response.ErrorListe
 
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "productapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "products");
     }
 
     @Override

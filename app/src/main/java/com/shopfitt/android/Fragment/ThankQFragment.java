@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import com.shopfitt.android.Activity.HomeActivity;
 import com.shopfitt.android.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ThankQFragment extends Fragment {
 
     private Context mContext;

@@ -51,7 +51,7 @@ public class CategoryAdapter extends ArrayAdapter<CategoryObject> {
             convertView = mInflater.inflate(mResource, null);
             viewHolder = new ViewHolder();
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);
-            viewHolder.mTextView.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
+            viewHolder.mTextView.setTypeface(Font.getTypeface(mContext,Font.FONT_OPEN_SANS));
             viewHolder.mTextView.setBackgroundColor(Color.WHITE);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 viewHolder.mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));

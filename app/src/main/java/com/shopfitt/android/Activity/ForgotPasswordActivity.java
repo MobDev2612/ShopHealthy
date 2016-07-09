@@ -49,9 +49,9 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Respons
         emailViewLayout = (TextInputLayout) findViewById(R.id.forgot_password_email_layout);
         resetPassword = (Button) findViewById(R.id.reset_password);
 
-        emailView.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        emailViewLayout.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-        resetPassword.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+        emailView.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        emailViewLayout.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
+        resetPassword.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
 
         resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override

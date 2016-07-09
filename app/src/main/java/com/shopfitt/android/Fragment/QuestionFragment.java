@@ -30,8 +30,9 @@ import com.shopfitt.android.Utils.Shopfitt;
 public class QuestionFragment extends Fragment implements Response.ErrorListener, Response.Listener<String> {
 
     private View view;
-    private Button fitYes, fitNo, crunchYes, crunchNo;
-//    private int questionAnswered = 0;
+    private Button fitYes;
+    private Button fitNo;
+    //    private int questionAnswered = 0;
     private FontView fitCartQuestion;
     private int requestId;
     private Context mContext;
@@ -47,7 +48,6 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
     public QuestionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,13 +82,13 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 setFitCartNo(Config.customerID);
             }
         });
-        crunchYes = (Button) view.findViewById(R.id.question_crunch_match_yes);
-        crunchNo = (Button) view.findViewById(R.id.question_crunch_match_no);
+        Button crunchYes = (Button) view.findViewById(R.id.question_crunch_match_yes);
+        Button crunchNo = (Button) view.findViewById(R.id.question_crunch_match_no);
 
-        fitYes.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
-        fitNo.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
-        crunchNo.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-        crunchYes.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
+        fitYes.setTypeface(Font.getTypeface(mContext,Font.FONT_OPEN_SANS));
+        fitNo.setTypeface(Font.getTypeface(mContext,Font.FONT_OPEN_SANS));
+        crunchNo.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        crunchYes.setTypeface(Font.getTypeface(mContext,Font.FONT_OPEN_SANS));
 
         crunchYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,12 +99,12 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         crunchNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showThankyou();
+                showThankYou();
             }
         });
     }
 
-    private void showThankyou() {
+    private void showThankYou() {
         Fragment fragment = new ThankQFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -120,13 +120,12 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
         fragmentTransaction.commit();
     }
 
-
     private void getFitCartStatus(String id) {
         requestId = 1;
         CommonMethods.showProgress(true, mContext);
-        StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkFitCart/" + id,
+        StringRequest checkFitCart = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkFitCart/" + id,
                 this, this);
-        fetchLocations.setRetryPolicy(new RetryPolicy() {
+        checkFitCart.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
                 return 30000;
@@ -142,7 +141,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
             }
         });
-        Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+        Shopfitt.getInstance().addToRequestQueue(checkFitCart, "checkFitCart");
     }
 
     private void setFitCartNo(String id) {
@@ -150,9 +149,9 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 //        if (questionAnswered == 0) {
             requestId = 2;
             CommonMethods.showProgress(true, mContext);
-            StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
+            StringRequest checkNoFitCart = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkNoFitCart/" + id,
                     this, this);
-            fetchLocations.setRetryPolicy(new RetryPolicy() {
+            checkNoFitCart.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
                     return 30000;
@@ -168,7 +167,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
                 }
             });
-            Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+            Shopfitt.getInstance().addToRequestQueue(checkNoFitCart, "checkNoFitCart");
 //        }
     }
 
@@ -178,9 +177,9 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 //        if (questionAnswered == 0) {
             requestId = 2;
             CommonMethods.showProgress(true, mContext);
-            StringRequest fetchLocations = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
+            StringRequest checkYesFitCart = new StringRequest("http://23.91.69.85:61090/ProductService.svc/checkYesFitCart/" + id,
                     this, this);
-            fetchLocations.setRetryPolicy(new RetryPolicy() {
+            checkYesFitCart.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
                     return 30000;
@@ -196,7 +195,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
 
                 }
             });
-            Shopfitt.getInstance().addToRequestQueue(fetchLocations, "locationapi");
+            Shopfitt.getInstance().addToRequestQueue(checkYesFitCart, "checkYesFitCart");
 //        }
     }
 
@@ -217,7 +216,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 crunchQuestion.setVisibility(View.VISIBLE);
                 fitCartAccess = true;
             } else if (s.contains("0")) {
-                showThankyou();
+                showThankYou();
             }
         }
         if (requestId == 2) {
@@ -229,7 +228,7 @@ public class QuestionFragment extends Fragment implements Response.ErrorListener
                 if(fitCartAccess) {
                     crunchQuestion.setVisibility(View.VISIBLE);
                 }  else {
-                    showThankyou();
+                    showThankYou();
                 }
             } else if (s.contains("0")){
                 Toast.makeText(mContext, "Something went wrong.. please try later", Toast.LENGTH_SHORT).show();

@@ -79,9 +79,9 @@ public class DeliveryDateFragment extends Fragment  implements Response.ErrorLis
         textViewShowTime = (FontView) view.findViewById(R.id.tvTimeCount);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         Button submit = (Button) view.findViewById(R.id.delivery_date_submit);
-        submit.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        submit.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         backButton = (Button) view.findViewById(R.id.delivery_date_no);
-        backButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        backButton.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         if (Config.foodItems > 0) {
             ((FontView) view.findViewById(R.id.crunch_match_text)).setVisibility(View.VISIBLE);
             submit.setVisibility(View.VISIBLE);

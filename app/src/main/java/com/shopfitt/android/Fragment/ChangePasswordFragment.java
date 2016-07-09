@@ -71,11 +71,11 @@ public class ChangePasswordFragment extends Fragment implements Response.ErrorLi
         newPasswordLayout = (TextInputLayout) view.findViewById(R.id.pwd_layout);
         newConfirmPasswordLayout = (TextInputLayout) view.findViewById(R.id.confirm_pwd_layout);
 
-        changePassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-        newConfirmPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-        newPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-        newPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-        newConfirmPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        changePassword.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        newConfirmPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        newPassword.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        newPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        newConfirmPasswordLayout.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override

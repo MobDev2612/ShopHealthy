@@ -38,7 +38,7 @@ public class IntroductionActivity extends YouTubeBaseActivity implements YouTube
             YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
             youTubePlayerView.initialize(Config.YOUTUBE_DEVELOPER_KEY, this);
             skipIntroductionButton = (Button) findViewById(R.id.skip_introduction);
-            skipIntroductionButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            skipIntroductionButton.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
             skipIntroductionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

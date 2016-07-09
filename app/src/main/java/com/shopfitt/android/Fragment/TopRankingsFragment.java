@@ -60,8 +60,8 @@ public class TopRankingsFragment extends Fragment implements Response.ErrorListe
 
     private void getTopRanks() {
         CommonMethods.showProgress(true, mContext);
-        JsonArrayRequest fetchNotifications = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/Top10Ranks",this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchNotifications, "topRanks");
+        JsonArrayRequest fetchRankList = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/Top10Ranks",this, this);
+        Shopfitt.getInstance().addToRequestQueue(fetchRankList, "topRanks");
     }
 
     @Override
@@ -76,10 +76,10 @@ public class TopRankingsFragment extends Fragment implements Response.ErrorListe
             CommonMethods.showProgress(false, mContext);
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
-            List<TopRank> posts = Arrays.asList(gson.fromJson(jsonArray.toString(), TopRank[].class));
-            if(posts.size()>0) {
+            List<TopRank> topRanks = Arrays.asList(gson.fromJson(jsonArray.toString(), TopRank[].class));
+            if(topRanks.size()>0) {
                 listView.setVisibility(View.VISIBLE);
-                setList(posts);
+                setList(topRanks);
             } else {
                 listView.setVisibility(View.GONE);
             }
@@ -95,6 +95,7 @@ public class TopRankingsFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onStop() {
+        Shopfitt.getInstance().cancelPendingRequests("topRanks");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

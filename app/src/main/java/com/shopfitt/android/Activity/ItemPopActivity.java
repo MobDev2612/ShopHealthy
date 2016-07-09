@@ -54,7 +54,7 @@ public class ItemPopActivity extends AppCompatActivity {
         plusButton =(ImageButton) findViewById(R.id.item_pop_plus);
         minusButton =(ImageButton) findViewById(R.id.item_pop_minus);
         updateButton =(Button) findViewById(R.id.item_pop_update);
-        updateButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        updateButton.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +110,7 @@ public class ItemPopActivity extends AppCompatActivity {
         }
         nameEdtTxt.setText(productObject.getProduct_name());
         priceEdtTxt.setText(getResources().getString(R.string.rupee_icon)+" "+productObject.getMrp()+".00");
-        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
         unitEdtTxt.setText(productObject.getWeightms());
         sugarEdtTxt.setText(productObject.getSugar() + "");
         saltEdtTxt.setText(productObject.getCalories() + "");

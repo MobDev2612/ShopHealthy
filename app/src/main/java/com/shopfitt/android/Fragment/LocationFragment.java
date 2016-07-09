@@ -67,7 +67,7 @@ public class LocationFragment extends Fragment implements Response.ErrorListener
 
     private void initialiseComponents() {
         EditText searchArea = (EditText) view.findViewById(R.id.search_bar);
-        searchArea.setTypeface(Font.getTypeface(mContext,Font.FONT_AWESOME));
+        searchArea.setTypeface(Font.getTypeface(mContext,Font.FONT_OPEN_SANS));
         areaList = (ListView) view.findViewById(R.id.location_list);
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

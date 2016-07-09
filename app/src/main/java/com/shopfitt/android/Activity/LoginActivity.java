@@ -100,17 +100,17 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 }
             });
 
-            forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+            forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
             if (mEmailSignInButton != null) {
-                mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+                mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
             }
             if (registrationButton != null) {
-                registrationButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+                registrationButton.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
             }
-            mEmailView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-            mPasswordView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-            mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-            pwdInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            mEmailView.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+            mPasswordView.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+            mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+            pwdInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
         }
     }
 

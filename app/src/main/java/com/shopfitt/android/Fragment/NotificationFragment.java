@@ -18,7 +18,6 @@ import com.google.gson.GsonBuilder;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
-import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.adapters.NotificationAdapter;
 import com.shopfitt.android.datamodels.NotificationObject;
@@ -46,7 +45,6 @@ public class NotificationFragment extends Fragment implements Response.ErrorList
     public NotificationFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,11 +81,11 @@ public class NotificationFragment extends Fragment implements Response.ErrorList
             Gson gson = gsonBuilder.create();
             List<NotificationObject> posts = Arrays.asList(gson.fromJson(jsonArray.toString(), NotificationObject[].class));
             if(posts.size()>0) {
-                ((FontView) view.findViewById(R.id.no_notifications)).setVisibility(View.GONE);
+                (view.findViewById(R.id.no_notifications)).setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
                 setList(posts);
             } else {
-                ((FontView) view.findViewById(R.id.no_notifications)).setVisibility(View.VISIBLE);
+                (view.findViewById(R.id.no_notifications)).setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
             }
         }catch (Exception e){

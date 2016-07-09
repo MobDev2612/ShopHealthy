@@ -89,13 +89,13 @@ public class CartAdapter extends ArrayAdapter<ProductObject> {
             viewHolder.linearLayout.setVisibility(View.GONE);
         }
 
-        viewHolder.cartRemoveButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.qtyText.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.mSodium.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.mSugar.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.mCalories.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
-//        viewHolder.mFat.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        viewHolder.cartRemoveButton.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.qtyText.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.mSodium.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.mSugar.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.mCalories.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+//        viewHolder.mFat.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
 
         viewHolder.cartRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override

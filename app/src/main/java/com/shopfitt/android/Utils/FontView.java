@@ -35,9 +35,9 @@ public class FontView extends TextView{
         if(font == null) {
             try {
                 font = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
-                Logger.d(TAG, "Font awesome loaded");
+                Logger.d(TAG, "Open Sans loaded");
             } catch (RuntimeException e) {
-                Logger.e(TAG, "Font awesome not loaded",e);
+                Logger.e(TAG, "Open Sans not loaded",e);
             }
         }
 

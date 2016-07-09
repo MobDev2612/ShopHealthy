@@ -45,11 +45,9 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
         mContext = context;
     }
 
-
     public SubCategoryFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +65,7 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
     }
 
     private void initialiseComponents(Bundle arguments) {
-        subcategories = new ArrayList<SubCategoryObject>();
+        subcategories = new ArrayList<>();
         subCategoryList = (ListView) view.findViewById(R.id.subcategory_list);
         subCategoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -93,7 +91,7 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
     private void getCategories(String id) {
         CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchOutlets = new JsonArrayRequest("http://json.shopfitt.in/Details.aspx?subcategory="+id,this, this);
-        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategoryapi");
+        Shopfitt.getInstance().addToRequestQueue(fetchOutlets, "subcategory");
     }
 
     @Override
@@ -115,12 +113,14 @@ public class SubCategoryFragment extends Fragment implements Response.ErrorListe
         }
     }
 
-    private void setList(List<SubCategoryObject> outlets){
-        SubCategoryAdapter outletAdapter = new SubCategoryAdapter(mContext, android.R.layout.simple_list_item_1, outlets);
-        subCategoryList.setAdapter(outletAdapter);
+    private void setList(List<SubCategoryObject> subCategoryObjects){
+        SubCategoryAdapter subCategoryAdapter = new SubCategoryAdapter(mContext, android.R.layout.simple_list_item_1, subCategoryObjects);
+        subCategoryList.setAdapter(subCategoryAdapter);
     }
+
     @Override
     public void onStop() {
+        Shopfitt.getInstance().cancelPendingRequests("subcategory");
         CommonMethods.showProgress(false,mContext);
         super.onStop();
     }

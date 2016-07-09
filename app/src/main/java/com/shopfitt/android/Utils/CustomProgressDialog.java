@@ -54,19 +54,4 @@ public class CustomProgressDialog {
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
     }
-
-    /**
-     * Shows progress dialog
-     *
-     * @param context Context of the activity
-     */
-    public void showProgressNoTitle(Context context) {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            dismissProgress();
-        }
-        mProgressDialog = new ProgressDialog(context);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.show();
-    }
 }

@@ -68,25 +68,25 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         verify_otp_button = (Button) findViewById(R.id.verify_otp_button);
         register_button = (Button) findViewById(R.id.register);
 
-        name_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        email_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        username_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        confirm_pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        phone_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        otp_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        name_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        email_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        username_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        confirm_pwd_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        phone_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        otp_edt_text.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
 
-        name_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        email_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        username_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        confirm_pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        phone_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        otp_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        name_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        email_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        username_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        confirm_pwd_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        phone_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        otp_edt_text_layout.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
 
-        get_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
-        register_button.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+        get_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        verify_otp_button.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        register_button.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
 
         get_otp_button.setOnClickListener(this);
         verify_otp_button.setOnClickListener(this);

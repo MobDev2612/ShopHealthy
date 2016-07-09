@@ -80,12 +80,12 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         } else {
             viewHolder.cartButton.setText("Add");
         }
-        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        viewHolder.cartButton.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         viewHolder.mName.setText(dataList.get(position).getProduct_name());
         viewHolder.mDescription.setText(dataList.get(position).getProduct_description());
         viewHolder.mCategory.setText(dataList.get(position).getWeightms());
         viewHolder.mPrice.setText(mContext.getString(R.string.rupee_icon) + dataList.get(position).getMrp() + ".00");
-        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_AWESOME));
+        viewHolder.mPrice.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         viewHolder.mQty.setText(String.valueOf(dataList.get(position).getQtyBought()));
         viewHolder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
