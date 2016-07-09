@@ -2,13 +2,13 @@ package com.shopfitt.android.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,7 +23,7 @@ import com.shopfitt.android.Utils.Shopfitt;
 public class ForgotPasswordActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<String> {
 
     private String email;
-    private EditText emailView;
+    private TextInputEditText emailView;
     private TextInputLayout emailViewLayout;
     private Button resetPassword;
     private Context mContext;
@@ -45,7 +45,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements Respons
 
     private void initialiseComponents() {
         mContext = this;
-        emailView = (EditText) findViewById(R.id.forgot_password_email);
+        emailView = (TextInputEditText) findViewById(R.id.forgot_password_email);
         emailViewLayout = (TextInputLayout) findViewById(R.id.forgot_password_email_layout);
         resetPassword = (Button) findViewById(R.id.reset_password);
 

@@ -2,6 +2,7 @@ package com.shopfitt.android.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +10,6 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -30,7 +30,7 @@ import org.json.JSONObject;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener, Response.ErrorListener, Response.Listener {
 
-    private EditText name_edt_text, email_edt_text, username_edt_text, pwd_edt_text, confirm_pwd_edt_text, phone_edt_text, otp_edt_text;
+    private TextInputEditText name_edt_text, email_edt_text, username_edt_text, pwd_edt_text, confirm_pwd_edt_text, phone_edt_text, otp_edt_text;
     private TextInputLayout name_edt_text_layout, email_edt_text_layout, username_edt_text_layout, pwd_edt_text_layout, confirm_pwd_edt_text_layout, phone_edt_text_layout, otp_edt_text_layout;
     private Button get_otp_button, verify_otp_button, register_button;
 
@@ -48,13 +48,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initialiseComponents() {
-        name_edt_text = (EditText) findViewById(R.id.name);
-        email_edt_text = (EditText) findViewById(R.id.email);
-        username_edt_text = (EditText) findViewById(R.id.username);
-        pwd_edt_text = (EditText) findViewById(R.id.password);
-        confirm_pwd_edt_text = (EditText) findViewById(R.id.confirm_pwd);
-        phone_edt_text = (EditText) findViewById(R.id.phone);
-        otp_edt_text = (EditText) findViewById(R.id.otp_verify_text);
+        name_edt_text = (TextInputEditText) findViewById(R.id.name);
+        email_edt_text = (TextInputEditText) findViewById(R.id.email);
+        username_edt_text = (TextInputEditText) findViewById(R.id.username);
+        pwd_edt_text = (TextInputEditText) findViewById(R.id.password);
+        confirm_pwd_edt_text = (TextInputEditText) findViewById(R.id.confirm_pwd);
+        phone_edt_text = (TextInputEditText) findViewById(R.id.phone);
+        otp_edt_text = (TextInputEditText) findViewById(R.id.otp_verify_text);
 
         name_edt_text_layout = (TextInputLayout) findViewById(R.id.name_layout);
         email_edt_text_layout = (TextInputLayout) findViewById(R.id.email_layout);

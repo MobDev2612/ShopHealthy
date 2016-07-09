@@ -36,6 +36,7 @@ public class TopRankAdapter extends ArrayAdapter<TopRank> {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
+            convertView.setBackgroundColor(Color.WHITE);
             viewHolder = new ViewHolder();
 
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);

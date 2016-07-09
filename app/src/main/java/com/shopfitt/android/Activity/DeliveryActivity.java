@@ -2,12 +2,12 @@ package com.shopfitt.android.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,7 +31,7 @@ import org.json.JSONObject;
 public class DeliveryActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener {
 
     private Button completeOrder;
-    private EditText address1, address2, area, city, landmark, pincode;
+    private TextInputEditText address1, address2, area, city, landmark, pincode;
     int requestID;
     String orderId;
     boolean executed;
@@ -58,12 +58,12 @@ public class DeliveryActivity extends AppCompatActivity implements Response.Erro
         sharedPreferences = new SharedPreferences(this);
         setTitle(getResources().getString(R.string.title_activity_delivery));
         completeOrder = (Button) findViewById(R.id.delivery_order_complete);
-        address1 = (EditText) findViewById(R.id.delivery_address_line_1);
-        address2 = (EditText) findViewById(R.id.delivery_address_line_2);
-        area = (EditText) findViewById(R.id.delivery_area);
-        city = (EditText) findViewById(R.id.delivery_city);
-        landmark = (EditText) findViewById(R.id.delivery_land_mark);
-        pincode = (EditText) findViewById(R.id.delivery_pin_code);
+        address1 = (TextInputEditText) findViewById(R.id.delivery_address_line_1);
+        address2 = (TextInputEditText) findViewById(R.id.delivery_address_line_2);
+        area = (TextInputEditText) findViewById(R.id.delivery_area);
+        city = (TextInputEditText) findViewById(R.id.delivery_city);
+        landmark = (TextInputEditText) findViewById(R.id.delivery_land_mark);
+        pincode = (TextInputEditText) findViewById(R.id.delivery_pin_code);
 
         completeOrder.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
         address1.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));

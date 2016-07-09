@@ -3,6 +3,7 @@ package com.shopfitt.android.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,7 +40,7 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
     private Button getOtpButton;
     private Button verifyOtpButton;
     private Button registerButton;
-    private EditText phoneEdtText, otpEdtText;
+    private TextInputEditText phoneEdtText, otpEdtText;
     TextInputLayout phoneEdtTextLayout, otpEdtTextLayout;
     SharedPreferences sharedPreferences;
     private Context mContext;
@@ -82,8 +82,8 @@ public class EditPhoneNumberFragment extends Fragment implements View.OnClickLis
         nameView.setText("Name: " + sharedPreferences.getName());
         emailView.setText("Email: "+sharedPreferences.getEmail());
 
-        phoneEdtText = (EditText) view.findViewById(R.id.phone);
-        otpEdtText = (EditText) view.findViewById(R.id.otp_verify_text);
+        phoneEdtText = (TextInputEditText) view.findViewById(R.id.phone);
+        otpEdtText = (TextInputEditText) view.findViewById(R.id.otp_verify_text);
         phoneEdtTextLayout = (TextInputLayout) view.findViewById(R.id.phone_layout);
         otpEdtTextLayout = (TextInputLayout) view.findViewById(R.id.otp_verify_text_layout);
 

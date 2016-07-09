@@ -2,6 +2,7 @@ package com.shopfitt.android.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +33,8 @@ import org.json.JSONArray;
  */
 public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONArray> {
 
-    private EditText mEmailView;
-    private EditText mPasswordView;
+    private TextInputEditText mEmailView;
+    private TextInputEditText mPasswordView;
     private TextInputLayout mailInputLayout, pwdInputLayout;
     private String userName, password;
     private SharedPreferences sharedPreferences;
@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             finish();
         } else {
             setContentView(R.layout.activity_login);
-            mEmailView = (EditText) findViewById(R.id.email);
-            mPasswordView = (EditText) findViewById(R.id.password);
+            mEmailView = (TextInputEditText) findViewById(R.id.email);
+            mPasswordView = (TextInputEditText) findViewById(R.id.password);
             mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -68,24 +68,28 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             });
 
             Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-            mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    attemptLogin();
-                }
-            });
+            if (mEmailSignInButton != null) {
+                mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        attemptLogin();
+                    }
+                });
+            }
             mailInputLayout = (TextInputLayout) findViewById(R.id.email_layout);
             pwdInputLayout = (TextInputLayout) findViewById(R.id.password_layout);
             Button registrationButton = (Button) findViewById(R.id.email_sign_up_button);
-            registrationButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                    startActivity(intent);
-//                    finish();
-                }
+            if (registrationButton != null) {
+                registrationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                        startActivity(intent);
+    //                    finish();
+                    }
 
-            });
+                });
+            }
 
             forgotPasswordButton = (Button) findViewById(R.id.email_forgot_password_button);
             forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +101,12 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             });
 
             forgotPasswordButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-            mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
-            registrationButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            if (mEmailSignInButton != null) {
+                mEmailSignInButton.setTypeface(Font.getTypeface(this, Font.FONT_AWESOME));
+            }
+            if (registrationButton != null) {
+                registrationButton.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
+            }
             mEmailView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
             mPasswordView.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));
             mailInputLayout.setTypeface(Font.getTypeface(this,Font.FONT_AWESOME));

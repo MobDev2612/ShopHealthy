@@ -3,6 +3,7 @@ package com.shopfitt.android.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,7 +34,7 @@ import org.json.JSONObject;
 public class ChangePasswordFragment extends Fragment implements Response.ErrorListener, Response.Listener<String> {
     private View view;
     private Context mContext;
-    private EditText newPassword, newConfirmPassword;
+    private TextInputEditText newPassword, newConfirmPassword;
     private Button changePassword;
     private TextInputLayout newPasswordLayout, newConfirmPasswordLayout;
     private String password, confirmPassword;
@@ -66,8 +66,8 @@ public class ChangePasswordFragment extends Fragment implements Response.ErrorLi
 
     private void initialiseComponents() {
         changePassword = (Button) view.findViewById(R.id.change_password_button);
-        newPassword = (EditText) view.findViewById(R.id.password);
-        newConfirmPassword = (EditText) view.findViewById(R.id.confirm_pwd);
+        newPassword = (TextInputEditText) view.findViewById(R.id.password);
+        newConfirmPassword = (TextInputEditText) view.findViewById(R.id.confirm_pwd);
         newPasswordLayout = (TextInputLayout) view.findViewById(R.id.pwd_layout);
         newConfirmPasswordLayout = (TextInputLayout) view.findViewById(R.id.confirm_pwd_layout);
 
