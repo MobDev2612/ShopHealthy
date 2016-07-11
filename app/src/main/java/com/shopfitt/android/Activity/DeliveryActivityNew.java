@@ -33,14 +33,15 @@ import org.json.JSONObject;
 
 import java.net.URLEncoder;
 
-public class DeliveryActivityNew extends AppCompatActivity implements Response.ErrorListener, Response.Listener, AddressHistoryFragment.OnFragmentInteractionListener, NewAddressFragment.OnFragmentInteractionListener {
+public class DeliveryActivityNew extends AppCompatActivity implements Response.ErrorListener, AddressHistoryFragment.OnFragmentInteractionListener, NewAddressFragment.OnFragmentInteractionListener {
 
-    int requestID;
+    //    int requestID;
     String orderId;
-    boolean executed;
+    //    boolean executed;
     SharedPreferences sharedPreferences;
     Toolbar toolbar;
     CustomerAddress customerAddress;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +78,28 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     }
 
     private void getOrderID(JSONObject jsonObject) {
-        requestID = 1;
+//        requestID = 1;
         CommonMethods.showProgress(true, this);
         try {
             VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/SaveOrder/", String.class, null,
-                    this, this, jsonObject);
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            CommonMethods.showProgress(false, DeliveryActivityNew.this);
+                            String result = "0";
+                            if (s != null) {
+                                result = s;
+                            }
+                            if (result.equalsIgnoreCase("0")) {
+                                Toast.makeText(DeliveryActivityNew.this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
+                            } else {
+                                orderId = result;
+                                Config.orderId = result;
+                                Logger.i("OrderId", result);
+                                sendOrder();
+                            }
+                        }
+                    }, this, jsonObject);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
@@ -105,7 +123,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     }
 
     private void sendOrder() {
-        requestID = 2;
+//        requestID = 2;
         try {
             for (int i = 0; i < Config.addToCart.size(); i++) {
                 String query = URLEncoder.encode(Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
@@ -113,7 +131,15 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
                 String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/" + query;
                 StringRequest volleyRequest = new StringRequest(Request.Method.GET,
                         url,
-                        this, this);
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String s) {
+                                count = count + 1;
+                                if (count == Config.addToCart.size()) {
+                                    parseAddress();
+                                }
+                            }
+                        }, this);
                 volleyRequest.setRetryPolicy(new RetryPolicy() {
                     @Override
                     public int getCurrentTimeout() {
@@ -131,9 +157,9 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
                     }
                 });
                 Shopfitt.getInstance().addToRequestQueue(volleyRequest, "order");
-                if (i == Config.addToCart.size() - 1) {
-                    requestID = 10;
-                }
+//                if (i == Config.addToCart.size() - 1) {
+//                    requestID = 10;
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,45 +168,45 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
 
     @Override
     public void onErrorResponse(VolleyError volleyError) {
-        if (requestID == 1) {
-            CommonMethods.showProgress(false, this);
-        }
+//        if (requestID == 1) {
+        CommonMethods.showProgress(false, this);
+//        }
         Toast.makeText(this, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onResponse(Object o) {
-        if (requestID == 1) {
-            CommonMethods.showProgress(false, this);
-            String result = "0";
-            if (o instanceof String) {
-                result = (String) o;
-            } else if (o instanceof Integer) {
-                result = String.valueOf(o);
-            }
-            if (result.equalsIgnoreCase("0")) {
-                Toast.makeText(this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
-            } else {
-                orderId = result;
-                Config.orderId = result;
-                Logger.i("OrderId", result);
-                sendOrder();
-            }
-        }
-        if (requestID == 10 && !executed) {
-            executed = true;
-            parseAddress();
-        }
-        if (requestID == 11) {
-            Toast.makeText(this, "Thanks for order", Toast.LENGTH_LONG).show();
-            Config.addToCart.clear();
-            Config.cartTotalAmount = 0;
-            Intent intent = new Intent(this, CrunchActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    public void onResponse(Object o) {
+//        if (requestID == 1) {
+//            CommonMethods.showProgress(false, this);
+//            String result = "0";
+//            if (o instanceof String) {
+//                result = (String) o;
+//            } else if (o instanceof Integer) {
+//                result = String.valueOf(o);
+//            }
+//            if (result.equalsIgnoreCase("0")) {
+//                Toast.makeText(this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
+//            } else {
+//                orderId = result;
+//                Config.orderId = result;
+//                Logger.i("OrderId", result);
+//                sendOrder();
+//            }
+//        }
+//        if (requestID == 10 && !executed) {
+//            executed = true;
+//            parseAddress();
+//        }
+//        if (requestID == 11) {
+//            Toast.makeText(this, "Thanks for order", Toast.LENGTH_LONG).show();
+//            Config.addToCart.clear();
+//            Config.cartTotalAmount = 0;
+//            Intent intent = new Intent(this, CrunchActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     private void parseAddress() {
         try {
@@ -194,11 +220,22 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     }
 
     private void sendAddress(JSONObject jsonObject) {
-        requestID = 11;
+//        requestID = 11;
         CommonMethods.showProgress(true, this);
         try {
             VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/SaveOrderAddress/", String.class, null,
-                    this, this, jsonObject);
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            Toast.makeText(DeliveryActivityNew.this, "Thanks for order", Toast.LENGTH_LONG).show();
+                            Config.addToCart.clear();
+                            Config.cartTotalAmount = 0;
+                            Intent intent = new Intent(DeliveryActivityNew.this, CrunchActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            DeliveryActivityNew.this.finish();
+                        }
+                    }, this, jsonObject);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
