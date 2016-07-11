@@ -39,4 +39,5 @@
     <string name="search">Search</string>
     <string name="select_your_area">Select Your Area</string>
     <string name="list_of_stores_available">List of stores available</string>
+    <string name="title_activity_delivery_activity_new">" "</string>
 </resources>

@@ -88,7 +88,7 @@ public class CartActivity extends AppCompatActivity {
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-            Intent intent = new Intent(this, DeliveryActivity.class);
+            Intent intent = new Intent(this, DeliveryActivityNew.class);
             startActivity(intent);
         } else {
             Toast.makeText(this,"Add items to cart",Toast.LENGTH_SHORT).show();

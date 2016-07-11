@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.shopfitt.android.Activity.DeliveryActivityNew"
+    tools:showIn="@layout/activity_delivery_activity_new">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/new_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Address"
+            android:textColor="@color/primary_text" />
+
+        <RadioButton
+            android:id="@+id/existing_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous Address"
+            android:textColor="@color/primary_text" />
+
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" />
+</LinearLayout>
