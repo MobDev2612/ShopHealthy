@@ -29,6 +29,7 @@ public class ItemPopActivity extends AppCompatActivity {
     private Button updateButton;
     private ImageButton closeButton;
     private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -51,10 +52,10 @@ public class ItemPopActivity extends AppCompatActivity {
         qtyEdtTxt = (FontView) findViewById(R.id.item_pop_quantity);
         imageView = (ImageView) findViewById(R.id.item_pop_image);
 
-        plusButton =(ImageButton) findViewById(R.id.item_pop_plus);
-        minusButton =(ImageButton) findViewById(R.id.item_pop_minus);
-        updateButton =(Button) findViewById(R.id.item_pop_update);
-        updateButton.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        plusButton = (ImageButton) findViewById(R.id.item_pop_plus);
+        minusButton = (ImageButton) findViewById(R.id.item_pop_minus);
+        updateButton = (Button) findViewById(R.id.item_pop_update);
+        updateButton.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +74,7 @@ public class ItemPopActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(productObject.getQtyBought() > 0) {
+                if (productObject.getQtyBought() > 0) {
                     if (CommonMethods.addProductInCart(productObject, ItemPopActivity.this)) {
                         if (productObject.getIsfood() == 1) {
                             Config.foodItems = Config.foodItems + 1;
@@ -83,13 +84,13 @@ public class ItemPopActivity extends AppCompatActivity {
                     }
 //                    Toast.makeText(ItemPopActivity.this, "Added to Cart", Toast.LENGTH_LONG).show();
                     finish();
-                }  else {
-                    Toast.makeText(ItemPopActivity.this,"You missed adding the quantity. please check",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ItemPopActivity.this, "You missed adding the quantity. please check", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        loadImages(imageView, "http://shopfitt.in/product_images/"+productObject.getID()+".jpg");
+        loadImages(imageView, "http://shopfitt.in/product_images/" + productObject.getID() + ".jpg");
 
         closeButton = (ImageButton) findViewById(R.id.item_pop_close);
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -101,38 +102,42 @@ public class ItemPopActivity extends AppCompatActivity {
     }
 
     private void assignValues() {
-
-        if(CommonMethods.checkProductInCart(productObject)!=null){
+        if (CommonMethods.checkProductInCart(productObject) != null) {
             productObject = CommonMethods.checkProductInCart(productObject);
             updateButton.setText("Update");
         } else {
             updateButton.setText("Add");
         }
         nameEdtTxt.setText(productObject.getProduct_name());
-        priceEdtTxt.setText(getResources().getString(R.string.rupee_icon)+" "+productObject.getMrp()+".00");
-        priceEdtTxt.setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        priceEdtTxt.setText(getResources().getString(R.string.rupee_icon) + " " + productObject.getMrp() + ".00");
+        priceEdtTxt.setTypeface(Font.getTypeface(this, Font.FONT_OPEN_SANS));
         unitEdtTxt.setText(productObject.getWeightms());
         sugarEdtTxt.setText(productObject.getSugar() + "");
         saltEdtTxt.setText(productObject.getCalories() + "");
         fatEdtTxt.setText(productObject.getFat() + "");
-        bhtEdtTxt.setText(productObject.getSodium()+"");
+        bhtEdtTxt.setText(productObject.getSodium() + "");
+        qtyEdtTxt.setText(productObject.getQtyBought() + "");
+        if(productObject.getIsfood()==1){
+            (findViewById(R.id.popup_food_details)).setVisibility(View.VISIBLE);
+        } else {
+            (findViewById(R.id.popup_food_details)).setVisibility(View.GONE);
+        }
+    }
+
+    private void addQty() {
+        productObject.setQtyBought(productObject.getQtyBought() + 1);
         qtyEdtTxt.setText(productObject.getQtyBought() + "");
     }
 
-    private void addQty(){
-        productObject.setQtyBought(productObject.getQtyBought() + 1);
-        qtyEdtTxt.setText(productObject.getQtyBought()+"");
-    }
-
-    private void minusQty(){
-        if(productObject.getQtyBought()>0) {
+    private void minusQty() {
+        if (productObject.getQtyBought() > 0) {
             productObject.setQtyBought(productObject.getQtyBought() - 1);
             qtyEdtTxt.setText(productObject.getQtyBought() + "");
         }
     }
 
     public static ImageView loadImages(final ImageView imageView, String imageURL) {
-        if (imageURL!= null) {
+        if (imageURL != null) {
             ImageLoader imageLoader = Shopfitt.getInstance().getImageLoader();
             imageLoader.get(imageURL, new ImageLoader.ImageListener() {
 
