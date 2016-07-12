@@ -1,6 +1,7 @@
 package com.shopfitt.android.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,8 +31,6 @@ import com.shopfitt.android.datamodels.CustomerAddress;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URLEncoder;
 
 public class DeliveryActivityNew extends AppCompatActivity implements Response.ErrorListener, AddressHistoryFragment.OnFragmentInteractionListener, NewAddressFragment.OnFragmentInteractionListener {
 
@@ -124,10 +123,11 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
 
     private void sendOrder() {
 //        requestID = 2;
+        final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
         try {
             for (int i = 0; i < Config.addToCart.size(); i++) {
-                String query = URLEncoder.encode(Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
-                        + "/" + Config.addToCart.get(i).getQtyBought() + "/", "utf-8");
+                String query = Uri.encode(Config.orderId + "/" + Config.addToCart.get(i).getProduct_name()
+                        + "/" + Config.addToCart.get(i).getQtyBought() + "/", ALLOWED_URI_CHARS);
                 String url = "http://23.91.69.85:61090/ProductService.svc/SaveOrderLine2/" + query;
                 StringRequest volleyRequest = new StringRequest(Request.Method.GET,
                         url,

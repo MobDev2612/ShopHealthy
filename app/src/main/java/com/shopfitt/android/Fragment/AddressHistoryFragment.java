@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
@@ -82,6 +83,22 @@ public class AddressHistoryFragment extends Fragment implements Response.ErrorLi
     private void getAddresses() {
         CommonMethods.showProgress(true, mContext);
         JsonArrayRequest fetchAddress = new JsonArrayRequest("http://23.91.69.85:61090/ProductService.svc/GetCustAddresses/" + Config.customerID, this, this);
+        fetchAddress.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 30000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+
+            @Override
+            public void retry(VolleyError volleyError) throws VolleyError {
+
+            }
+        });
         Shopfitt.getInstance().addToRequestQueue(fetchAddress, "address");
     }
 
@@ -110,8 +127,8 @@ public class AddressHistoryFragment extends Fragment implements Response.ErrorLi
         for (CustomerAddress customerAddress : customerAddresses) {
             stringList.add(customerAddress.toString());
         }
-        countries = (String[]) stringList.toArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_single_choice, countries);
+        countries = stringList.toArray(new String[0]);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, R.layout.address_list, countries);
         listView.setAdapter(adapter);
     }
 

@@ -12,10 +12,9 @@ public class CustomerAddress {
 
     @Override
     public String toString() {
-        return customer_name + '\n' +
-                address1 + ' ' + address2 + '\n' +
-                city + pincode + '\n' +
-                mobile;
+        return customer_name + ",\n" +
+                address1 + ',' + address2 + ",\n" +
+                city + pincode + mobile;
     }
 
     public CustomerAddress(String address1, String address2, String city, String customer_name, String landmark, String mobile, String pincode) {
