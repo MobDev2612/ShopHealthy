@@ -24,6 +24,8 @@
         android:drawableStart="@android:drawable/ic_menu_search"
         android:hint="@string/search"
         android:maxLines="1"
+        android:singleLine="true"
+        android:imeOptions="actionSearch"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white" />
 
