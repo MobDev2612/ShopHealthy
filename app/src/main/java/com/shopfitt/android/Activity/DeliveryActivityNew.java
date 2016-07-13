@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
 import com.shopfitt.android.Utils.CommonMethods;
 import com.shopfitt.android.Utils.Config;
+import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Logger;
 import com.shopfitt.android.Utils.SharedPreferences;
@@ -62,6 +64,8 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
         sharedPreferences = new SharedPreferences(this);
         setTitle(getResources().getString(R.string.title_activity_delivery));
         RadioGroup rGroup = (RadioGroup) findViewById(R.id.radio_group);
+        ((RadioButton) findViewById(R.id.existing_address)).setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
+        ((RadioButton) findViewById(R.id.new_address)).setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
         if (rGroup != null) {
             rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -74,6 +78,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
                 }
             });
         }
+        ((RadioButton) findViewById(R.id.new_address)).setChecked(true);
     }
 
     private void getOrderID(JSONObject jsonObject) {

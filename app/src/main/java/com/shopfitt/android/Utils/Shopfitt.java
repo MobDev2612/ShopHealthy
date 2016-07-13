@@ -35,6 +35,7 @@ public class Shopfitt extends Application {
         mInstance = this;
         Config.cartTotalAmount = 0;
         Config.foodItems = 0;
+        Font.setDefaultFont(this, "MONOSPACE");
     }
 
     @Override
