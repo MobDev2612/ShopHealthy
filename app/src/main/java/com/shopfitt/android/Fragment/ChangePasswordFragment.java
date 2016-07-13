@@ -130,7 +130,7 @@ public class ChangePasswordFragment extends Fragment implements Response.ErrorLi
     private void performWebservice(JSONObject jsonObject) {
         CommonMethods.showProgress(true, mContext);
         try {
-            VolleyRequest<String> request = new VolleyRequest<String>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/ChangePassword/", String.class, null,
+            VolleyRequest<String> request = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/ChangePassword/", String.class, null,
                     this, this, jsonObject);
             Shopfitt.getInstance().addToRequestQueue(request, "registerapi");
         } catch (Exception e) {

@@ -32,8 +32,8 @@ public class ItemPopActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_item_pop);
         Bundle bundle = getIntent().getBundleExtra("bundle");
         productObject = bundle.getParcelable("product");

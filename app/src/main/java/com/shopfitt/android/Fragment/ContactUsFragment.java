@@ -59,7 +59,8 @@ public class ContactUsFragment extends Fragment {
     }
 
     private void doCall(){
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+919986644863"));
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("+919986644863"));
         startActivity(intent);
     }
 }

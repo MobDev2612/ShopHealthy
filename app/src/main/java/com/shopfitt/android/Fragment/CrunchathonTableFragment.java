@@ -188,7 +188,7 @@ public class CrunchathonTableFragment extends Fragment {
                 changeFragment();
             }
         };
-        handler.postDelayed(r, 15000);
+        handler.postDelayed(r, 10000);
     }
 
     private void changeFragment() {

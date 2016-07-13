@@ -112,10 +112,14 @@ public class AddressHistoryFragment extends Fragment implements Response.ErrorLi
     public void onResponse(JSONArray jsonArray) {
         try {
             CommonMethods.showProgress(false, mContext);
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            Gson gson = gsonBuilder.create();
-            customerAddresses = Arrays.asList(gson.fromJson(jsonArray.toString(), CustomerAddress[].class));
-            setList(customerAddresses);
+            if(jsonArray.length() > 0) {
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                Gson gson = gsonBuilder.create();
+                customerAddresses = Arrays.asList(gson.fromJson(jsonArray.toString(), CustomerAddress[].class));
+                setList(customerAddresses);
+            } else{
+                Toast.makeText(mContext, "No Previous found!!!", Toast.LENGTH_LONG).show();
+            }
         } catch (Exception e) {
             Toast.makeText(mContext, "Error in fetching addresses", Toast.LENGTH_SHORT).show();
         }
@@ -127,7 +131,7 @@ public class AddressHistoryFragment extends Fragment implements Response.ErrorLi
         for (CustomerAddress customerAddress : customerAddresses) {
             stringList.add(customerAddress.toString());
         }
-        countries = stringList.toArray(new String[0]);
+        countries = stringList.toArray(new String[stringList.size()]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, R.layout.address_list, countries);
         listView.setAdapter(adapter);
     }
