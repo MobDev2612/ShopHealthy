@@ -47,8 +47,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         sharedPreferences = new SharedPreferences(this);
         String username = sharedPreferences.getLoginID("");
         Config.customerID = sharedPreferences.getCustomerId();
-        Config.loginDone = true;
         if(username.length()>0) {
+            Config.loginDone = true;
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();

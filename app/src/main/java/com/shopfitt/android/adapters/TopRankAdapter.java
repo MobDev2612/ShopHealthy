@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.shopfitt.android.R;
+import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.datamodels.TopRank;
 
@@ -36,21 +37,19 @@ public class TopRankAdapter extends ArrayAdapter<TopRank> {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(mResource, null);
-            convertView.setBackgroundColor(Color.WHITE);
             viewHolder = new ViewHolder();
 
             viewHolder.mTextView = (TextView) convertView.findViewById(android.R.id.text1);
             viewHolder.mTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
-            viewHolder.mTextView.setBackgroundColor(Color.WHITE);
+//            viewHolder.mTextView.setBackgroundColor(Color.WHITE);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 viewHolder.mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));
             } else {
                 viewHolder.mTextView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
             }
-
             viewHolder.mSecondTextView = (TextView) convertView.findViewById(android.R.id.text2);
             viewHolder.mSecondTextView.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
-            viewHolder.mSecondTextView.setBackgroundColor(Color.WHITE);
+//            viewHolder.mSecondTextView.setBackgroundColor(Color.WHITE);
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 viewHolder.mSecondTextView.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));
             } else {
@@ -60,6 +59,15 @@ public class TopRankAdapter extends ArrayAdapter<TopRank> {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+        }
+        if(dataList.get(position).getCust_id().equals(Config.customerID)){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                convertView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary_light));
+            } else {
+                convertView.setBackgroundColor(mContext.getResources().getColor(R.color.primary_light));
+            }
+        } else {
+            convertView.setBackgroundColor(Color.WHITE);
         }
         viewHolder.mTextView.setText(dataList.get(position).getCustomer_name());
         String text = "Rank: "+(position+1)+", Points: "+dataList.get(position).getPoints();

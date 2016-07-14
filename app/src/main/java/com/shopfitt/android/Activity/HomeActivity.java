@@ -34,6 +34,7 @@ import com.shopfitt.android.Fragment.EditPhoneNumberFragment;
 import com.shopfitt.android.Fragment.HomeFragment;
 import com.shopfitt.android.Fragment.LocationFragment;
 import com.shopfitt.android.Fragment.NotificationFragment;
+import com.shopfitt.android.Fragment.OrderHistoryFragment;
 import com.shopfitt.android.Fragment.TopRankingsFragment;
 import com.shopfitt.android.Network.VolleyRequest;
 import com.shopfitt.android.R;
@@ -191,7 +192,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == 1001) {
             fragment = new EditPhoneNumberFragment();
         } else if (id == R.id.nav_order_history) {
-
+            fragment = new OrderHistoryFragment();
         } else if (id == R.id.nav_change_store) {
             fragment = new LocationFragment();
         } else if (id == 1000) {
