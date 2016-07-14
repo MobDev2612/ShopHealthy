@@ -132,7 +132,7 @@ public class ChangePasswordFragment extends Fragment implements Response.ErrorLi
         try {
             VolleyRequest<String> request = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/ChangePassword/", String.class, null,
                     this, this, jsonObject);
-            Shopfitt.getInstance().addToRequestQueue(request, "registerapi");
+            Shopfitt.getInstance().addToRequestQueue(request, "changePassword");
         } catch (Exception e) {
             e.printStackTrace();
         }

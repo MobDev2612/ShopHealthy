@@ -40,6 +40,8 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
     private EditText editText;
     private Context mContext;
     private boolean executed = false;
+    Runnable r;
+    Handler handler;
 
     @Override
     public void onAttach(Context context) {
@@ -85,8 +87,8 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
             editText.setVisibility(View.GONE);
             submitButton.setVisibility(View.GONE);
         }
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
+        handler = new Handler();
+        r = new Runnable() {
             public void run() {
                 redirect();
             }
@@ -114,6 +116,7 @@ public class CrunchFragmentTwo extends Fragment implements Response.ErrorListene
             executed = true;
             JSONObject jsonObject = new JSONObject();
             try {
+                handler.removeCallbacks(r);
                 jsonObject.put("comparerid", Config.comparerID.replaceAll("\"", ""));
                 jsonObject.put("message", editText.getText().toString() + "");
                 CustomVolleyRequest<String> volleyRequest = new CustomVolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/WinnersMesssage/", String.class, jsonObject,

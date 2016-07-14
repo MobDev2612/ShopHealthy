@@ -17,7 +17,7 @@ import com.shopfitt.android.datamodels.CustomerAddress;
 
 public class NewAddressFragment extends Fragment {
 
-    private TextInputEditText address1, address2, area, city, landmark, pinCode;
+    private TextInputEditText address1, address2, area, city, landmark, pinCode, name, mobile;
     private View view;
     private OnFragmentInteractionListener mListener;
     private Context mContext;
@@ -55,6 +55,8 @@ public class NewAddressFragment extends Fragment {
         city = (TextInputEditText) view.findViewById(R.id.delivery_city);
         landmark = (TextInputEditText) view.findViewById(R.id.delivery_land_mark);
         pinCode = (TextInputEditText) view.findViewById(R.id.delivery_pin_code);
+        name = (TextInputEditText) view.findViewById(R.id.delivery_name);
+        mobile = (TextInputEditText) view.findViewById(R.id.delivery_mobile_number);
 
         completeOrder.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         address1.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
@@ -63,6 +65,8 @@ public class NewAddressFragment extends Fragment {
         city.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         landmark.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         pinCode.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        name.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        mobile.setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
 
         ((TextInputLayout) view.findViewById(R.id.delivery_area_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         ((TextInputLayout) view.findViewById(R.id.delivery_address_line_1_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
@@ -70,6 +74,9 @@ public class NewAddressFragment extends Fragment {
         ((TextInputLayout) view.findViewById(R.id.delivery_city_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         ((TextInputLayout) view.findViewById(R.id.delivery_land_mark_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
         ((TextInputLayout) view.findViewById(R.id.delivery_pin_code_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) view.findViewById(R.id.delivery_name_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+        ((TextInputLayout) view.findViewById(R.id.delivery_mobile_number_layout)).setTypeface(Font.getTypeface(mContext, Font.FONT_OPEN_SANS));
+
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +89,8 @@ public class NewAddressFragment extends Fragment {
                     String cityName = city.getText().toString();
                     String landMark = landmark.getText().toString();
                     String pinCodeText = pinCode.getText().toString();
+                    String nameText = name.getText().toString();
+                    String mobileText = mobile.getText().toString();
 
                     if (areaName.isEmpty()) {
                         ((TextInputLayout) view.findViewById(R.id.delivery_area_layout)).setError(getResources().getString(R.string.error_field_required));
@@ -107,10 +116,18 @@ public class NewAddressFragment extends Fragment {
                         all = false;
                         ((TextInputLayout) view.findViewById(R.id.delivery_pin_code_layout)).setError(getResources().getString(R.string.error_field_required));
                     }
+                    if (nameText.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) view.findViewById(R.id.delivery_name_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
+                    if (mobileText.isEmpty()) {
+                        all = false;
+                        ((TextInputLayout) view.findViewById(R.id.delivery_mobile_number_layout)).setError(getResources().getString(R.string.error_field_required));
+                    }
 
                     if (all) {
                         CustomerAddress customerAddress = new CustomerAddress(addressText1, addressText2
-                                , cityName, "", landMark, "", pinCodeText);
+                                , cityName, landMark, mobileText, pinCodeText, nameText, "", areaName);
                         onButtonPressed(customerAddress);
                     }
                 } catch (Exception e) {

@@ -27,7 +27,6 @@ import com.shopfitt.android.Utils.Config;
 import com.shopfitt.android.Utils.Font;
 import com.shopfitt.android.Utils.FontView;
 import com.shopfitt.android.Utils.Logger;
-import com.shopfitt.android.Utils.SharedPreferences;
 import com.shopfitt.android.Utils.Shopfitt;
 import com.shopfitt.android.datamodels.CustomerAddress;
 
@@ -39,7 +38,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     //    int requestID;
     String orderId;
     //    boolean executed;
-    SharedPreferences sharedPreferences;
+//    SharedPreferences sharedPreferences;
     Toolbar toolbar;
     CustomerAddress customerAddress;
     int count = 0;
@@ -61,7 +60,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     }
 
     private void initialiseComponents() {
-        sharedPreferences = new SharedPreferences(this);
+//        sharedPreferences = new SharedPreferences(this);
         setTitle(getResources().getString(R.string.title_activity_delivery));
         RadioGroup rGroup = (RadioGroup) findViewById(R.id.radio_group);
         ((RadioButton) findViewById(R.id.existing_address)).setTypeface(Font.getTypeface(this,Font.FONT_OPEN_SANS));
@@ -216,6 +215,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     private void parseAddress() {
         try {
             Gson gson = new Gson();
+            customerAddress.setOrderid(Config.orderId);
             String jsonString = gson.toJson(customerAddress, CustomerAddress.class);
             JSONObject json = new JSONObject(jsonString);
             sendAddress(json);
@@ -271,7 +271,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
 
     @Override
     public void onFragmentInteraction(CustomerAddress customerAddress) {
-        customerAddress.setMobile(sharedPreferences.getPhoneNumber());
+//        customerAddress.setMobile(sharedPreferences.getPhoneNumber());
         this.customerAddress = customerAddress;
         try {
             JSONObject jsonObject = new JSONObject();

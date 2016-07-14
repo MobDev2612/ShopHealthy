@@ -5,10 +5,16 @@ public class CustomerAddress {
     private String address1;
     private String address2;
     private String city;
-    private String customer_name;
     private String landmark;
     private String mobile;
     private String pincode;
+
+    private String customer_name;
+
+    private String name;
+    private String orderid;
+    private String area;
+
 
     @Override
     public String toString() {
@@ -17,14 +23,40 @@ public class CustomerAddress {
                 city + ',' + pincode + ',' + mobile;
     }
 
-    public CustomerAddress(String address1, String address2, String city, String customer_name, String landmark, String mobile, String pincode) {
+    public CustomerAddress(String address1, String address2, String city, String landmark, String mobile, String pincode, String name, String orderid, String area) {
         this.address1 = address1;
         this.address2 = address2;
         this.city = city;
-        this.customer_name = customer_name;
         this.landmark = landmark;
         this.mobile = mobile;
         this.pincode = pincode;
+        this.name = name;
+        this.orderid = orderid;
+        this.area = area;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(String orderid) {
+        this.orderid = orderid;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getAddress1() {

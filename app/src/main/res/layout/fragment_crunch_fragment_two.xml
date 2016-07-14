@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.shopfitt.android.Activity.CrunchFragmentTwo">
+    tools:context="com.shopfitt.android.Fragment.CrunchFragmentTwo">
 
     <com.shopfitt.android.Utils.FontView
         android:id="@+id/crunch_message"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="Enter Message"
+        android:hint="Message"
         android:maxLength="20"
         android:textColor="@color/primary_text"
         android:textColorHint="@color/secondary_text" />
