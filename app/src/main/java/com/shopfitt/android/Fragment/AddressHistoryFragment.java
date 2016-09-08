@@ -118,7 +118,7 @@ public class AddressHistoryFragment extends Fragment implements Response.ErrorLi
                 customerAddresses = Arrays.asList(gson.fromJson(jsonArray.toString(), CustomerAddress[].class));
                 setList(customerAddresses);
             } else{
-                Toast.makeText(mContext, "No Previous found!!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "No Previous address found!!!", Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
             Toast.makeText(mContext, "Error in fetching addresses", Toast.LENGTH_SHORT).show();
