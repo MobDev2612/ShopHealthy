@@ -23,41 +23,41 @@ public class ProductObject implements Parcelable{
     public ProductObject() {
     }
 
-    public ProductObject(ProductObject productObject){
-        ID = productObject.ID;
-        product_name = productObject.product_name;
-        product_description = productObject.product_description;
-        product_category = productObject.product_category;
-        product_subcategory = productObject.product_subcategory;
-        mrp = productObject.mrp;
-        weightms = productObject.weightms;
-        isfood = productObject.isfood;
-        isCB = productObject.isCB;
-        manfcompany = productObject.manfcompany;
-        sugar = productObject.sugar;
-        fat = productObject.fat;
-        calories = productObject.calories;
-        sodium = productObject.sodium;
-        qtyBought = productObject.qtyBought;
-    }
-//
 //    public ProductObject(ProductObject productObject){
-//        this.ID = new Integer(productObject.ID);
-//        this.product_name = new String(productObject.product_name);
-//        this.product_description = new String(productObject.product_description);
-//        this.product_category = new Integer(productObject.product_category);
-//        this.product_subcategory = new Integer(productObject.product_subcategory);
-//        this.mrp = new Integer(productObject.mrp);
-//        this.weightms = new String(productObject.weightms);
-//        this.isfood = new Integer(productObject.isfood);
-//        this.isCB = new Integer(productObject.isCB);
-//        this.manfcompany = new String(productObject.manfcompany);
-//        this.sugar = new Double(productObject.sugar);
-//        this.fat = new Double(productObject.fat);
-//        this.calories = new Double(productObject.calories);
-//        this.sodium = new Double(productObject.sodium);
-//        this.qtyBought = new Integer(productObject.qtyBought);
+//        ID = productObject.ID;
+//        product_name = productObject.product_name;
+//        product_description = productObject.product_description;
+//        product_category = productObject.product_category;
+//        product_subcategory = productObject.product_subcategory;
+//        mrp = productObject.mrp;
+//        weightms = productObject.weightms;
+//        isfood = productObject.isfood;
+//        isCB = productObject.isCB;
+//        manfcompany = productObject.manfcompany;
+//        sugar = productObject.sugar;
+//        fat = productObject.fat;
+//        calories = productObject.calories;
+//        sodium = productObject.sodium;
+//        qtyBought = productObject.qtyBought;
 //    }
+//
+    public ProductObject(ProductObject productObject){
+        this.ID = new Integer(productObject.ID);
+        this.product_name = new String(productObject.product_name);
+        this.product_description = new String(productObject.product_description);
+        this.product_category = new Integer(productObject.product_category);
+        this.product_subcategory = new Integer(productObject.product_subcategory);
+        this.mrp = new Integer(productObject.mrp);
+        this.weightms = new String(productObject.weightms);
+        this.isfood = new Integer(productObject.isfood);
+        this.isCB = new Integer(productObject.isCB);
+        this.manfcompany = new String(productObject.manfcompany);
+        this.sugar = new Double(productObject.sugar);
+        this.fat = new Double(productObject.fat);
+        this.calories = new Double(productObject.calories);
+        this.sodium = new Double(productObject.sodium);
+        this.qtyBought = new Integer(productObject.qtyBought);
+    }
 
     protected ProductObject(Parcel in) {
         ID = in.readInt();

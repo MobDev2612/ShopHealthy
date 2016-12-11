@@ -39,7 +39,7 @@ public class CommonMethods {
         for (int i = 0; i < Config.addToCart.size(); i++) {
             if (productObject.getID() == Config.addToCart.get(i).getID()) {
                 found = true;
-//                Config.addToCart.get(i).setQtyBought(Config.addToCart.get(i).getQtyBought() + productObject.getQtyBought());
+                Config.addToCart.get(i).setQtyBought(Config.addToCart.get(i).getQtyBought() + productObject.getQtyBought());
             }
         }
         if (!found) {

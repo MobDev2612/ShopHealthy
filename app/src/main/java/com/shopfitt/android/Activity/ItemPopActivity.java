@@ -130,7 +130,7 @@ public class ItemPopActivity extends AppCompatActivity {
     }
 
     private void minusQty() {
-        if (productObject.getQtyBought() > 0) {
+        if (productObject.getQtyBought() > 1) {
             productObject.setQtyBought(productObject.getQtyBought() - 1);
             qtyEdtTxt.setText(productObject.getQtyBought() + "");
         }

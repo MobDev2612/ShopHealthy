@@ -71,9 +71,9 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        if(dataList.get(position).getQtyBought()== 0){
-//            dataList.get(position).setQtyBought(1);
-//        }
+        if(dataList.get(position).getQtyBought()== 0){
+            dataList.get(position).setQtyBought(1);
+        }
         if (CommonMethods.checkProductInCart(dataList.get(position)) != null) {
             dataList.set(position, CommonMethods.checkProductInCart(dataList.get(position)));
             viewHolder.cartButton.setText("Update");
@@ -102,7 +102,7 @@ public class ProductAdapter extends ArrayAdapter<ProductObject> {
             public void onClick(View v) {
                 ProductObject productObject = dataList.get(position);
                 int qty = productObject.getQtyBought();
-                if (qty > 0)
+                if (qty > 1)
                     productObject.setQtyBought(qty - 1);
                 notifyDataSetChanged();
             }

@@ -33,9 +33,9 @@ import com.shopfitt.android.datamodels.CustomerAddress;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DeliveryActivityNew extends AppCompatActivity implements Response.ErrorListener, AddressHistoryFragment.OnFragmentInteractionListener, NewAddressFragment.OnFragmentInteractionListener {
+public class DeliveryActivityNew extends AppCompatActivity implements Response.ErrorListener, AddressHistoryFragment.OnFragmentInteractionListener, NewAddressFragment.OnFragmentInteractionListener, Response.Listener {
 
-    //    int requestID;
+    int requestID;
     String orderId;
     //    boolean executed;
 //    SharedPreferences sharedPreferences;
@@ -81,28 +81,11 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
     }
 
     private void getOrderID(JSONObject jsonObject) {
-//        requestID = 1;
+        requestID = 1;
         CommonMethods.showProgress(true, this);
         try {
             VolleyRequest<String> volleyRequest = new VolleyRequest<>(Request.Method.POST, "http://23.91.69.85:61090/ProductService.svc/SaveOrder/", String.class, null,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            CommonMethods.showProgress(false, DeliveryActivityNew.this);
-                            String result = "0";
-                            if (s != null) {
-                                result = s;
-                            }
-                            if (result.equalsIgnoreCase("0")) {
-                                Toast.makeText(DeliveryActivityNew.this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
-                            } else {
-                                orderId = result;
-                                Config.orderId = result;
-                                Logger.i("OrderId", result);
-                                sendOrder();
-                            }
-                        }
-                    }, this, jsonObject);
+                    this, this, jsonObject);
             volleyRequest.setRetryPolicy(new RetryPolicy() {
                 @Override
                 public int getCurrentTimeout() {
@@ -178,25 +161,25 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
         Toast.makeText(this, "Unable to connect. Please try later", Toast.LENGTH_LONG).show();
     }
 
-//    @Override
-//    public void onResponse(Object o) {
-//        if (requestID == 1) {
-//            CommonMethods.showProgress(false, this);
-//            String result = "0";
-//            if (o instanceof String) {
-//                result = (String) o;
-//            } else if (o instanceof Integer) {
-//                result = String.valueOf(o);
-//            }
-//            if (result.equalsIgnoreCase("0")) {
-//                Toast.makeText(this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
-//            } else {
-//                orderId = result;
-//                Config.orderId = result;
-//                Logger.i("OrderId", result);
-//                sendOrder();
-//            }
-//        }
+    @Override
+    public void onResponse(Object o) {
+        if (requestID == 1) {
+            CommonMethods.showProgress(false, this);
+            String result = "0";
+            if (o instanceof String) {
+                result = (String) o;
+            } else if (o instanceof Integer) {
+                result = String.valueOf(o);
+            }
+            if (result.equalsIgnoreCase("0")) {
+                Toast.makeText(this, "Unable to get order ID", Toast.LENGTH_SHORT).show();
+            } else {
+                orderId = result;
+                Config.orderId = result;
+                Logger.i("OrderId", result);
+                sendOrder();
+            }
+        }
 //        if (requestID == 10 && !executed) {
 //            executed = true;
 //            parseAddress();
@@ -210,7 +193,7 @@ public class DeliveryActivityNew extends AppCompatActivity implements Response.E
 //            startActivity(intent);
 //            finish();
 //        }
-//    }
+    }
 
     private void parseAddress() {
         try {
